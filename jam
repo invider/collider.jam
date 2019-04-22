@@ -1,0 +1,203 @@
+#!/usr/bin/env bash
+#
+# collider.jam boot shell script
+#
+# Following steps are performed if needed:
+#    * check all necessary prerequisites (node, npm)
+#    * generate initial package.json
+#    * install collider.jam shell
+#    * run jam shell
+#
+
+# env
+NODE="node"
+NPM="npm"
+
+JAM="jam"
+JAM_MODULE="collider.jam"
+JAM_REPO="https://github.com/invider/collider.jam.git"
+
+BOOT_MODULE="collider-boot.mix"
+BOOT_REPO="https://github.com/invider/collider-boot.mix.git"
+
+COLLIDER_MODULE="collider.mix"
+COLLIDER_REPO="https://github.com/invider/collider.mix.git"
+
+LIB_MODULE="collider-lib.mix"
+LIB_REPO="https://github.com/invider/collider-lib.mix.git"
+
+EXT_MODULE="collider-ext.mix"
+EXT_REPO="https://github.com/invider/collider-ext.mix.git"
+
+# === flags ===
+
+# check node.js 
+NODE_FLAG=1
+type "$NODE" >/dev/null 2>&1 || { unset NODE_FLAG; }
+# check npm 
+NPM_FLAG=1
+type "$NPM" >/dev/null 2>&1 || { unset NPM_FLAG; }
+# check global collider.jam installation
+GLOBAL_JAM_FLAG=1
+type "$JAM" >/dev/null 2>&1 || { unset GLOBAL_JAM_FLAG; }
+
+update_flags() {
+    # check package.json
+    if [ -f ./package.json ]; then
+        PACKAGE_FLAG=1
+    fi
+    # check node modules
+    if [ -d ./node_modules ]; then
+        MODULES_FLAG=1
+    fi
+    # check local collider.jam shell
+    if [ -d ./node_modules/$JAM_MODULE ]; then
+        JAM_MODULE_FLAG=1
+    fi
+    if [ -f ./node_modules/$JAM_MODULE/jam.js ]; then
+        JAM_SHELL_FLAG=1
+    fi
+    # check collider.jam
+    if [ -d ./node_modules/$COLLIDER ]; then
+        COLLIDER_FLAG=1
+    fi
+}
+
+help() {
+    echo '=== Welcome to collider.jam boot script! ==='
+    echo ''
+    echo 'Usage: ./jam'
+    echo '       ./jam <command>'
+    echo '       ./jam <command> <arguments...>'
+    echo ''
+    echo 'Available options are:'
+    echo '    init <bootstrap-template> - generate project using provided template'
+    echo '    install - install collider.jam shell globally'
+    echo ''
+    echo 'All other commands are routed to collider.jam shell when installed'
+    exit 0
+}
+
+install() {
+    echo 'Installing collider.jam shell globaly'
+    #$NPM install -g git+$JAM_REPO
+    $NPM install -g $JAM_REPO
+}
+
+init() {
+    NAME=$1
+
+    # check that no package.json present before generating a new one
+    if [[ $PACKAGE_FLAG ]]; then
+        echo "Error: package.json is already exists!"
+        echo "Can't init the project [$NAME]"
+        exit 12
+    fi
+
+    echo "Generating project [$NAME]"
+
+    echo -n 'Generating package.json...'
+    echo -e "{
+      \"name\": \"$NAME\",
+      \"version\": \"0.0.1\",
+      \"description\": \"collider.jam game project\",
+      \"keywords\": \"collider,jam,mod,game engine,game framework,game jam\",
+      \"scripts\": {
+          \"start\": \"node ./node_modules/$JAM_MODULE/jam.js\"
+      },
+      \"dependencies\": {
+          \"$JAM_MODULE\": \"$JAM_REPO\",
+          \"$BOOT_MODULE\": \"$BOOT_REPO\",
+          \"$COLLIDER_MODULE\": \"$COLLIDER_REPO\",
+          \"$LIB_MODULE\": \"$LIB_REPO\",
+          \"$EXT_MODULE\": \"$EXT_REPO\"
+      },
+      \"author\": \"\",
+      \"license\": \"MIT\"\n}" > package.json
+    echo ' done'
+
+    echo 'Installing dependencies'
+    $NPM install
+    echo `du -sh ./node_modules | cut -f 1`' of modules installed'
+    update_flags
+
+    bootstrap
+}
+
+bootstrap() {
+    # TODO move action to node?
+    BOOT="default"
+    echo "bootstraping from [$BOOT]"
+    cp -r ./node_modules/$BOOT_MODULE/init/$BOOT/* ./
+
+    echo ''
+    echo '=== The project is ready! ==='
+    echo ''
+    echo "Type ./jam play"
+    echo '   or'
+    echo 'Type ./jam and then open http://localhost:9999 in browser'
+}
+
+cmd() {
+    #echo "[command] $1"
+    update_flags
+    if [[ ! $JAM_SHELL_FLAG ]]; then
+        echo 'No collider.jam shell installed!'
+        exit 13
+    fi
+
+    if [[ $1 = "init" ]]; then
+        echo 'project is already generated!'
+        exit 101
+
+    else
+        node ./node_modules/$JAM_MODULE/jam.js "$@"
+
+    fi
+}
+
+update_flags
+
+if [[ ! $NODE_FLAG || ! $NPM_FLAG ]]; then
+    echo 'No Node.js found!'
+    echo 'You must install Node.js in order to use collider.jam shell!'
+    exit 1
+fi
+
+# generic commands always working from bootstrap script
+if [[ $1 = "install" ]]; then
+    install
+fi
+
+    
+if [[ ! $PACKAGE_FLAG ]]; then
+    echo 'No collider.jam project detected!'
+
+    if [[ $1 = "init" ]]; then
+        NAME="${PWD##*/}"
+        init $NAME
+
+    elif [[ $1 = "help" ]]; then
+        help
+
+    else
+        echo 'You must init the project first'
+        echo 'Try ./jam init'
+        exit 2
+    fi
+
+else
+
+    if [[ ! $MODULES_FLAG || ! $JAM_MODULE_FLAG ]]; then
+        echo 'Some modules are missing!'
+        echo 'Installing dependencies...'
+        $NPM update
+    fi
+
+    if [[ ! $GLOBAL_JAM_FLAG ]]; then
+        echo "no global collider.jam installation found!"
+        echo "to install, type ./jam install"
+    fi
+
+    cmd $1
+fi
