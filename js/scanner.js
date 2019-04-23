@@ -139,7 +139,7 @@ let scanModules = function(units, path) {
                 if (entry.endsWith('.mix')
                         || entry.endsWith('.mod')
                         || entry.endsWith('.fix')) {
-                    log.debug('found mix module: ' + fullPath, TAG)
+                    log.debug('found a mix: ' + fullPath, TAG)
                     scanMix(units, fullPath, entry)
                 }
             }
@@ -156,12 +156,13 @@ module.exports = {
         log.debug('scanning environment for collider.jam units...', TAG)
         let units = new UnitMap()
 
-        scanMap.modules.forEach(path => {
+        _.isArray(scanMap.mixes)? scanMap.mixes.forEach(path => {
             scanModules(units, lib.addPath(base, path))
-        })
-        scanMap.units.forEach(path => {
+        }) : false
+
+        _.isArray(scanMap.units)? scanMap.units.forEach(path => {
             scanMix(units, lib.addPath(base, path))
-        })
+        }) : false
 
         return units.generateMap()
     },
