@@ -21,8 +21,11 @@ function listFiles(unitPath, path) {
         if (lstat.isDirectory()) {
             ls = ls.concat(listFiles(unitPath, localPath))
         } else {
-            log.trace('          * ' + localPath)
-            ls.push(localPath) 
+            // TODO add actual ignore config
+            if (!localPath.endsWith('.DS_Store')) {
+                log.trace('          * ' + localPath)
+                ls.push(localPath) 
+            }
         }
     })
     return ls
