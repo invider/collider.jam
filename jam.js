@@ -76,5 +76,6 @@ switch(cmd) {
     case 'help': help(); break;
     case 'init': init(); break;
     case 'bootstrap': bootstrap(); break;
+    case 'patch': patch(); break;
     default: log.fatal('unknown command: ' + cmd, TAG)
 }

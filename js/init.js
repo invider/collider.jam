@@ -32,11 +32,11 @@ module.exports = function() {
                 start: 'node ./node_modules/collider.jam/jam.js',
             },
             dependencies: {
-              "collider.jam": "git+ssh://git@hub.ikhotin.com:/var/git/collider.jam.git",
-              "collider.mix": "git+ssh://git@hub.ikhotin.com:/var/git/collider.mix.git",
-              "collider-boot.mix": "git+ssh://git@hub.ikhotin.com:/var/git/collider-boot.mix.git",
-              "collider-lib.mix": "git+ssh://git@hub.ikhotin.com:/var/git/collider-lib.mix.git",
-              "collider-ext.mix": "git+ssh://git@hub.ikhotin.com:/var/git/collider-ext.mix.git",
+              "collider.jam": "https://github.com/invider/collider.jam.git",
+              "collider.mix": "https://github.com/invider/collider.mix.git",
+              "collider-boot.mix": "https://github.com/invider/collider-boot.mix.git",
+              "collider-lib.mix": "https://github.com/invider/collider-lib.mix.git",
+              "collider-ext.mix": "https://github.com/invider/collider-ext.mix.git",
             },
         }
         fs.writeJsonSync('./package.json', packageJson, { spaces: '    ' })

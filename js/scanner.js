@@ -65,6 +65,8 @@ const UnitMap = function() {
     this.units = {}
     this.map = {}
     this.mix = {}
+    this.sample = {}
+    this.patch = {}
 }
 
 UnitMap.prototype.register = function(unit) {
@@ -78,6 +80,18 @@ UnitMap.prototype.register = function(unit) {
         if (!this.mix[unit.mix]) this.mix[unit.mix] = []
         this.mix[unit.mix].push(unit.id)
     }
+}
+
+UnitMap.prototype.registerSample = function(sample) {
+    // TODO what to do with possible name collisions?
+    this.sample[sample.name] = sample
+    this.sample[sample.id] = sample
+}
+
+UnitMap.prototype.registerPatch = function(patch) {
+    // TODO what to do with possible name collisions?
+    this.patch[patch.name] = patch
+    this.patch[patch.id] = patch
 }
 
 UnitMap.prototype.generateMap = function() {
@@ -127,8 +141,24 @@ let scanMix = function(units, path, mix) {
                 units.register(new Unit(mix, mix, 'pub', fullPath, require))
             } else if (entry.endsWith('.fix') || entry === 'fix') {
                 units.register(new Unit(lib.addPath(mix, entry), mix, 'fix', fullPath, require))
-            } if (entry.endsWith('.mod') || entry === 'mod') {
+            } else if (entry.endsWith('.mod') || entry === 'mod') {
                 units.register(new Unit(lib.addPath(mix, entry), mix, 'mod', fullPath, require))
+            } else if (entry.endsWith('.sample')) {
+                units.registerSample({
+                    id: lib.addPath(mix, entry),
+                    name: entry.substring(0, entry.length-7),
+                    mix: mix,
+                    type: 'sample',
+                    path: fullPath,
+                })
+            } else if (entry.endsWith('.patch')) {
+                units.registerPatch({
+                    id: lib.addPath(mix, entry),
+                    name: entry.substring(0, entry.length-6),
+                    mix: mix,
+                    type: 'patch',
+                    path: fullPath,
+                })
             }
         }
     })
@@ -185,5 +215,5 @@ module.exports = {
             ls: u.ls,
         }
         return map
-    }
+    },
 }

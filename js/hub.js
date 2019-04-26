@@ -9,8 +9,6 @@ const lib = require('./lib')
 
 const TAG = 'hub'
 
-let scannedUnits
-
 let start = function() {
     let app = express();
 
@@ -21,7 +19,7 @@ let start = function() {
         lib.lookupBaseDir()
     }
     env.scanMap = lib.readOptionalJson(env.unitsConfig, env.scanMap)
-    scannedUnits = scanner.scan(env.baseDir, env.scanMap)
+    let scannedUnits = scanner.scan(env.baseDir, env.scanMap)
     packager.pack(env.baseDir, env.outDir, scannedUnits)
 
     scannedUnits.forEach(u => {
