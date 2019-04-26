@@ -207,7 +207,7 @@ module.exports = {
     rescanUnit: function(unit) {
         const map = {}
         const u = new Unit(unit.id, unit.type, unit.path, unit.require)
-        map[u.name] = {
+        map[u.id] = {
             type: u.type,
             mix: u.mix,
             pak: u.pak,
