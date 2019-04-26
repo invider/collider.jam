@@ -14,7 +14,12 @@ let fun = {
     debug: logFun('. ', console.log),
     out: logFun('> ', console.log),
     error: logFun('! ', console.error),
-    fatal: logFun('!!! ', console.error),
+
+    fatal: function(msg, tag) {
+        tag = tag? '[' + tag + '] ' : ''
+        fun('!!! ' + (new Date()).toISOString() + ' - ' + tag + msg)
+        process.exit(1)
+    },
 
     dump: function(obj) {
         process.stdout.write('# ' + (new Date()).toISOString() + ': ')

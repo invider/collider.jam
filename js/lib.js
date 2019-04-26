@@ -3,6 +3,7 @@
 const fs = require('fs-extra')
 const log = require('./log')
 const env = require('./env')
+const { execSync } = require('child_process')
 
 module.exports = {
 
@@ -10,6 +11,10 @@ module.exports = {
         if (!base) return path
         if (base.length >= 1 && !base.endsWith('/')) base += '/'
         return base + path
+    },
+
+    getResourceName: function(path) {
+        return path.replace(/^.*[\\\/]/, '')
     },
 
     readOptionalJson: function(path, defaultJson) {
@@ -47,5 +52,15 @@ module.exports = {
         } else {
             this.lookupBaseDir()
         }
+    },
+
+    npm: {
+        install: function() {
+            const code = execSync('npm install')
+        },
+
+        update: function() {
+            const code = execSync('npm update')
+        },
     },
 }

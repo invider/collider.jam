@@ -4,23 +4,28 @@ module.exports = {
     debug: false,
     verbose: false,
     silent: false,
-
     dynamic: true,
+
+    config: {
+        debug: false,
+    },
+    params: [],
+
     port: 9999,
 
     baseDir: './',
     outDir: 'out',
-    unitsJson: 'units.json',
+    unitsConfig: 'units.json',
     scanMap: {
         units: [
             ''
         ],
-        modules: [
+        mixes: [
             'node_modules'
         ],
     },
 
     base: '/',
     unitsPath: 'units.map',
-
+    configPath: 'jam.config',
 }

@@ -29,6 +29,13 @@ LIB_REPO="https://github.com/invider/collider-lib.mix.git"
 EXT_MODULE="collider-ext.mix"
 EXT_REPO="https://github.com/invider/collider-ext.mix.git"
 
+# error codes
+ERROR_NO_NODEJS=1
+ERROR_INIT_FIRST=2
+ERROR_PACKAGE_EXISTS=3
+ERROR_NO_SHELL=4
+ERROR_ALREADY_GENERATED=5
+
 # === flags ===
 
 # check node.js 
@@ -75,13 +82,22 @@ help() {
     echo '    install - install collider.jam shell globally'
     echo ''
     echo 'All other commands are routed to collider.jam shell when installed'
-    exit 0
+}
+
+check_status() {
+    LAST=$?
+
+    if [[ LAST != 0 ]]; then
+        echo "A problem occured during the execution (error #$LAST)"
+        exit $LAST
+    fi
 }
 
 install() {
     echo 'Installing collider.jam shell globaly'
     #$NPM install -g git+$JAM_REPO
     $NPM install -g $JAM_REPO
+    check_status
 }
 
 init() {
@@ -91,7 +107,7 @@ init() {
     if [[ $PACKAGE_FLAG ]]; then
         echo "Error: package.json is already exists!"
         echo "Can't init the project [$NAME]"
-        exit 12
+        exit $ERROR_PACKAGE_EXISTS
     fi
 
     echo "Generating project [$NAME]"
@@ -107,16 +123,15 @@ init() {
       },
       \"dependencies\": {
           \"$JAM_MODULE\": \"$JAM_REPO\",
-          \"$BOOT_MODULE\": \"$BOOT_REPO\",
           \"$COLLIDER_MODULE\": \"$COLLIDER_REPO\",
+          \"$BOOT_MODULE\": \"$BOOT_REPO\",
           \"$LIB_MODULE\": \"$LIB_REPO\",
           \"$EXT_MODULE\": \"$EXT_REPO\"
       },
       \"author\": \"\",
       \"license\": \"MIT\"\n}" > package.json
-    echo ' done'
 
-    echo 'Installing dependencies'
+    echo 'Installing dependencies...'
     $NPM install
     echo `du -sh ./node_modules | cut -f 1`' of modules installed'
     update_flags
@@ -126,9 +141,12 @@ init() {
 
 bootstrap() {
     # TODO move action to node?
-    BOOT="default"
-    echo "bootstraping from [$BOOT]"
-    cp -r ./node_modules/$BOOT_MODULE/init/$BOOT/* ./
+    #BOOT="default"
+    #echo "bootstraping from [$BOOT]"
+    #cp -r ./node_modules/$BOOT_MODULE/init/$BOOT/* ./
+
+    node ./node_modules/$JAM_MODULE/jam.js bootstrap "$@"
+    check_status
 
     echo ''
     echo '=== The project is ready! ==='
@@ -143,12 +161,12 @@ cmd() {
     update_flags
     if [[ ! $JAM_SHELL_FLAG ]]; then
         echo 'No collider.jam shell installed!'
-        exit 13
+        exit $ERROR_NO_SHELL
     fi
 
     if [[ $1 = "init" ]]; then
-        echo 'project is already generated!'
-        exit 101
+        echo 'it looks like the project is already generated!'
+        exit $ERROR_ALREADY_GENERATED
 
     else
         node ./node_modules/$JAM_MODULE/jam.js "$@"
@@ -161,7 +179,7 @@ update_flags
 if [[ ! $NODE_FLAG || ! $NPM_FLAG ]]; then
     echo 'No Node.js found!'
     echo 'You must install Node.js in order to use collider.jam shell!'
-    exit 1
+    exit $ERROR_NO_NODEJS
 fi
 
 # generic commands always working from bootstrap script
@@ -183,15 +201,16 @@ if [[ ! $PACKAGE_FLAG ]]; then
     else
         echo 'You must init the project first'
         echo 'Try ./jam init'
-        exit 2
+        exit $ERROR_INIT_FIRST
     fi
 
 else
 
     if [[ ! $MODULES_FLAG || ! $JAM_MODULE_FLAG ]]; then
-        echo 'Some modules are missing!'
+        echo 'Modules missing!'
         echo 'Installing dependencies...'
         $NPM update
+        check_status
     fi
 
     if [[ ! $GLOBAL_JAM_FLAG ]]; then

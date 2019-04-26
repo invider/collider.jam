@@ -20,7 +20,7 @@ let start = function() {
         log.debug('not a base - trying to locate the project base directory...')
         lib.lookupBaseDir()
     }
-    env.scanMap = lib.readOptionalJson(env.unitsJson, env.scanMap)
+    env.scanMap = lib.readOptionalJson(env.unitsConfig, env.scanMap)
     scannedUnits = scanner.scan(env.baseDir, env.scanMap)
     packager.pack(env.baseDir, env.outDir, scannedUnits)
 
@@ -33,6 +33,12 @@ let start = function() {
     })
 
     if (env.dynamic) {
+
+        env.config.dynamic = true
+        app.get(env.base + env.configPath, function(req, res) {
+            res.json(env.config)
+        })
+
         app.get('*/' + env.unitsPath, function(req, res) {
             let unitId = req.path.substring(0, req.path.length - env.unitsPath.length - 1)
             unitId = unitId.substring(env.base.length)
@@ -54,7 +60,7 @@ let start = function() {
             }
         })
 
-        app.get('/units.debug', function(req, res) {
+        app.get('units.debug', function(req, res) {
             let map = scanner.scan(env.baseDir, env.scanMap)
             res.json({
                 units: map.units,

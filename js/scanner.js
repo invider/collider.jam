@@ -61,6 +61,7 @@ const Unit = function(id, mix, type, path, requireMix) {
 }
 
 const UnitMap = function() {
+    this.length = 0
     this.units = {}
     this.map = {}
     this.mix = {}
@@ -69,6 +70,7 @@ const UnitMap = function() {
 UnitMap.prototype.register = function(unit) {
     if (this.units[unit.id]) throw 'unit mapped to [' + unit.id + '] already exists!'
 
+    this.length ++
     this.units[unit.id] = unit
 
     // map mix to unit
@@ -167,6 +169,7 @@ module.exports = {
             scanMix(units, lib.addPath(base, path))
         }) : false
 
+        log.debug('units found: ' + units.length, TAG)
         return units.generateMap()
     },
 

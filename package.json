@@ -13,7 +13,7 @@
     "express": "latest",
     "express-ws": "latest",
     "fs-extra": "latest",
-    "open": "latest",
+    "open": "^6.2.0",
     "request": "latest",
     "socket.io": "latest",
     "underscore": "latest"
