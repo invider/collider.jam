@@ -87,7 +87,7 @@ help() {
 check_status() {
     LAST=$?
 
-    if [ $LAST -eq 0 ]; then
+    if [ $LAST -ne 0 ]; then
         echo "A problem occured during the execution (error #$LAST)"
         exit $LAST
     fi

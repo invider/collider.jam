@@ -40,6 +40,9 @@ for (let i = 2; i < args.length; i++) {
         log.dump = log.off
         parsedOption = false
 
+    } else if (arg === '-h' || arg === '--help') {
+        cmd = 'help'
+
     } else if (arg.startsWith('--')) {
         parsedOption = true
         lastOption = arg.substring(2) 
