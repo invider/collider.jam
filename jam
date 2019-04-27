@@ -9,6 +9,9 @@
 #    * run jam shell
 #
 
+# save command line
+CMD_LINE=$@
+
 # env
 NODE="node"
 NPM="npm"
@@ -145,7 +148,7 @@ bootstrap() {
     #echo "bootstraping from [$BOOT]"
     #cp -r ./node_modules/$BOOT_MODULE/init/$BOOT/* ./
 
-    node ./node_modules/$JAM_MODULE/jam.js bootstrap "$@"
+    node ./node_modules/$JAM_MODULE/jam.js bootstrap $CMD_LINE
     check_status
 
     echo ''
@@ -157,7 +160,7 @@ bootstrap() {
 }
 
 cmd() {
-    #echo "[command] $1"
+    echo "[command] "$CMD_LINE
     update_flags
     if [[ ! $JAM_SHELL_FLAG ]]; then
         echo 'No collider.jam shell installed!'
@@ -169,7 +172,7 @@ cmd() {
         exit $ERROR_ALREADY_GENERATED
 
     else
-        node ./node_modules/$JAM_MODULE/jam.js "$@"
+        node ./node_modules/$JAM_MODULE/jam.js $CMD_LINE
 
     fi
 }
