@@ -160,7 +160,6 @@ bootstrap() {
 }
 
 cmd() {
-    echo "[command] "$CMD_LINE
     update_flags
     if [[ ! $JAM_SHELL_FLAG ]]; then
         echo 'No collider.jam shell installed!'
