@@ -4,6 +4,8 @@ const fs = require('fs-extra')
 const env = require('./env')
 const log = require('./log')
 const lib = require('./lib')
+const scanner = require('./scanner')
+const { execSync } = require('child_process')
 
 const TAG = 'packager'
 
@@ -27,6 +29,28 @@ let pack = function(baseDir, outputDir, units) {
     fs.writeJsonSync(outDir + env.configPath, env.config, { spaces: '    '} )
 }
 
+const generate = function() {
+    const base = './'
+    const realPath = fs.realpathSync(base)
+    const name = lib.getResourceName(realPath)
+    env.name = name
+
+    log.debug('generating package [' + name + ']', TAG)
+
+    if (!lib.isBaseDir(env.baseDir)) {
+        log.debug('not a base - trying to locate the project base directory...')
+        lib.lookupBaseDir()
+    }
+    env.scanMap = lib.readOptionalJson(env.unitsConfig, env.scanMap)
+    let scannedUnits = scanner.scan(env.baseDir, env.scanMap)
+    pack(env.baseDir, env.outDir, scannedUnits)
+
+    log.dump(env)
+    execSync('./zip ' + name)
+    execSync('./tar ' + name)
+}
+
 module.exports = {
     pack: pack,
+    generate: generate,
 }

@@ -5,6 +5,7 @@ const log = require('./js/log')
 const hub = require('./js/hub')
 const init  = require('./js/init')
 const { bootstrap, patch } = require('./js/bootstrap')
+const { generate } = require('./js/packager')
 const help = require('./js/help')
 const player = require('./js/player')
 
@@ -25,6 +26,9 @@ for (let i = 2; i < args.length; i++) {
     if (arg === '-d' || arg === '--debug') {
         env.debug = true
         env.config.debug = true
+        parsedOption = false
+    } else if (arg === '-s' || arg === '--static') {
+        env.dynamic = false
         parsedOption = false
 
     } else if (arg === '-v' || arg === '--verbose') {
@@ -80,5 +84,6 @@ switch(cmd) {
     case 'init': init(); break;
     case 'bootstrap': bootstrap(); break;
     case 'patch': patch(); break;
+    case 'pack': generate(); break;
     default: log.fatal('unknown command: ' + cmd, TAG)
 }

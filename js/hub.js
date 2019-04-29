@@ -22,17 +22,18 @@ let start = function() {
     let scannedUnits = scanner.scan(env.baseDir, env.scanMap)
     packager.pack(env.baseDir, env.outDir, scannedUnits)
 
-    scannedUnits.forEach(u => {
-        let unitPath = lib.addPath(env.base, u.id)
-        log.debug('mounting ' + unitPath + ' -> ' + u.path, TAG)
-
-        app.use(unitPath, express.static(u.path))
-        u.url = unitPath
-    })
-
     if (env.dynamic) {
-
         env.config.dynamic = true
+
+        // mount units
+        scannedUnits.forEach(u => {
+            let unitURL = lib.addPath(env.base, u.id)
+            log.debug('mounting ' + unitURL + ' -> ' + u.path, TAG)
+
+            app.use(unitURL, express.static(u.path))
+            u.url = unitURL
+        })
+
         app.get(env.base + env.configPath, function(req, res) {
             res.json(env.config)
         })
@@ -68,11 +69,13 @@ let start = function() {
 
     } else {
         log.out('serving only static package!')
-    }
+        env.config.dynamic = false
 
-    app.get('/stat', function(req, res) {
-        res.json(hub.state());
-    });
+        let localPath = lib.addPath(env.baseDir, env.outDir)
+
+        log.debug('mounting ' + env.base + ' -> ' + localPath, TAG)
+        app.use(env.base, express.static(localPath)) // mount to root
+    }
 
     app.listen(env.port);
     log.out('--- Listening at http://localhost:' + env.port + ' ---', TAG);
