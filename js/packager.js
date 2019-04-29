@@ -45,7 +45,8 @@ const generate = function() {
     let scannedUnits = scanner.scan(env.baseDir, env.scanMap)
     pack(env.baseDir, env.outDir, scannedUnits)
 
-    log.dump(env)
+    // TODO running project local scripts here - not good
+    //      find out more portable way to create zip/tar
     execSync('./zip ' + name)
     execSync('./tar ' + name)
 }
