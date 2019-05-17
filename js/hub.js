@@ -1,16 +1,20 @@
 'use strict'
 
-const express = require('express');
+const express = require('express')
 const env = require('./env')
 const log = require('./log')
 const scanner = require('./scanner')
 const packager = require('./packager')
 const lib = require('./lib')
+const control = require('./mc/control')
 
 const TAG = 'hub'
 
 let start = function() {
-    let app = express();
+
+    const app = express()
+    const wss = require('express-ws')(app);
+    app.use(express.json())
 
     log.debug('starting collider.jam hub...', TAG)
 
@@ -18,6 +22,11 @@ let start = function() {
         log.debug('not a base - trying to locate the project base directory...')
         lib.lookupBaseDir()
     }
+
+    // add local folder to paths and require extentions
+    module.paths.push('./')
+    module.paths.push('./node_modules')
+
     env.scanMap = lib.readOptionalJson(env.unitsConfig, env.scanMap)
     let scannedUnits = scanner.scan(env.baseDir, env.scanMap)
     packager.pack(env.baseDir, env.outDir, scannedUnits)
@@ -75,6 +84,19 @@ let start = function() {
 
         log.debug('mounting ' + env.base + ' -> ' + localPath, TAG)
         app.use(env.base, express.static(localPath)) // mount to root
+    }
+
+    // try to launch mission control
+    if (env.mc) {
+        control.start(this, app)
+    }
+
+    // try to boost
+    // TODO check fs on boost availability first
+    if (env.hub) {
+        const boost = require('hub/boost')
+        log.debug('boosting the app', TAG)
+        boost(app)
     }
 
     app.listen(env.port);

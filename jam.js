@@ -27,6 +27,22 @@ for (let i = 2; i < args.length; i++) {
         env.debug = true
         env.config.debug = true
         parsedOption = false
+    } else if (arg === '-h' || arg === '--hub') {
+        env.hub = true
+        env.config.hub = true
+        parsedOption = false
+
+    } else if (arg === '-mc' || arg === '--mission-control') {
+        env.mc = true
+        parsedOption = false
+
+    } else if (arg === '-p' || arg === '--port') {
+        if (++i === args.length) throw 'number is expected after the [' + arg + ']'
+        let p = parseInt(args[i])
+        if (isNaN(p)) throw 'number is expected after the [' + arg + ']'
+        env.port = p
+        parsedOption = false
+
     } else if (arg === '-s' || arg === '--static') {
         env.dynamic = false
         parsedOption = false
