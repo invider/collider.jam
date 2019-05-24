@@ -143,10 +143,8 @@ init() {
 }
 
 bootstrap() {
-    # TODO move action to node?
-    #BOOT="default"
-    #echo "bootstraping from [$BOOT]"
-    #cp -r ./node_modules/$BOOT_MODULE/init/$BOOT/* ./
+    # trim 'init' command from params
+    CMD_LINE=${CMD_LINE:4}
 
     node ./node_modules/$JAM_MODULE/jam.js bootstrap $CMD_LINE
     check_status
@@ -210,7 +208,7 @@ else
 
     if [[ ! $MODULES_FLAG || ! $JAM_MODULE_FLAG ]]; then
         echo 'Modules missing!'
-        echo 'Installing dependencies...'
+        echo 'Installing dependencies... '
         $NPM update
         check_status
     fi

@@ -13,10 +13,6 @@ module.exports = {
         let sample = 'default'
 
         if (env.params.length > 0) {
-            if (env.params.length > 1 && env.params[0] === 'init') {
-                fromBash = true
-                env.params.splice(1)
-            }
             sample = env.params[0]
         }
 
