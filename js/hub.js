@@ -99,8 +99,22 @@ let start = function() {
         boost(app)
     }
 
-    app.listen(env.port);
-    log.out('--- Listening at http://localhost:' + env.port + ' ---', TAG);
+    process.on('uncaughtException', (err) => {
+        if (env.debug) {
+            log.dump(err)
+        } else {
+            log.error(err)
+        }
+        // provide details and hints
+        if (err.toString().includes('address already in use')) {
+            log.error('looks like the port ' + env.port + ' is occupied by another app')
+            log.error('check that collider.jam is not running in another console')
+        }
+    })
+
+    app.listen(env.port, () => {
+        log.out('---Listening at http://localhost:' + env.port + ' ---', TAG);
+    })
 }
 
 module.exports = {
