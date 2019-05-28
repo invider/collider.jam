@@ -170,7 +170,7 @@ let scanModules = function(units, path) {
             let fullPath = lib.addPath(path, entry)
 
             let lstat = fs.lstatSync(fullPath)
-            if (lstat.isDirectory()) {
+            if (lstat.isDirectory() || lstat.isSymbolicLink()) {
                 if (entry.endsWith('.mix')
                         || entry.endsWith('.mod')
                         || entry.endsWith('.fix')) {

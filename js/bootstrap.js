@@ -6,6 +6,57 @@ const log = require('./log')
 const lib = require('./lib')
 const scanner = require('./scanner')
 
+function mixSample(name, sample) {
+    log.out('mixing sample [' + name + '] from [' + sample.path + ']')
+
+    // extend module paths
+    module.paths.push('./')
+
+    // premix
+    lib.execIfExists(sample.path + '/premix')
+    lib.evalIfExists(sample.path, 'premix.js')
+
+    // mix in the content
+    if (fs.existsSync(sample.path + '/mix')) {
+        fs.copySync(sample.path + '/mix/', './')
+    }
+
+    // mix in dependencies
+    const dpPath = sample.path + '/dependencies.json'
+    if (fs.existsSync(dpPath)) {
+        const dp = fs.readJsonSync(dpPath)
+        lib.fixJson('./package.json', (pkg) => {
+
+            if (!pkg.dependencies) pkg.dependencies = {}
+            const target = pkg.dependencies
+
+            Object.keys(dp).forEach(k => {
+                const v = dp[k]
+
+                if (!target[k]) {
+                    console.log('adding dependency "' + k + '": "' + v + '"')
+                    target[k] = v
+                } else {
+                    if (target[k] !== v) {
+                        log.warn('existing dependency "'
+                            + k + '" conflicts with the sample version')
+                        log.warn('"' + target[k] + '" !== "' + v + '"')
+                    }
+                }
+            })
+
+            return pkg
+        })
+    }
+
+    // postmix
+    lib.execIfExists(sample.path + '/postmix')
+    lib.evalIfExists(sample.path, 'postmix.js')
+
+    log.out('Updating dependencies...')
+    lib.npm.install()
+}
+
 module.exports = {
 
     bootstrap: function() {
@@ -28,8 +79,7 @@ module.exports = {
             return
         }
 
-        log.debug('copying sample [' + sample + '] from [' + sampleDescr.path + ']')
-        fs.copySync(sampleDescr.path + '/', './')
+        mixSample(sample, sampleDescr)
     },
 
     patch: function() {

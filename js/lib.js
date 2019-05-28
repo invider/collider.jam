@@ -5,6 +5,8 @@ const log = require('./log')
 const env = require('./env')
 const { execSync } = require('child_process')
 
+const TAG = 'lib'
+
 module.exports = {
 
     addPath: function(base, path) {
@@ -55,12 +57,57 @@ module.exports = {
     },
 
     npm: {
-        install: function() {
-            const code = execSync('npm install')
+        install: function(module) {
+            if (module) {
+                try {
+                    const res = execSync('npm install ' + module)
+                } catch (err) {
+                    if (env.debug) {
+                        log.dump(err)
+                    }
+                    log.fatal('unable to install module [' + module + ']')
+                    return
+                }
+            } else {
+                const res = execSync('npm install')
+            }
         },
 
         update: function() {
             const code = execSync('npm update')
         },
+    },
+
+    execIfExists: function(path) {
+        if (fs.existsSync(path)) {
+            log.debug('executing ' + path, TAG)
+            try {
+                execSync(path, {
+                    stdio: 'inherit',
+                    env: env.config,
+                })
+            } catch (err) {
+                log.error('unable to execute [' + path + ']: ' + err, TAG)
+            }
+        }
+    },
+
+    evalIfExists: function(path, script) {
+        const target = this.addPath(path, script)
+        if (fs.existsSync(target)) {
+            log.debug('evaluating ' + target, TAG)
+            if (!module.paths.includes(path)) module.paths.push(path)
+            const fn = require(script)
+        }
+    },
+
+    fixJson: function(path, fn) {
+        if (fs.existsSync(path)) {
+            const origContent = fs.readJsonSync(path)
+            const fixedContent = fn(origContent)
+            fs.writeJsonSync(path, fixedContent, { spaces: '    ' })
+        } else {
+            throw `[${path}] doesn't exist`
+        }
     },
 }
