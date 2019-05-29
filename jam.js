@@ -5,7 +5,7 @@ const log = require('./js/log')
 const hub = require('./js/hub')
 const init  = require('./js/init')
 const { bootstrap, patch } = require('./js/bootstrap')
-const { generate } = require('./js/packager')
+const { generate, clean } = require('./js/packager')
 const help = require('./js/help')
 const player = require('./js/player')
 
@@ -99,6 +99,7 @@ switch(cmd) {
     case 'bootstrap': bootstrap(); break;
     case 'patch': patch(); break;
     case 'pack': generate(); break;
+    case 'clean': clean(env.params[0]); break;
     case 'help': help(); break;
     default: log.fatal('unknown command: ' + cmd, TAG)
 }

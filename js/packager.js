@@ -10,8 +10,22 @@ const archiver = require('archiver')
 
 const TAG = 'packager'
 
-function zip(target, source, type) {
+function cleanIfExists(path) {
+    if (fs.existsSync(path)) {
+        log.debug('cleaning up [' + path + ']', TAG) 
+        fs.removeSync(path)
+    }
+}
 
+function clean(opt) {
+    cleanIfExists(lib.addPath(env.baseDir, env.outDir))
+	cleanIfExists(lib.addPath(env.baseDir, env.distDir))
+	if (opt === 'all') {
+		cleanIfExists(lib.addPath(env.baseDir, 'node_modules'))
+	}
+}
+
+function zip(target, source, type) {
 	const output = fs.createWriteStream(target);
 	let archive
 	switch(type) {
@@ -119,4 +133,5 @@ const generate = function() {
 module.exports = {
     pack: pack,
     generate: generate,
+	clean: clean,
 }

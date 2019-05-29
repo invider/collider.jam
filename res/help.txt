@@ -8,7 +8,8 @@ Following commands are available:
     patch <patch-name> - fix the project with a patch
     units - examine and show units structure
     pack - assemble all units and static content in ./pub folder
-    pack run - assemble package and run static http server over it
+    clean - remove all generated content
+	clean all - remove all generated content and installed modules
     update - update dependencies
     help - this message
 
