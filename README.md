@@ -98,12 +98,17 @@ It is super simple to create something from scratch
 (not from existing patch, as we've created the saucer).
 Just place js and resource files in the right places.
 
-Check out [collider.jam map]() and tutorials
-from the section below.
+Check our following links:
+
+* [Collider.JAM Map](man/Map.md) 
+* [Collider.JAM Glossary](man/Glossary.md) 
+
+Also check out tutorials from the section below.
 
 
 Tutorials
 ---------
+* [Space Shooter from Scratch](man/Shooter.md)
 
 
 
