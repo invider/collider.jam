@@ -43,7 +43,12 @@ Now, to install collider.jam shell, run:
 npm install -g https://github.com/invider/collider.jam.git
 ```
 
-When installed, you can try _help_ command to check available options:
+When installed, you can try _version_:
+```
+jam version
+```
+
+Use _help_ to check available commands and options:
 ```
 jam help
 ```
@@ -75,16 +80,45 @@ jam play
 
 The browser should open a window with a saucer.
 
+----
+
+Now explore the app structure:
+
+```
+/mod
+  |-/lab
+      |- background.js - prop with Z = 0 that draws background
+      |- saucer.js - the saucer object with evo() and draw() functions
+```
+
+Everything placed in /mod/lab will be spawned into an entity on the scene.
+An object is exposed by assigning it to module.exports
+
+It is super simple to create something from scratch
+(not from existing patch, as we've created the saucer).
+Just place js and resource files in the right places.
+
+Check out [collider.jam map]() and tutorials
+from the section below.
+
+
+Tutorials
+---------
+
 
 
 Jam Prototypes
 --------------
+Check the source for the following games:
+
 * [300 Hearts for Escape](https://github.com/invider/300-hearts-for-escape) - a survival trading game placed on an isolated island created during Ludum Dare 44
 * [Dream Rocket Boy](https://github.com/invider/dream-rocket-boy) - a single screen platformer created for Global Game Jam 2019.
 
 
 Jam Mixes
 ---------
+These are essential modules of the framework:
+
 * [collider.mix](https://github.com/invider/collider.mix) - the most essential mix that includes collider.jam system core (jam.js) and system function definitions.
 * [collider-boot.mix](https://github.com/invider/collider-boot.mix) - contains basic samples and patches to mix from.
 * [collider-lib.mix](https://github.com/invider/collider-lib.mix) - mixes in various libraries for use (like _lib.math_)
