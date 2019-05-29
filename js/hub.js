@@ -16,6 +16,9 @@ let start = function() {
     const wss = require('express-ws')(app);
     app.use(express.json())
 
+    log.out('=== COLLIDER.JAM ===')
+    log.out('version: ' + env.version) 
+    log.out('====================')
     log.debug('starting collider.jam hub...', TAG)
 
     if (!lib.isBaseDir(env.baseDir)) {

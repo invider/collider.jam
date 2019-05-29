@@ -10,6 +10,7 @@
     "jam": "./jam.js"
   },
   "dependencies": {
+    "archiver": "^3.0.0",
     "express": "latest",
     "express-ws": "latest",
     "fs-extra": "latest",

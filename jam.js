@@ -51,8 +51,8 @@ for (let i = 2; i < args.length; i++) {
         env.verbose = true
         parsedOption = false
 
-    } else if (arg === '-s' || arg === '--silent') {
-        env.silent = true
+    } else if (arg === '-m' || arg === '--mute') {
+        env.mute = true
         log.debug = log.off
         log.trace = log.off
         log.out = log.off
@@ -62,6 +62,9 @@ for (let i = 2; i < args.length; i++) {
 
     } else if (arg === '-h' || arg === '--help') {
         cmd = 'help'
+
+    } else if (arg === '-v' || arg === '--version') {
+        cmd = 'version'
 
     } else if (arg.startsWith('--')) {
         parsedOption = true
@@ -88,18 +91,14 @@ if (!env.debug && !env.verbose) {
     log.dump = log.off
 }
 
-log.out('=== COLLIDER.JAM ===')
-log.out('version: 0.0.1 DR1') 
-log.out('====================')
-log.trace('executing: ' + cmd, TAG)
-
 switch(cmd) {
+    case 'version': log.raw(env.version); break;
     case 'run': hub.start(); break;
     case 'play': case 'open': player.play(); break;
-    case 'help': help(); break;
     case 'init': init(); break;
     case 'bootstrap': bootstrap(); break;
     case 'patch': patch(); break;
     case 'pack': generate(); break;
+    case 'help': help(); break;
     default: log.fatal('unknown command: ' + cmd, TAG)
 }

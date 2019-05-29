@@ -1,6 +1,8 @@
 'use strict'
 
 module.exports = {
+    version: '0.1.0 DR1',
+
     debug: false,
     verbose: false,
     silent: false,
@@ -15,6 +17,7 @@ module.exports = {
 
     baseDir: './',
     outDir: 'out',
+	distDir: 'dist',
     unitsConfig: 'units.json',
     scanMap: {
         units: [

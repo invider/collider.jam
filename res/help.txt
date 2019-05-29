@@ -1,0 +1,28 @@
+Usage: jam <command> [jam options] [custom options]
+
+Following commands are available:
+    run - start collider.jam hub server
+    play - start collider.jam hub server if not detected and open default browser
+    init <sample-name> - init and bootstrap the project from the template
+    bootstrap <sample-name> - bootstrap from a sample
+    patch <patch-name> - fix the project with a patch
+    units - examine and show units structure
+    pack - assemble all units and static content in ./pub folder
+    pack run - assemble package and run static http server over it
+    update - update dependencies
+    help - this message
+
+Available [jam options]:
+    -d, --debug - debug mode
+    -m, --mute - mute mode 
+    -p, --port - server port
+    -s, --static - static mode
+    -h, --hub - run mix hub
+    -mc, --mission-control - run collider.jam mission control
+    -v, --version - alternate option for version
+    -h, --help - alternate option for help
+
+    [custom options] can be declared and used later in hub or mod.
+    These options are available in environment configuration.
+
+[jam run] is executed by default if no command is available
