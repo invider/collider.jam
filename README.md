@@ -194,6 +194,7 @@ In fact, every major node of _mod_ is in scope:
 * dna - the node with prototypes, constructors and factories
 * env - the game's environment values
 * lab - contains all active game entities
+* mod - contains additional submods
 * cue - keeps conditional triggers
 * trap - contains event trap functions
 
@@ -298,16 +299,19 @@ Also check out tutorials from the section below.
 
 Tutorials
 ---------
-* [Space Shooter from Scratch](man/Shooter.md)
+* [Blocks]
+* [Space Shooter](man/Shooter.md)
+* [Platformer]
 
 
+Jamming Games
+-------------
+Check out the following games. All created during various game jams and powered by *_collider.jam_*.
 
-Jam Prototypes
---------------
-Check the source for the following games:
-
-* [300 Hearts for Escape](https://github.com/invider/300-hearts-for-escape) - a survival trading game placed on an isolated island created during Ludum Dare 44
-* [Dream Rocket Boy](https://github.com/invider/dream-rocket-boy) - a single screen platformer created for Global Game Jam 2019.
+* [300 Hearts for Escape](https://github.com/invider/300-hearts-for-escape) - *[Play](https://github.com/invider/300-hearts-for-escape)* - a survival trading game placed on an isolated island created during Ludum Dare 44.
+* [Dream Rocket Boy](https://github.com/invider/dream-rocket-boy) - *[Play](https://github.com/invider/dream-rocket-boy)* - a single screen platformer created for Global Game Jam 2019.
+* [Master of Ritual](https://github.com/invider/master-of-ritual) - *[Play](https://ingwar.itch.io/master-or-ritual)* - dungeon crawler from Ludum Dare 43.
+* [Xeno Relay Day](https://github.com/invider/xeno-relay-day) - *[Play](https://ingwar.itch.io/xeno-relay-day)* - cosmic relay network puzzler created during Global Game Jam 2018.
 
 
 Jam Mixes
