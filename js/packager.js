@@ -113,10 +113,8 @@ const generate = function() {
 
     log.debug('generating package [' + name + ']', TAG)
 
-    if (!lib.isBaseDir(env.baseDir)) {
-        log.debug('not a base - trying to locate the project base directory...')
-        lib.lookupBaseDir()
-    }
+    lib.verifyBaseDir()
+
     env.scanMap = lib.readOptionalJson(env.unitsConfig, env.scanMap)
     let scannedUnits = scanner.scan(env.baseDir, env.scanMap)
     pack(env.baseDir, env.outDir, scannedUnits)

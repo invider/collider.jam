@@ -1,20 +1,48 @@
+<p align="center">
+<a href="https://github.com/invider/collider.jam">
+<img src="res/logo.jpg">
+</a></p>
+
 Welcome to Collider.JAM!
 ========================
 
+<p align="right">
+    <i><b>The Fun of the Game Jamming.</b></i>
+</p>
+<p align="center">
+    <img src="res/badge/version.svg">
+    <img src="res/badge/license.svg">
+    <br><br>
+</p>
+
 Collider.JAM is a JavaScript framework for rapid game prototyping and jamming.
-It was crafted from experience of multiple game jams and competitions we've participated in.
+It was crafted from experience of multiple game jams we've participated in.
 
-Game prototyping is an art that mixes design, technology and creativity.
-And we believe it deserves a dedicated tool to cover
-the specific needs of rapidly evolving and changing game prototype.
+Game prototyping is an art that mixes design, technology and creativity
+bounded by time or other limitations.
+And we believe it deserves a dedicated tool to address specific needs of a rapidly evolving and changing prototype.
 
-Check out code examples. And pixelate reality!
+Check out tutorials and code examples below.
+_And pixelate reality!_
+
+Table of Contents
+-----------------
+* [Jam Shell](#jam-shell)
+* [Flying Saucer](#flying-saucer)
+* [Spaceship](#spaceship)
+* [Jam Mixes](#jam-mixes)
+* [Explore](#explore)
+* [Tutorials](#tutorials)
+* [How To](man/HowTo.md)
+* [Jamming Games](#jamming-games)
+* [How to Contribute](#how-to-contribute)
+
 
 
 Jam Shell
 ---------
 
-First, we need to install collider.jam shell module globally.
+To start jamming, we need to install collider.jam shell module globally.
 The shell can bootstrap and run collider.jam projects.
 
 Make sure you have the latest Node.js installed
@@ -34,7 +62,7 @@ instructions and package.
 
 You can use [*brew*](https://brew.sh/) on MacOS X and preferably
 [*nvm*](https://github.com/invider/nvm) on Linux
-(apt on LTS Ubuntu could install a very old package from repos)
+(apt on LTS Ubuntu could install a very old version from repos)
 
 ---
 Now, to install collider.jam shell, run:
@@ -86,9 +114,10 @@ Now explore the app structure:
 
 ```
 /mod
-  |-/lab
+  +-/lab
       |- background.js - prop with Z = 0 that draws background
       |- saucer.js - the saucer object with evo() and draw() functions
+                     this particular file was added by saucer patch
 ```
 
 Everything placed in /mod/lab will be spawned into an entity on the scene.
@@ -98,15 +127,16 @@ It is super simple to create something from scratch
 (not from existing patch, as we've created the saucer).
 Just place js and resource files in the right places.
 
-Let's do it from very empty mod,
-to see how it all comes together.
 
-Flying Ship
------------
+Spaceship
+---------
+
+Let's create a project from an empty mod,
+to see how it all comes together.
 
 ### collider.jam project init
 
-Go back to your project dir and create a new subdirectory:
+Get back to your project dir and create a new subdirectory:
 ```
 mkdir test-ship
 cd test-ship
@@ -137,8 +167,13 @@ We need a background to fill the scenery.
 Create _./lab/background.js_:
 ```
 module.exports = {
+
+    // we want the background to be behind everything else,
+    // hence the 0 value for Z
     Z: 0,
+
     draw: function() {
+        // draw a solid rectangle filling the whole screen
         ctx.fillStyle = '#151220'
         ctx.fillRect(0, 0, ctx.width, ctx.height)
     }
@@ -150,11 +185,12 @@ to fill a dark rectangle.
 Notice, that ctx is already in scope.
 It is one of the magic tricks of collider.jam.
 
-Another property is Z,
-which directly specifies Z-index.
-Lab uses that to place nodes
+
+When specified, the lab frame uses Z to place nodes
 according to their Z-value.
-We've selected 0 as a background layer.
+We've selected 0 as a background layer just for convenience.
+Actually we can use any arbitrary numbers
+(e.g. 1001 for the background, 1011 for sprites).
 
 ### the ship
 
@@ -163,11 +199,16 @@ Now create _./lab/ship.js_
 module.exports = {
     Z: 1,
 
+    // place ship in center of the screen
     x: ctx.width/4,
     y: ctx.height/2,
 
     draw: function() {
+        // disable smoothing to preserve pixel-art feel
+        // for low-resolution sprites
         ctx.imageSmoothingEnabled = false
+    
+        // draw the ship image
         ctx.drawImage(res.ship,
             this.x - res.ship.width/2,
             this.y - res.ship.height/2)
@@ -175,10 +216,7 @@ module.exports = {
 }
 ```
 Here we specify Z=1, so the ship
-will be in front of background.
-
-The ship should have x and y coordinates.
-We use canvas width and height to initialize those.
+will be in front of the background.
 
 In draw() function you can take
 _res.ship_, which is already loaded,
@@ -239,10 +277,10 @@ module.exports = function(e) {
 }
 ```
 
-We determine an actual key and rising or clearing
+We determine an actual key and rise or clear
 corresponding flag inside ship.move[] array.
 
-It is time to modify the ship:
+It is time to modify the ship to follow move commands:
 ```
 const SPEED = ctx.height/5
 
@@ -300,8 +338,11 @@ Also check out tutorials from the section below.
 Tutorials
 ---------
 * [Blocks]
-* [Space Shooter](man/Shooter.md)
+* [Space Shooter]
 * [Platformer]
+
+[How To](man/HowTo.md)
+----------------------
 
 
 Jamming Games
@@ -322,4 +363,15 @@ These are essential modules of the framework:
 * [collider-boot.mix](https://github.com/invider/collider-boot.mix) - contains basic samples and patches to mix from.
 * [collider-lib.mix](https://github.com/invider/collider-lib.mix) - mixes in various libraries for use (like _lib.math_)
 * [collider-ext.mix](https://github.com/invider/collider-ext.mix) - mixes in miscellaneous extentions (sprites, particles etc)
+* [collider-hud.mix](https://github.com/invider/collider-hud.mix) - HUD contains collider.jam user interface prototypes.
+* [collider-debug.mix](https://github.com/invider/collider-debug.mix) - debug tools
+
+How to Contribute
+-----------------
+
+<img src="res/social/discord.svg" alt="discord logo" height="24" width="24"> <a href="https://discord.gg/c8Wmqd">Join our Discord server</a>
+
+<img src="res/social/facebook.png" alt="facebook logo" height="24" width="24"> <a href="https://www.facebook.com/colliderlabs">Like _Collider Labs_ on Facebook</a>
+
+<img src="res/social/twitter.svg" alt="twitter logo" height="24" width="24"> <a href="https://twitter.com/chaostarter">Follow Igor Khotin on Twitter</a>
 
