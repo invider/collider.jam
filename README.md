@@ -16,7 +16,7 @@ Table of Contents
 * [Flying Saucer](#flying-saucer)
 * [Spaceship](#spaceship)
 * [Jam Mixes](#jam-mixes)
-* [Explore] (#explore)
+* [Explore](#explore)
 * [Tutorials](#tutorials)
 * [How To](man/HowTo.md)
 * [Jamming Games](#jamming-games)
@@ -356,7 +356,7 @@ How to Contribute
 
 [Join our Discord server](https://discord.gg/c8Wmqd)
 
-[Like *Collider Labs* on Facebook](https://www.facebook.com/colliderlabs)
+[Like _Collider Labs_ on Facebook](https://www.facebook.com/colliderlabs)
 
 [Follow Igor Khotin on Twitter](https://twitter.com/chaostarter)
 
