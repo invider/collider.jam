@@ -10,6 +10,19 @@ the specific needs of rapidly evolving and changing game prototype.
 
 Check out tutorials and code examples below. And pixelate reality!
 
+Table of Contents
+-----------------
+* [Jam Shell](#jam-shell)
+* [Flying Saucer](#flying-saucer)
+* [Spaceship](#spaceship)
+* [Jam Mixes](#jam-mixes)
+* [Explore] (#explore)
+* [Tutorials](#tutorials)
+* [How To](man/HowTo.md)
+* [Jamming Games](#jamming-games)
+* [How to Contribute](#how-to-contribute)
+
+
 
 Jam Shell
 ---------
@@ -100,8 +113,8 @@ It is super simple to create something from scratch
 Just place js and resource files in the right places.
 
 
-Flying Ship
------------
+Spaceship
+---------
 
 Let's create a project from an empty mod,
 to see how it all comes together.
@@ -337,4 +350,13 @@ These are essential modules of the framework:
 * [collider-ext.mix](https://github.com/invider/collider-ext.mix) - mixes in miscellaneous extentions (sprites, particles etc)
 * [collider-hud.mix](https://github.com/invider/collider-hud.mix) - HUD contains collider.jam user interface prototypes.
 * [collider-debug.mix](https://github.com/invider/collider-debug.mix) - debug tools
+
+How to Contribute
+-----------------
+
+[Join our Discord server](https://discord.gg/c8Wmqd)
+
+[Like *Collider Labs* on Facebook](https://www.facebook.com/colliderlabs)
+
+[Follow Igor Khotin on Twitter](https://twitter.com/chaostarter)
 
