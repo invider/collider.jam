@@ -13,6 +13,7 @@ let fun = {
     trace: logFun(': ', console.log),
     debug: logFun('. ', console.log),
     out: logFun('> ', console.log),
+    err: logFun('! ', console.error),
     error: logFun('! ', console.error),
 
     fatal: function(msg, tag) {
@@ -35,6 +36,7 @@ module.exports = {
     trace: fun.trace,
     debug: fun.debug,
     out: fun.out,
+    err: fun.err,
     error: fun.error,
     fatal: fun.error,
     dump: fun.dump,

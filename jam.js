@@ -15,7 +15,6 @@ const TAG = 'jam'
 let cmd = false
 const args = process.argv;
 
-
 let lastOption
 let parsedOption = false
 

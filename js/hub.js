@@ -21,10 +21,7 @@ let start = function() {
     log.out('====================')
     log.debug('starting collider.jam hub...', TAG)
 
-    if (!lib.isBaseDir(env.baseDir)) {
-        log.debug('not a base - trying to locate the project base directory...')
-        lib.lookupBaseDir()
-    }
+    lib.verifyBaseDir()
 
     // add local folder to paths and require extentions
     module.paths.push('./')

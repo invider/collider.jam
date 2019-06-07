@@ -42,7 +42,11 @@ module.exports = {
     lookupBaseDir: function() {
         // move up
         let cwd = process.cwd()
-        if (cwd === '/') throw 'Unable to locate the collider.jam project base directory!'
+        if (cwd === '/') {
+            throw 'Unable to locate the collider.jam project base directory!\n'
+                + 'Try "jam init" to create a project in current directory.\n'
+                + 'Run "jam help" for additional information'
+        }
 
         process.chdir('../')
         cwd = process.cwd()
@@ -53,6 +57,21 @@ module.exports = {
             log.debug('found base: ' + cwd)
         } else {
             this.lookupBaseDir()
+        }
+    },
+
+    verifyBaseDir: function() {
+        if (!this.isBaseDir(env.baseDir)) {
+            log.debug('not a base - trying to locate the project base directory...')
+            this.lookupBaseDir()
+        }
+        this.verifyModules()
+    },
+
+    verifyModules: function() {
+        if (!fs.existsSync('./node_modules')) {
+            log.out('Installing modules...')
+            this.npm.install()
         }
     },
 
