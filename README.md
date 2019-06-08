@@ -37,23 +37,8 @@ Table of Contents
 * [Jamming Games](#jamming-games)
 * [How to Contribute](#how-to-contribute)
 
-<<<<<<< HEAD
-Check out tutorials and code examples below. And pixelate reality!
-
-Table of Contents
------------------
-* [Jam Shell](#jam-shell)
-* [Flying Saucer](#flying-saucer)
-* [Spaceship](#spaceship)
-* [Jam Mixes](#jam-mixes)
-* [Explore](#explore)
-* [Tutorials](#tutorials)
-* [How To](man/HowTo.md)
-* [Jamming Games](#jamming-games)
-* [How to Contribute](#how-to-contribute)
-
-=======
->>>>>>> d6c0efefcf4e7c60fe61ca2b6343cbc5475fd3c6
+Check out tutorials and code examples below.
+And pixelate reality!
 
 
 Jam Shell
