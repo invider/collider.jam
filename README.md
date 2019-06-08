@@ -1,13 +1,43 @@
+<p align="center">
+<a href="https://github.com/invider/collider.jam">
+<img src="res/logo.jpg">
+</a></p>
+
 Welcome to Collider.JAM!
 ========================
 
+<p align="right">
+    <i><b>The Fun of the Game Jamming.</b></i>
+</p>
+<p align="center">
+    <img src="res/badge/version.svg">
+    <img src="res/badge/license.svg">
+    <br><br>
+</p>
+
 Collider.JAM is a JavaScript framework for rapid game prototyping and jamming.
-It was crafted from experience of multiple game jams and competitions we've participated in.
+It was crafted from experience of multiple game jams we've participated in.
 
-Game prototyping is an art that mixes design, technology and creativity.
-And we believe it deserves a dedicated tool to cover
-the specific needs of rapidly evolving and changing game prototype.
+Game prototyping is an art that mixes design, technology and creativity
+bounded by time or other limitations.
+And we believe it deserves a dedicated tool to address specific needs of a rapidly evolving and changing prototype.
 
+Check out tutorials and code examples below.
+_And pixelate reality!_
+
+Table of Contents
+-----------------
+* [Jam Shell](#jam-shell)
+* [Flying Saucer](#flying-saucer)
+* [Spaceship](#spaceship)
+* [Jam Mixes](#jam-mixes)
+* [Explore](#explore)
+* [Tutorials](#tutorials)
+* [How To](man/HowTo.md)
+* [Jamming Games](#jamming-games)
+* [How to Contribute](#how-to-contribute)
+
+<<<<<<< HEAD
 Check out tutorials and code examples below. And pixelate reality!
 
 Table of Contents
@@ -22,6 +52,8 @@ Table of Contents
 * [Jamming Games](#jamming-games)
 * [How to Contribute](#how-to-contribute)
 
+=======
+>>>>>>> d6c0efefcf4e7c60fe61ca2b6343cbc5475fd3c6
 
 
 Jam Shell
@@ -354,9 +386,8 @@ These are essential modules of the framework:
 How to Contribute
 -----------------
 
-[Join our Discord server](https://discord.gg/c8Wmqd)
+<img src="res/social/discord.svg" alt="discord logo" height="24" width="24"> <a href="https://discord.gg/c8Wmqd">Join our Discord server</a>
 
-[Like _Collider Labs_ on Facebook](https://www.facebook.com/colliderlabs)
+<img src="res/social/facebook.png" alt="facebook logo" height="24" width="24"> <a href="https://www.facebook.com/colliderlabs">Like _Collider Labs_ on Facebook</a>
 
-[Follow Igor Khotin on Twitter](https://twitter.com/chaostarter)
-
+<img src="res/social/twitter.svg" alt="twitter logo" height="24" width="24"> <a href="https://twitter.com/chaostarter">Follow Igor Khotin on Twitter</a>

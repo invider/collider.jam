@@ -1,3 +1,7 @@
 
+# MacOS X
+.DS_Store
+
+# nodejs
 node_modules
 
