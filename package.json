@@ -11,10 +11,10 @@
   },
   "dependencies": {
     "archiver": "^3.0.0",
-    "express": "latest",
+    "express": "^4.17.1",
     "express-ws": "latest",
-    "fs-extra": "latest",
-    "open": "^6.2.0",
+    "fs-extra": "^8.0.1",
+    "open": "^6.3.0",
     "request": "latest",
     "socket.io": "latest",
     "underscore": "latest"
