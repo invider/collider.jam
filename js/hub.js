@@ -68,7 +68,8 @@ let start = function() {
             }
         })
 
-        app.get('units.debug', function(req, res) {
+        app.get('/units.debug', function(req, res) {
+            log.out('units debug')
             let map = scanner.scan(env.baseDir, env.scanMap)
             res.json({
                 units: map.units,

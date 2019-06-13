@@ -38,6 +38,17 @@ function loadOptionalJson(path) {
     }
 }
 
+function loadOptionalList(path) {
+    if (fs.existsSync(path)) {
+        log.trace('loading : ' + path, 'scanner')
+        const data = fs.readFileSync(path, 'utf8')
+        const list = data.split(/\r?\n/g)
+            .filter(e => e.trim().length > 0)
+            .filter(e => !e.trim().startsWith('#'))
+        return list
+    }
+}
+
 function scanPackageDependencies(packageJson) {
     if (!packageJson || !_.isObject(packageJson.dependencies)) return
     let ls = []
@@ -57,6 +68,7 @@ const Unit = function(id, mix, type, path, requireMix) {
     this.path = path
     this.requireMix = requireMix
     this.pak = loadOptionalJson(lib.addPath(path, 'pak.json'))
+    this.ignore = loadOptionalList(lib.addPath(path, 'jam.ignore'))
     this.ls = listFiles(path, '')
 }
 
@@ -115,6 +127,7 @@ UnitMap.prototype.generateMap = function() {
                 mix: unit.mix,
                 require: unit.require,
                 ls: unit.ls,
+                ignore: unit.ignore,
             }
             __.map[unit.id] = _.extendOwn(unitMap, unit.pak)
         }
