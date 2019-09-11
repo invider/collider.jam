@@ -18,6 +18,7 @@
     "request": "latest",
     "socket.io": "latest",
     "underscore": "latest"
+    "collider-debug.mix": "https://github.com/invider/collider-debug.mix.git",
   },
   "author": "Igor Khotin & Co.",
   "license": "BSD-3-Clause"
