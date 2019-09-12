@@ -3,6 +3,11 @@
 module.exports = {
     version: '0.1.0 DR1',
 
+    PACKAGE_MODE: 0,
+    MIX_MODE: 1,
+    MOD_MODE: 2,
+
+    mode: 0,
     debug: false,
     verbose: false,
     silent: false,

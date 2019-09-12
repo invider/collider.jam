@@ -33,8 +33,17 @@ function listFiles(unitPath, path) {
 
 function loadOptionalJson(path) {
     if (fs.existsSync(path)) {
-        log.trace('loading : ' + path, 'scanner')
+        log.trace('loading json: ' + path, 'scanner')
         return fs.readJsonSync(path)
+    }
+}
+
+function loadOptionalList(path) {
+    if (fs.existsSync(path)) {
+        log.trace('loading list: ' + path, 'scanner')
+        const text = fs.readFileSync(path, 'utf8')
+        // TODO parse list properly
+        return text.split('\n').map(s => s.trim()).filter(s => s.length > 0)
     }
 }
 
@@ -57,6 +66,7 @@ const Unit = function(id, mix, type, path, requireMix) {
     this.path = path
     this.requireMix = requireMix
     this.pak = loadOptionalJson(lib.addPath(path, 'pak.json'))
+    this.ignore = loadOptionalList(lib.addPath(path, 'unit.ignore'))
     this.ls = listFiles(path, '')
 }
 
@@ -115,6 +125,7 @@ UnitMap.prototype.generateMap = function() {
                 mix: unit.mix,
                 require: unit.require,
                 ls: unit.ls,
+                ignore: unit.ignore,
             }
             __.map[unit.id] = _.extendOwn(unitMap, unit.pak)
         }
