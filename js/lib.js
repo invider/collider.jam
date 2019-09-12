@@ -26,17 +26,47 @@ module.exports = {
         return defaultJson
     },
 
-    isBaseDir: function(path) {
-        let baseMarker = false
+    checkBaseDir: function(path) {
+        let packageMarker = false
+        let modMarker = false
+        let mixMarker = false
+
         let lstat = fs.lstatSync(path)
         if (lstat.isDirectory()) {
+            const realpath = fs.realpathSync(path)
+            if (realpath.endsWith('mod')) {
+                modMarker = true
+            }
+            if (realpath.endsWith('mix')) {
+                mixMarker = true
+            }
             fs.readdirSync(path).forEach(entry => {
                 if (entry === env.unitsJson || entry === 'package.json') {
-                   baseMarker = true 
+                   packageMarker = true 
                 }
             })
         }
-        return baseMarker
+
+        let base = false
+
+        if (packageMarker) {
+            base = {
+                mode: env.PACKAGE_MODE,
+                path: path,
+            }
+        } else if (mixMarker) {
+            base = {
+                mode: env.MIX_MODE,
+                path: path,
+            }
+        }
+        else if (modMarker) {
+            base = {
+                mode: env.MOD_MODE,
+                path: path,
+            }
+        }
+        return base 
     },
 
     lookupBaseDir: function() {
@@ -52,20 +82,27 @@ module.exports = {
         cwd = process.cwd()
         log.trace('chdir up to: ' + cwd)
 
-        let isbase = this.isBaseDir(env.baseDir)
-        if (isbase) {
+        let base = this.checkBaseDir(env.baseDir)
+        if (base) {
             log.debug('found base: ' + cwd)
+            return base
+
         } else {
-            this.lookupBaseDir()
+            return this.lookupBaseDir()
         }
     },
 
     verifyBaseDir: function() {
-        if (!this.isBaseDir(env.baseDir)) {
+        let base = this.checkBaseDir(env.baseDir)
+        if (!base) {
             log.debug('not a base - trying to locate the project base directory...')
-            this.lookupBaseDir()
+            base = this.lookupBaseDir()
         }
-        this.verifyModules()
+
+        env.mode = base.mode
+        if (env.mode === env.PACKAGE_MODE) {
+            this.verifyModules()
+        }
     },
 
     verifyModules: function() {

@@ -18,19 +18,8 @@ NPM="npm"
 
 JAM="jam"
 JAM_MODULE="collider.jam"
-JAM_REPO="https://github.com/invider/collider.jam.git"
 
 BOOT_MODULE="collider-boot.mix"
-BOOT_REPO="https://github.com/invider/collider-boot.mix.git"
-
-COLLIDER_MODULE="collider.mix"
-COLLIDER_REPO="https://github.com/invider/collider.mix.git"
-
-LIB_MODULE="collider-lib.mix"
-LIB_REPO="https://github.com/invider/collider-lib.mix.git"
-
-EXT_MODULE="collider-ext.mix"
-EXT_REPO="https://github.com/invider/collider-ext.mix.git"
 
 # error codes
 ERROR_NO_NODEJS=1
@@ -125,11 +114,13 @@ init() {
           \"start\": \"node ./node_modules/$JAM_MODULE/jam.js\"
       },
       \"dependencies\": {
-          \"$JAM_MODULE\": \"$JAM_REPO\",
-          \"$COLLIDER_MODULE\": \"$COLLIDER_REPO\",
-          \"$BOOT_MODULE\": \"$BOOT_REPO\",
-          \"$LIB_MODULE\": \"$LIB_REPO\",
-          \"$EXT_MODULE\": \"$EXT_REPO\"
+          \"$JAM_MODULE\": \"https://github.com/invider/collider.jam.git\",
+          \"collider.mix\": \"https://github.com/invider/collider.mix.git\",
+          \"collider-boot.mix\": \"https://github.com/invider/collider-boot.mix.git\",
+          \"collider-lib.mix\": \"https://github.com/invider/collider-lib.mix.git\",
+          \"collider-ext.mix\": \"https://github.com/invider/collider-ext.mix.git\",
+          \"collider-hud.mix\": \"https://github.com/invider/collider-hud.mix.git\",
+          \"collider-debug.mix\": \"https://github.com/invider/collider-debug.mix.git\"
       },
       \"author\": \"\",
       \"license\": \"MIT\"\n}" > package.json

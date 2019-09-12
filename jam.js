@@ -27,9 +27,11 @@ for (let i = 2; i < args.length; i++) {
         env.config.debug = true
         parsedOption = false
     } else if (arg === '-t' || arg === '--test') {
+        //parsedOption = false
+        parsedOption = true
+        lastOption = 'test'
         env.test = true
         env.config.test = true
-        parsedOption = false
     } else if (arg === '-h' || arg === '--hub') {
         env.hub = true
         env.config.hub = true
