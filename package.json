@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "archiver": "^3.0.0",
+    "collider-debug.mix": "git+https://github.com/invider/collider-debug.mix.git",
     "express": "^4.17.1",
     "express-ws": "latest",
     "fs-extra": "^8.0.1",

@@ -91,6 +91,8 @@ function cleanAndCreateDir(path) {
 }
 
 let pack = function(baseDir, outputDir, units) {
+    if (env.sketch) return
+
     let outDir = lib.addPath(baseDir, outputDir) + '/'
 	cleanAndCreateDir(outDir)
 

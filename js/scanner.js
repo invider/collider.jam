@@ -2,6 +2,7 @@
 
 const fs = require('fs-extra')
 const _ = require('underscore')
+const env = require('./env')
 const log = require('./log')
 const lib = require('./lib')
 
@@ -11,7 +12,7 @@ const mixMap = {}
 
 function listFiles(unitPath, path) {
     let ls = []
-    //log.trace('scanning ' + lib.addPath(unitPath, path), TAG)
+    log.trace('scanning ' + lib.addPath(unitPath, path), TAG)
 
     fs.readdirSync(lib.addPath(unitPath, path)).forEach(entry => {
         const localPath = lib.addPath(path, entry)
@@ -33,28 +34,31 @@ function listFiles(unitPath, path) {
 
 function loadOptionalJson(path) {
     if (fs.existsSync(path)) {
-        log.trace('loading : ' + path, 'scanner')
+        log.trace('loading json: ' + path, 'scanner')
         return fs.readJsonSync(path)
     }
 }
 
 function loadOptionalList(path) {
     if (fs.existsSync(path)) {
-        log.trace('loading : ' + path, 'scanner')
+        log.trace('loading list: ' + path, 'scanner')
         const data = fs.readFileSync(path, 'utf8')
         const list = data.split(/\r?\n/g)
-            .filter(e => e.trim().length > 0)
-            .filter(e => !e.trim().startsWith('#'))
+                .map(e => e.trim())
+                .filter(e => e.length > 0)
+                .filter(e => !e.startsWith('#'))
         return list
+    } else {
+        return []
     }
 }
 
-function scanPackageDependencies(packageJson) {
+function scanPackageDependencies(mix, packageJson) {
     if (!packageJson || !_.isObject(packageJson.dependencies)) return
     let ls = []
     Object.keys(packageJson.dependencies).forEach(d => {
         if (d.endsWith('mix') || d.endsWith('mod') || d.endsWith('fix')) {
-            ls.push(d)
+            if (d !== mix) ls.push(d)
         }
     })
     return ls.length > 0? ls : undefined
@@ -68,8 +72,16 @@ const Unit = function(id, mix, type, path, requireMix) {
     this.path = path
     this.requireMix = requireMix
     this.pak = loadOptionalJson(lib.addPath(path, 'pak.json'))
-    this.ignore = loadOptionalList(lib.addPath(path, 'jam.ignore'))
+    this.ignore = loadOptionalList(lib.addPath(path, 'unit.ignore'))
     this.ls = listFiles(path, '')
+
+    this.toString = function() {
+        let s = 'unit/' + this.type + ' [' + this.id + ']\n'
+        s += 'path: ' + this.path + '\n'
+        s += this.ls.map(f => '* ' + f).join('\n')
+        s += this.ignore.map(f => '- ' + f).join('\n')
+        return s
+    }
 }
 
 const UnitMap = function() {
@@ -139,40 +151,46 @@ UnitMap.prototype.forEach = function(fn) {
     Object.values(this.units).forEach(fn)
 }
 
-let scanMix = function(units, path, mix) {
+function includePath(units, mix, fullPath, entry, requireMix) {
+    if (entry.endsWith('.pub') || entry === 'pub') {
+        units.register(new Unit(mix, mix, 'pub', fullPath, requireMix))
+    } else if (entry.endsWith('.fix') || entry === 'fix') {
+        units.register(new Unit(lib.addPath(mix, entry), mix, 'fix', fullPath, requireMix))
+    } else if (entry.endsWith('.mod') || entry === 'mod') {
+        units.register(new Unit(lib.addPath(mix, entry), mix, 'mod', fullPath, requireMix))
+    } else if (entry.endsWith('.sample')) {
+        units.registerSample({
+            id: lib.addPath(mix, entry),
+            name: entry.substring(0, entry.length-7),
+            mix: mix,
+            type: 'sample',
+            path: fullPath,
+        })
+    } else if (entry.endsWith('.patch')) {
+        units.registerPatch({
+            id: lib.addPath(mix, entry),
+            name: entry.substring(0, entry.length-6),
+            mix: mix,
+            type: 'patch',
+            path: fullPath,
+        })
+    } else if (entry === '') {
+        units.register(new Unit(lib.addPath(mix, entry), mix, 'mod', fullPath, requireMix))
+    }
+}
+
+const scanMix = function(units, path, mix) {
     if (!mix) mix = ''
 
     const packageJson = loadOptionalJson(lib.addPath(path, 'package.json'))
-    const require = scanPackageDependencies(packageJson)
+    const requireMix = scanPackageDependencies(mix, packageJson)
 
     fs.readdirSync(path).forEach(entry => {
         const fullPath = lib.addPath(path, entry)
         
         const lstat = fs.lstatSync(fullPath)
         if (lstat.isDirectory()) {
-            if (entry.endsWith('.pub') || entry === 'pub') {
-                units.register(new Unit(mix, mix, 'pub', fullPath, require))
-            } else if (entry.endsWith('.fix') || entry === 'fix') {
-                units.register(new Unit(lib.addPath(mix, entry), mix, 'fix', fullPath, require))
-            } else if (entry.endsWith('.mod') || entry === 'mod') {
-                units.register(new Unit(lib.addPath(mix, entry), mix, 'mod', fullPath, require))
-            } else if (entry.endsWith('.sample')) {
-                units.registerSample({
-                    id: lib.addPath(mix, entry),
-                    name: entry.substring(0, entry.length-7),
-                    mix: mix,
-                    type: 'sample',
-                    path: fullPath,
-                })
-            } else if (entry.endsWith('.patch')) {
-                units.registerPatch({
-                    id: lib.addPath(mix, entry),
-                    name: entry.substring(0, entry.length-6),
-                    mix: mix,
-                    type: 'patch',
-                    path: fullPath,
-                })
-            }
+            includePath(units, mix, fullPath, entry, requireMix)
         }
     })
 }
@@ -197,23 +215,69 @@ let scanModules = function(units, path) {
     }
 }
 
+function determineScanMap() {
+    if (env.sketch) {
+        log.debug('running in sketch mode', 'scanner')
+
+        env.scanMap = {
+            units: [
+                env.jamPath
+            ],
+            mixes: [
+                env.jamModules
+            ],
+        }
+    } else {
+        log.debug('running in package mode', 'scanner')
+    }
+
+    // try to read unit structure from a file
+    env.scanMap = lib.readOptionalJson(env.unitsConfig, env.scanMap)
+
+    return env.scanMap
+}
+
+function scanUnits() {
+    lib.verifyBaseDir()
+    const base = env.baseDir
+
+    const scanMap = determineScanMap()
+
+    log.debug('scanning environment for collider.jam units...', TAG)
+    const units = new UnitMap()
+
+    if (_.isArray(scanMap.mixes)) scanMap.mixes.forEach(path => {
+        scanModules(units, lib.formPath(base, path))
+    })
+
+    if (_.isArray(scanMap.units)) scanMap.units.forEach(path => {
+        scanMix(units, lib.formPath(base, path))
+    })
+
+    if (_.isArray(scanMap.paths)) scanMap.paths.forEach(path => {
+        const fullPath = lib.formPath(base, path)
+        const i = fullPath.lastIndexOf('/')
+        let entry = fullPath
+        if (i >= 0) {
+            entry = fullPath.substring(i+1)
+        }
+
+        includePath(units, '', fullPath, entry)
+    })
+
+    if (env.sketch) {
+        includePath(units, '', './', 'mod')
+    }
+
+    log.debug('units found: ' + units.length, TAG)
+    return units
+}
+
 module.exports = {
 
     // scan collider project structure
-    scan: function(base, scanMap) {
-        log.debug('scanning environment for collider.jam units...', TAG)
-        let units = new UnitMap()
-
-        _.isArray(scanMap.mixes)? scanMap.mixes.forEach(path => {
-            scanModules(units, lib.addPath(base, path))
-        }) : false
-
-        _.isArray(scanMap.units)? scanMap.units.forEach(path => {
-            scanMix(units, lib.addPath(base, path))
-        }) : false
-
-        log.debug('units found: ' + units.length, TAG)
-        return units.generateMap()
+    scan: function() {
+        return scanUnits().generateMap()
     },
 
     // scan a single unit structure
@@ -229,4 +293,23 @@ module.exports = {
         }
         return map
     },
+
+    printUnits: function() {
+        const unitMap = scanUnits()
+
+        Object.values(unitMap.units).forEach(unit => {
+            log.raw("[" + unit.type + "] - '" + unit.id + "': " + unit.path)
+        })
+    },
+
+    printFiles: function() {
+        const unitMap = scanUnits()
+
+        Object.values(unitMap.units).forEach(unit => {
+            log.raw("[" + unit.type + "] - '" + unit.id + "': " + unit.path)
+
+            unit.ls.forEach(f => log.raw('* ' + f))
+            unit.ignore.forEach(f => log.raw('- ' + f))
+        })
+    }, 
 }

@@ -3,6 +3,11 @@
 module.exports = {
     version: '0.1.0 DR1',
 
+    PACKAGE_MODE: 0,
+    MOD_MODE: 1,
+
+    mode: 0,
+    sketch: false,
     debug: false,
     verbose: false,
     silent: false,
@@ -20,6 +25,7 @@ module.exports = {
 	distDir: 'dist',
     unitsConfig: 'units.json',
     scanMap: {
+        paths: [],
         units: [
             ''
         ],
