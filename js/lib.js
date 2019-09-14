@@ -11,7 +11,17 @@ module.exports = {
 
     addPath: function(base, path) {
         if (!base) return path
+        if (!path) return base
         if (base.length >= 1 && !base.endsWith('/')) base += '/'
+        return base + path
+    },
+
+    formPath: function(base, path) {
+        if (!base) return path
+        if (!path) return base
+        if (base.length >= 1 && !base.endsWith('/')) base += '/'
+
+        if (base === './' && path.startsWith('/')) return path
         return base + path
     },
 
@@ -29,16 +39,12 @@ module.exports = {
     checkBaseDir: function(path) {
         let packageMarker = false
         let modMarker = false
-        let mixMarker = false
 
         let lstat = fs.lstatSync(path)
         if (lstat.isDirectory()) {
             const realpath = fs.realpathSync(path)
             if (realpath.endsWith('mod')) {
                 modMarker = true
-            }
-            if (realpath.endsWith('mix')) {
-                mixMarker = true
             }
             fs.readdirSync(path).forEach(entry => {
                 if (entry === env.unitsJson || entry === 'package.json') {
@@ -54,17 +60,12 @@ module.exports = {
                 mode: env.PACKAGE_MODE,
                 path: path,
             }
-        } else if (mixMarker) {
-            base = {
-                mode: env.MIX_MODE,
-                path: path,
-            }
-        }
-        else if (modMarker) {
+        } else if (modMarker) {
             base = {
                 mode: env.MOD_MODE,
                 path: path,
             }
+            env.sketch = true
         }
         return base 
     },

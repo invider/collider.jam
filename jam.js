@@ -6,6 +6,7 @@ const hub = require('./js/hub')
 const init  = require('./js/init')
 const { bootstrap, patch } = require('./js/bootstrap')
 const { generate, clean } = require('./js/packager')
+const { printUnits, printFiles } = require('./js/scanner')
 const help = require('./js/help')
 const player = require('./js/player')
 
@@ -32,6 +33,7 @@ for (let i = 2; i < args.length; i++) {
         lastOption = 'test'
         env.test = true
         env.config.test = true
+
     } else if (arg === '-h' || arg === '--hub') {
         env.hub = true
         env.config.hub = true
@@ -57,9 +59,10 @@ for (let i = 2; i < args.length; i++) {
         parsedOption = false
 
     } else if (arg === '-m' || arg === '--mute') {
+        // switch off all except warnings and errors
         env.mute = true
-        log.debug = log.off
         log.trace = log.off
+        log.debug = log.off
         log.out = log.off
         log.raw = log.off
         log.dump = log.off
@@ -68,7 +71,7 @@ for (let i = 2; i < args.length; i++) {
     } else if (arg === '-h' || arg === '--help') {
         cmd = 'help'
 
-    } else if (arg === '-v' || arg === '--version') {
+    } else if (arg === '--version') {
         cmd = 'version'
 
     } else if (arg.startsWith('--')) {
@@ -96,6 +99,10 @@ if (!env.debug && !env.verbose) {
     log.dump = log.off
 }
 
+// save collider.jam node modules base
+env.jamPath = module.path
+env.jamModules = module.paths[0]
+
 switch(cmd) {
     case 'version': log.raw(env.version); break;
     case 'run': hub.start(); break;
@@ -105,6 +112,8 @@ switch(cmd) {
     case 'patch': patch(); break;
     case 'pack': generate(); break;
     case 'clean': clean(env.params[0]); break;
+    case 'units': printUnits(); break;
+    case 'files': printFiles(); break;
     case 'help': help(); break;
     default: log.fatal('unknown command: ' + cmd, TAG)
 }
