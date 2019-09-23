@@ -5,3 +5,6 @@
 # nodejs
 node_modules
 
+# collider.jam
+units.json
+

@@ -12,4 +12,5 @@
 > smart event bindings
 
 V log(msg) should be a function - not a raw frame
+V units.json is loaded from jam or local folder and not from the base
 

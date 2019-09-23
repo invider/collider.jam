@@ -227,11 +227,16 @@ function determineScanMap() {
                 env.jamModules
             ],
         }
+
     } else {
         log.debug('running in package mode', 'scanner')
     }
 
-    // try to read unit structure from a file
+    // try to read default unit structure from jam
+    env.scanMap = lib.readOptionalJson(
+        lib.addPath(env.jamPath, env.unitsConfig), env.scanMap)
+
+    // try to read unit structure from local project
     env.scanMap = lib.readOptionalJson(env.unitsConfig, env.scanMap)
 
     return env.scanMap
