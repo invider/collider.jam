@@ -1,0 +1,16 @@
+
+0.0.1-DR1 2019-09-27
+
+[!] first public release
+[+] core scene structure
+[+] game lifecycle
+[+] main game loop
+[+] entities spawning
+[+] resources auto-loading
+[+] customized scope code evaluation
+[+] basic libraries including math helpers
+[+] rudimentary hud subsystem
+[+] debug tools - log, status info, console, explorer
+[+] web packaging
+[+] electron packaging
+
