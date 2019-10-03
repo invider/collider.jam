@@ -27,7 +27,7 @@ _And pixelate reality!_
 
 Table of Contents
 -----------------
-* [Jam Shell](#jam-shell)
+* [Install](#install)
 * [Flying Saucer](#flying-saucer)
 * [Spaceship](#spaceship)
 * [Jam Mixes](#jam-mixes)
@@ -41,10 +41,10 @@ Check out tutorials and code examples below.
 And pixelate reality!
 
 
-Jam Shell
----------
+Install
+-------
 
-To start jamming, we need to install collider.jam shell module globally.
+To start jamming, we need to install collider.jam package globally.
 The shell can bootstrap and run collider.jam projects.
 
 Make sure you have the latest Node.js installed
@@ -70,7 +70,17 @@ You can use [*brew*](https://brew.sh/) on MacOS X and preferably
 Now, to install collider.jam shell, run:
 
 ```
+npm install -g collider.jam
+```
+
+Or to install latest stable version straight from the github:
+```
 npm install -g https://github.com/invider/collider.jam.git
+```
+
+Or night builds maybe?:
+```
+npm install -g https://github.com/invider/collider.jam.git#develop
 ```
 
 When installed, you can try _version_:
@@ -336,12 +346,9 @@ Check our following links:
 Also check out tutorials from the section below.
 
 
-
 Tutorials
 ---------
-* [Blocks]
-* [Space Shooter]
-* [Platformer]
+In progress...
 
 [How To](man/HowTo.md)
 ----------------------
@@ -352,9 +359,9 @@ Jamming Games
 Check out the following games. All created during various game jams and powered by *_collider.jam_*.
 
 * [300 Hearts for Escape](https://github.com/invider/300-hearts-for-escape) - *[Play](https://github.com/invider/300-hearts-for-escape)* - a survival trading game placed on an isolated island created during Ludum Dare 44.
+* [Xeno Relay Day](https://github.com/invider/xeno-relay-day) - *[Play](https://ingwar.itch.io/xeno-relay-day)* - cosmic relay network puzzler created during Global Game Jam 2018.
 * [Dream Rocket Boy](https://github.com/invider/dream-rocket-boy) - *[Play](https://github.com/invider/dream-rocket-boy)* - a single screen platformer created for Global Game Jam 2019.
 * [Master of Ritual](https://github.com/invider/master-of-ritual) - *[Play](https://ingwar.itch.io/master-or-ritual)* - dungeon crawler from Ludum Dare 43.
-* [Xeno Relay Day](https://github.com/invider/xeno-relay-day) - *[Play](https://ingwar.itch.io/xeno-relay-day)* - cosmic relay network puzzler created during Global Game Jam 2018.
 
 
 Jam Mixes
@@ -371,8 +378,9 @@ These are essential modules of the framework:
 How to Contribute
 -----------------
 
-<img src="res/social/discord.svg" alt="discord logo" height="24" width="24"> <a href="https://discord.gg/c8Wmqd">Join our Discord server</a>
+<a href="https://discord.gg/c8Wmqd">Join our Discord server</a>
 
-<img src="res/social/facebook.png" alt="facebook logo" height="24" width="24"> <a href="https://www.facebook.com/colliderlabs">Like _Collider Labs_ on Facebook</a>
+<a href="https://www.facebook.com/colliderlabs">Like _Collider Labs_ on Facebook</a>
 
-<img src="res/social/twitter.svg" alt="twitter logo" height="24" width="24"> <a href="https://twitter.com/chaostarter">Follow Igor Khotin on Twitter</a>
+<a href="https://twitter.com/chaostarter">Follow Igor Khotin on Twitter</a>
+

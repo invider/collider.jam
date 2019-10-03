@@ -3,19 +3,19 @@
   "version": "0.0.1",
   "description": "Easy and fun game framework for jamming and rapid game prototyping",
   "keywords": [
-      "game framework",
-      "game engine",
-      "game jamming",
-      "game prototyping",
-      "game development",
-      "gamedev",
-      "game",
-      "framework",
-      "draw",
-      "canvas",
-      "HTML5",
-      "2d",
-      "visualization"
+    "game framework",
+    "game engine",
+    "game jamming",
+    "game prototyping",
+    "game development",
+    "gamedev",
+    "game",
+    "framework",
+    "draw",
+    "canvas",
+    "HTML5",
+    "2d",
+    "visualization"
   ],
   "main": "jam.js",
   "scripts": {
@@ -25,8 +25,8 @@
     "jam": "./jam.js"
   },
   "repository": {
-      "type": "git",
-      "url": "https://github.com/invider/collider.jam.git"
+    "type": "git",
+    "url": "https://github.com/invider/collider.jam.git"
   },
   "dependencies": {
     "archiver": "^3.0.0",
