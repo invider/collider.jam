@@ -11,14 +11,14 @@
   },
   "dependencies": {
     "archiver": "^3.1.1",
+    "collider-debug.mix": "git+https://github.com/invider/collider-debug.mix.git",
     "express": "^4.17.1",
     "express-ws": "latest",
     "fs-extra": "^8.1.0",
     "open": "^6.4.0",
     "request": "latest",
-    "socket.io": "latest",
-    "underscore": "latest",
-    "collider-debug.mix": "https://github.com/invider/collider-debug.mix.git"
+    "socket.io": "^2.3.0",
+    "underscore": "latest"
   },
   "author": "Igor Khotin & Co.",
   "license": "BSD-3-Clause"
