@@ -8,7 +8,7 @@ mod - core entity that keeps all the code, state and other mods
  |
  |--boot - this node runs first and shows resource booting progress
  |--log - log functions and log telemetry
- |--sys - system functions like augment(), supplement(), after(), before()...
+ |--sys - system function definition
  |--lib - place for utility functions like math.*
  |--res - place for all resources (png, jpg, json, txt, csv etc...)
  |--dna - game objects to spawn; they go to /lab when spawned
@@ -44,8 +44,8 @@ res
  |-message.lines - load text as an array of lines (e.g. res.message[1] will be the second line)
  |-tiles.map32x32.png - a tile object will be created with tiles sized as 32x32 pixels
  |
- |-sfx - sound effects go here
- |  |- jump.wav - play it half-volume with lib.sfx(res.sfx.jump, 0.5)
+ |-sfx - sound effects will go here
+ |  |- jump.wav - play it half-volume with sfx(res.sfx.jump, 0.5)
  |
  |-fnt - place some ttf fonts in this folder - will be loaded and include automatically
  |  |- boo-city.ttf

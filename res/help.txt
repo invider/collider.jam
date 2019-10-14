@@ -6,11 +6,12 @@ Following commands are available:
     init <sample-name> - init and bootstrap the project from the template
     bootstrap <sample-name> - bootstrap from a sample
     patch <patch-name> - fix the project with a patch
-    units - examine and show units structure
     pack - assemble all units and static content in ./pub folder
     clean - remove all generated content
-	clean all - remove all generated content and installed modules
+	clean all - remove all generated content and locally installed modules
     update - update dependencies
+    units - list units
+    files - list indexed files for each unit
     help - this message
 
 Available [jam options]:
@@ -20,7 +21,7 @@ Available [jam options]:
     -s, --static - static mode
     -h, --hub - run mix hub
     -mc, --mission-control - run collider.jam mission control
-    -v, --version - alternate option for version
+    --version - alternate option for version
     -h, --help - alternate option for help
 
     [custom options] can be declared and used later in hub or mod.

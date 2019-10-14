@@ -21,21 +21,28 @@ let start = function() {
     log.out('====================')
     log.debug('starting collider.jam hub...', TAG)
 
-    lib.verifyBaseDir()
+    // fix module paths
+    module.paths.push('./')
+    module.paths.push('./node_modules')
 
+    const unitsMap = scanner.scan()
+    packager.pack(env.baseDir, env.outDir, unitsMap)
+
+    /*
     // add local folder to paths and require extentions
     module.paths.push('./')
     module.paths.push('./node_modules')
 
     env.scanMap = lib.readOptionalJson(env.unitsConfig, env.scanMap)
-    let scannedUnits = scanner.scan(env.baseDir, env.scanMap)
-    packager.pack(env.baseDir, env.outDir, scannedUnits)
+    let unitsMap = scanner.scan(env.baseDir, env.scanMap)
+    */
+
 
     if (env.dynamic) {
         env.config.dynamic = true
 
         // mount units
-        scannedUnits.forEach(u => {
+        unitsMap.forEach(u => {
             let unitURL = lib.addPath(env.base, u.id)
             log.debug('mounting ' + unitURL + ' -> ' + u.path, TAG)
 
@@ -58,7 +65,7 @@ let start = function() {
             } else {
                 // find unit's real path before the scan
                 // TODO are we looking for mixes or units or both here?
-                let unit = scannedUnits.units[unitId]
+                let unit = unitsMap.units[unitId]
                 if (unit) {
                     let map = scanner.rescanUnit(unit)
                     res.json(map)
@@ -68,7 +75,8 @@ let start = function() {
             }
         })
 
-        app.get('units.debug', function(req, res) {
+        app.get('/units.debug', function(req, res) {
+            log.out('units debug')
             let map = scanner.scan(env.baseDir, env.scanMap)
             res.json({
                 units: map.units,

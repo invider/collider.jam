@@ -1,7 +1,14 @@
-
 # MacOS X
 .DS_Store
 
 # nodejs
 node_modules
+
+# build and package artifacts
+*.tar
+*.tgz
+*.tar.gz
+
+# collider.jam
+units.json
 
