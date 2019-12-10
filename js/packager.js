@@ -91,9 +91,12 @@ function cleanAndCreateDir(path) {
 }
 
 let pack = function(baseDir, outputDir, units) {
-    if (env.sketch) return
 
-    let outDir = lib.addPath(baseDir, outputDir) + '/'
+    const outDir = env.sketch?
+            lib.addPath(baseDir, `../${env.name}.` + outputDir) + '/'
+            : lib.addPath(baseDir, outputDir) + '/'
+    
+    log.debug(`output dir: [${outDir}]`, TAG)
 	cleanAndCreateDir(outDir)
 
     units.forEach(u => {
