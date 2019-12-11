@@ -26,7 +26,6 @@ let start = function() {
     module.paths.push('./node_modules')
 
     const unitsMap = scanner.scan()
-    packager.pack(env.baseDir, env.outDir, unitsMap)
 
     /*
     // add local folder to paths and require extentions
@@ -87,6 +86,7 @@ let start = function() {
     } else {
         log.out('serving only static package!')
         env.config.dynamic = false
+        packager.pack(env.baseDir, env.outDir, unitsMap)
 
         let localPath = lib.addPath(env.baseDir, env.outDir)
 
