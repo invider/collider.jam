@@ -36,6 +36,16 @@ let start = function() {
     let unitsMap = scanner.scan(env.baseDir, env.scanMap)
     */
 
+    // TODO figure out do we really need that in some scenarios?
+    if (env.config.cors) {
+        log.debug('Allowing cross-origin access')
+        app.use((req, res, next) => {
+            res.header('Access-Control-Allow-Origin', '*')
+            res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-type, Accept')
+            next()
+        })
+    }
+
 
     if (env.dynamic) {
         env.config.dynamic = true
@@ -104,7 +114,7 @@ let start = function() {
     if (env.hub) {
         const boost = require('hub/boost')
         log.debug('boosting the app', TAG)
-        boost(app)
+        boost(app, env)
     }
 
     process.on('uncaughtException', (err) => {
