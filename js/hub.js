@@ -96,8 +96,8 @@ let start = function() {
         app.post('/help/sync', function(req, res) {
             // handle help data
             log.debug('receiving help data from the client...')
+            //console.dir(req.body)
 
-            console.dir(req.body)
             env.cache.help = req.body
 
             res.status(200).send('OK')

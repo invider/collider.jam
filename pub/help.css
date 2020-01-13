@@ -8,26 +8,18 @@ body {
     top: 0;
     padding: 10px;
 
-    margin-left: 25%;
-
-    background: #505560;
-}
-
-.main {
-    position: relative;
-
-    border-style: solid;
-    border-color: red;
+    background-color: #404040;
 }
 
 .tags {
     position: fixed;
     height: 100%;
     width: 25%;
-    top:  0;
+    top:  40px;
     left: 0;
     overflow-x: hidden;
-    padding-top: 20px;
+
+    padding: 15px;
 
     background: #505560;
 }
