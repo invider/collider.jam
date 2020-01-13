@@ -1,0 +1,40 @@
+body {
+    margin: 0;
+}
+
+#searchBar {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    padding: 10px;
+
+    margin-left: 25%;
+
+    background: #505560;
+}
+
+.main {
+    position: relative;
+
+    border-style: solid;
+    border-color: red;
+}
+
+.tags {
+    position: fixed;
+    height: 100%;
+    width: 25%;
+    top:  0;
+    left: 0;
+    overflow-x: hidden;
+    padding-top: 20px;
+
+    background: #505560;
+}
+
+.help {
+    color: #404040;
+    border: 1px red;
+
+    margin-left: 30%;
+}
