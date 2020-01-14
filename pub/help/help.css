@@ -8,7 +8,8 @@ body {
     top: 0;
     padding: 10px;
 
-    background-color: #404040;
+    background-color: #C09020;
+    /* background-color: #404040; */
 }
 
 .tags {
@@ -21,12 +22,15 @@ body {
 
     padding: 15px;
 
-    background: #505560;
+    color: #e9edaf;
+    background: #202530;
+    /* background: #505560; */
 }
 
 .help {
     color: #404040;
     border: 1px red;
+    margin-top: 90px;
 
-    margin-left: 30%;
+    margin-left: 35%;
 }
