@@ -27,13 +27,13 @@ body {
 #tagsPanel {
     position: fixed;
     height: 100%;
-    width: 25%;
+    width: 28%;
     top:  0;
     left: 0;
     overflow-x: hidden;
 
 
-    color: #e9edaf;
+    color: #bd8c37;
     background: #202530;
 
     /* background: #505560; */
@@ -44,14 +44,42 @@ body {
     font-size: 32px;
 }
 
-.tags a:link { color: #e9edaf; }
-.tags a:visited { color: #e9edaf; }
-.tags a:hover { color: #e9edaf; }
-.tags a:active { color: #e9edaf; }
+.tags a:link { color:  #bd8c37; }
+.tags a:visited { color: #bd8c37; }
+.tags a:hover { color: #d4c26c; }
+.tags a:active { color: #cf9a61; }
+/* .tags a:link { color: #d4c26c; } */
+/* .tags a:hover { color: #e9edaf; } */
+
 
 .help {
-    color: #404040;
-    border: 1px red;
+    color: #101112;
 
-    margin-left: 35%;
+    margin-left: 28%;
+}
+
+.meta {
+    /* width: calc(100% - 100px); */
+    width: 80%;
+    margin-left: 10%;
+    padding: 30px;
+    /* background: #dfdfca; */
+    background: #e8e8d5;
+}
+.meta a:link { color: #485f69; }
+.meta a:visited { color: #485f69; }
+.meta a:hover { color: #54869c; }
+.meta a:active { color: #54869c; }
+
+
+.path {
+    color: #505050;
+    font-size: 24px;
+}
+
+.metaHead {
+    /* color: #346a73; */
+    /* color: #348199; */
+    color: #166470;
+    font-size: 36px;
 }

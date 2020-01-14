@@ -40,34 +40,52 @@ function metaSummary(meta) {
         else meta.type = 'link'
     }
 
-    let res = meta.type + ' <b>' + meta.name + '</b>'
+    let res = `<a href="#n${meta.id}">`
+        + meta.type + ' <b>' + meta.name + '</b>'
         + (meta.data? ' - ' + meta.data.head : '')
+        + '</a>'
     return res
 }
 
 function metaToHtml(meta) {
     const res = {}
 
+
     res.tag = `<a href="#n${meta.id}">${meta.path}</a>`
 
-    res.body = `<div id="n${meta.id}">`
-        + meta.path + '<br>'
-        + meta.type + ' <b>' + meta.name + '</b>'
-        + (meta.data? ' - ' + meta.data.head : '')
-        + '</div>'
+    let body = `<div id="n${meta.id}" class="meta">`
+        + `<div class="path">${meta.path}</div>`
+
+    let head = ''
+    if (meta.type === 'object' && meta.proto) {
+        head += meta.proto + ' <b>' + meta.name + '</b>'
+    } else {
+        head += meta.type + ' <b>' + meta.name + '</b>'
+    }
+    head += (meta.data? ' - ' + meta.data.head : '')
+
+    body += `<div class="metaHead">${head}</div>`
+
 
     if (meta.dir) {
-        Object.values(meta.dir).forEach(n => {
-            res.body += '<li>' + metaSummary(n)
-        })
+        const vals = Object.values(meta.dir)
+        if (vals.length > 0) {
+            body += '<hr>'
+            vals.forEach(n => {
+                body += '<li>' + metaSummary(n)
+            })
+        }
     }
+
+    body += '</div>'
     /*
-    res.body =
+    body =
     meta.path + '<br>'
         + meta.type + ' <b>' + meta.name + '</b>'
         + (meta.data? ' - ' + meta.data.head : ''))
     */
 
+    res.body = body
     return res
 }
 
@@ -77,18 +95,16 @@ function printResults(res) {
         printTag(out.tag)
         print(out.body)
     })
+
+    printTag(`<b>Total Results: ${res.length}</b>`)
 }
 
 function filter(data, string, tags) {
     const res = []
     function subfilter(meta) {
         if (!meta) return
-        if (meta.type === 'function') {
-            if (meta.name
-                    && meta.name.toLowerCase().includes(string)) {
-                res.push(meta)
-            }
-        } else if (meta.dir) {
+
+        if (meta.kind === 'Frame' || meta.dir) {
             if (meta.name
                     && meta.name.toLowerCase().includes(string)) {
                 res.push(meta)
@@ -96,6 +112,16 @@ function filter(data, string, tags) {
             Object.values(meta.dir).forEach(submeta => {
                 subfilter(submeta)
             })
+
+        } else if (meta.type === 'function') {
+            if (meta.name
+                    && meta.name.toLowerCase().includes(string)) {
+                res.push(meta)
+            }
+
+        } else {
+            console.log('ignoring ' + meta.name + ' - ' + meta.type
+            + ' - ' + meta.link)
         }
     }
     subfilter(data)
