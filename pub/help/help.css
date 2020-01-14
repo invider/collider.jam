@@ -1,5 +1,10 @@
 body {
     margin: 0;
+    font-size: 28px;
+
+    input[type='text'] {
+        font-size: 24px;
+    }
 }
 
 #searchBar {
@@ -8,29 +13,45 @@ body {
     top: 0;
     padding: 10px;
 
+
     background-color: #C09020;
     /* background-color: #404040; */
 }
 
-.tags {
+#searchField {
+    font-size: 28px;
+    color: #404040;
+}
+
+
+#tagsPanel {
     position: fixed;
     height: 100%;
     width: 25%;
-    top:  40px;
+    top:  0;
     left: 0;
     overflow-x: hidden;
 
-    padding: 15px;
 
     color: #e9edaf;
     background: #202530;
+
     /* background: #505560; */
 }
+
+.tags {
+    padding: 15px;
+    font-size: 32px;
+}
+
+.tags a:link { color: #e9edaf; }
+.tags a:visited { color: #e9edaf; }
+.tags a:hover { color: #e9edaf; }
+.tags a:active { color: #e9edaf; }
 
 .help {
     color: #404040;
     border: 1px red;
-    margin-top: 90px;
 
     margin-left: 35%;
 }

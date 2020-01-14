@@ -9,8 +9,12 @@ const DATA_MISSING = 'Missing help data!<br>'
 
 let gfield
 
-const state = {}
-const cache = {}
+var state = {}
+var cache = {}
+
+function identify(id) {
+    if (cache.index) return cache.index[id]
+}
 
 function clear() {
     const help = document.getElementById('help')
@@ -30,8 +34,14 @@ function printTag(content) {
 }
 
 function metaSummary(meta) {
+    if (meta.link) {
+        const linkMeta = identify(meta.link)
+        if (linkMeta) meta = linkMeta
+        else meta.type = 'link'
+    }
+
     let res = meta.type + ' <b>' + meta.name + '</b>'
-        + (meta.data? ' - ' + meta.data.title : '')
+        + (meta.data? ' - ' + meta.data.head : '')
     return res
 }
 
@@ -43,7 +53,7 @@ function metaToHtml(meta) {
     res.body = `<div id="n${meta.id}">`
         + meta.path + '<br>'
         + meta.type + ' <b>' + meta.name + '</b>'
-        + (meta.data? ' - ' + meta.data.title : '')
+        + (meta.data? ' - ' + meta.data.head : '')
         + '</div>'
 
     if (meta.dir) {
@@ -55,7 +65,7 @@ function metaToHtml(meta) {
     res.body =
     meta.path + '<br>'
         + meta.type + ' <b>' + meta.name + '</b>'
-        + (meta.data? ' - ' + meta.data.title : ''))
+        + (meta.data? ' - ' + meta.data.head : ''))
     */
 
     return res
@@ -112,9 +122,23 @@ function search(data, string) {
     cache.results[string] = res
 }
 
+function index(meta) {
+    if (!meta) return
+    if (meta.link) return
+    if (cache.index[meta.id]) return
+
+    cache.index[meta.id] = meta
+
+    if (meta.dir) Object.values(meta.dir).forEach(submeta => {
+        index(submeta)
+    })
+}
+
 function update(data) {
     cache.data = data
+    cache.index = {}
     cache.results = {}
+    index(data)
     search(data, '')
 }
 
