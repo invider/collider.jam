@@ -16,6 +16,16 @@ function identify(id) {
     if (cache.index) return cache.index[id]
 }
 
+function parentPath(path) {
+    if (path === '/') return
+    const i = path.lastIndexOf('/')
+
+    if (i < 0) return
+
+    if (i === 0) return '/'
+    else return path.substring(0, i)
+}
+
 function clear() {
     const help = document.getElementById('help')
     const tags = document.getElementById('tags')
@@ -48,19 +58,16 @@ function metaSummary(meta) {
 }
 
 function metaTag(meta) {
-    /*
-    return `<a href="#.${meta.path}" class="tagLink">`
-        + `<div class="tag">`
-        + (meta.kind === 'page'? ''
-                : `<div class="tagPath">${meta.path}</div>`)
-        + `<div class="tagTitle">${meta.name}</div>`
-        + `<div></a>`
-    */
-    return `<div class="tag" onclick="location.href='#.${meta.path}';">`
-        + (meta.kind === 'page'? ''
-                : `<div class="tagPath">${meta.path}</div>`)
+    let res = `<div class="tag" onclick="location.href='#.${meta.path}';">`
+
+    let path = parentPath(meta.path)
+    if (meta.kind === 'page' || !path) path = ''
+
+    res += `<div class="tagPath">${path}</div>`
         + `<div class="tagTitle">${meta.name}</div>`
         + `<div>`
+
+    return res
 }
 
 function pageToHtml(page) {
@@ -72,7 +79,10 @@ function pageToHtml(page) {
     res.tag = metaTag(page)
 
     let body = `<div id=".${page.path}" class="meta">`
-    body += `<b>${page.name}</b>`
+    
+    const head = `${page.name}`
+    body += `<div class="metaHead">${head}</div>` 
+    body += '<hr>'
     body += `<pre>${page.body}</pre>`
     body += '</div>'
     cache.links[page.id] = page
@@ -88,9 +98,17 @@ function metaToHtml(meta) {
     res.tag = metaTag(meta)
 
     let body = `<div id=".${meta.path}" class="meta">`
-        + `<div class="path">${meta.path}</div>`
     cache.links[meta.id] = meta
     cache.links[meta.path] = meta
+
+    const upPath = parentPath(meta.path)
+    if (upPath) {
+       body +=  `<div class="path">`
+            + `<a href="#.${upPath}" class="pathLink">`
+            + `${upPath}</a></div>`
+    } else {
+        //body += `<div class="path">${meta.path}</div>`
+    }
 
     let head = ''
     if (meta.type === 'object' && meta.proto) {
@@ -163,7 +181,9 @@ function filter(data, string, tags) {
         // now processing flat without subfolders
         Object.values(dir).forEach(page => {
             if (page.path.toLowerCase().includes(string)) {
-                res.push(page)
+                // dirty rule - intro page should always be first
+                if (page.path === 'intro') res.unshift(page)
+                else res.push(page)
             }
         })
     }

@@ -79,6 +79,8 @@ body {
     width: 80%;
     margin-left: 10%;
     padding: 30px;
+
+    font-size: 20px;
     /* background: #dfdfca; */
     background: #e8e8d5;
 }
@@ -91,6 +93,10 @@ body {
 .path {
     color: #505050;
     font-size: 24px;
+}
+
+.pathLink {
+    text-decoration: none;
 }
 
 .metaHead {
