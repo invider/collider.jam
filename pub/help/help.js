@@ -40,21 +40,37 @@ function metaSummary(meta) {
         else meta.type = 'link'
     }
 
-    let res = `<a href="#n${meta.id}">`
+    let res = `<a href="#.${meta.path}">`
         + meta.type + ' <b>' + meta.name + '</b>'
         + (meta.data? ' - ' + meta.data.head : '')
         + '</a>'
     return res
 }
 
+function pageToHtml(page) {
+    const res = {}
+
+    res.tag = `<a href="#.${page.name}">${page.name}</a>`
+    let body = `<div id=".${page.name}" class="meta">`
+    body += `<b>${page.name}</b>`
+    body += `<pre>${page.body}</pre>`
+    body += '</div>'
+    cache.links[page.id] = page
+    cache.links[page.name] = page
+
+    res.body = body
+    return res
+}
+
 function metaToHtml(meta) {
     const res = {}
 
+    res.tag = `<a href="#.${meta.path}">${meta.path}</a>`
 
-    res.tag = `<a href="#n${meta.id}">${meta.path}</a>`
-
-    let body = `<div id="n${meta.id}" class="meta">`
+    let body = `<div id=".${meta.path}" class="meta">`
         + `<div class="path">${meta.path}</div>`
+    cache.links[meta.id] = meta
+    cache.links[meta.path] = meta
 
     let head = ''
     if (meta.type === 'object' && meta.proto) {
@@ -64,8 +80,8 @@ function metaToHtml(meta) {
     }
     head += (meta.data? ' - ' + meta.data.head : '')
 
-    body += `<div class="metaHead">${head}</div>`
-
+    let headClass = meta.data? 'metaHead' : 'missingHead'
+    body += `<div class="${headClass}">${head}</div>`
 
     if (meta.dir) {
         const vals = Object.values(meta.dir)
@@ -90,8 +106,14 @@ function metaToHtml(meta) {
 }
 
 function printResults(res) {
+    // TODO cache that in result obj?
+    cache.links = {}
+
     res.forEach(meta => {
-        const out = metaToHtml(meta)
+        let out
+        if (meta.kind === 'page') out = pageToHtml(meta)
+        else out = metaToHtml(meta)
+
         printTag(out.tag)
         print(out.body)
     })
@@ -99,8 +121,33 @@ function printResults(res) {
     printTag(`<b>Total Results: ${res.length}</b>`)
 }
 
+function open(locator) {
+    const meta = cache.index[locator]
+    if (!meta) return
+
+    const res = [ meta ]
+    clear()
+    printResults(res)
+
+    state.result = res
+    state.searchString = '#.' + locator
+    cache.results[state.searchString] = res
+
+    return meta
+}
+
 function filter(data, string, tags) {
     const res = []
+
+    function filterPages(dir) {
+        // now processing flat without subfolders
+        Object.values(dir).forEach(page => {
+            if (page.name.toLowerCase().includes(string)) {
+                res.push(page)
+            }
+        })
+    }
+
     function subfilter(meta) {
         if (!meta) return
 
@@ -120,11 +167,13 @@ function filter(data, string, tags) {
             }
 
         } else {
-            console.log('ignoring ' + meta.name + ' - ' + meta.type
-            + ' - ' + meta.link)
+            //console.log('ignoring ' + meta.name + ' - ' + meta.type
+            //+ ' - ' + meta.link)
         }
     }
-    subfilter(data)
+
+    filterPages(data.pages)
+    subfilter(data.scene)
 
     return res
 }
@@ -148,12 +197,18 @@ function search(data, string) {
     cache.results[string] = res
 }
 
+function setSearch(string) {
+    console.log('set search: [' + string + ']')
+    location.hash = encodeURI(string)
+}
+
 function index(meta) {
     if (!meta) return
     if (meta.link) return
     if (cache.index[meta.id]) return
 
     cache.index[meta.id] = meta
+    if (meta.path) cache.index[meta.path] = meta
 
     if (meta.dir) Object.values(meta.dir).forEach(submeta => {
         index(submeta)
@@ -164,8 +219,11 @@ function update(data) {
     cache.data = data
     cache.index = {}
     cache.results = {}
-    index(data)
-    search(data, '')
+    index(data.scene)
+    // TODO make meta processing more generic
+    Object.values(data.pages).forEach(p => index(p))
+    //search(data, '')
+    syncHash()
 }
 
 function showError(msg) {
@@ -195,13 +253,33 @@ function setup() {
     const field = document.getElementById(FIELD)
 
     field.onkeyup = function() {
-        search(cache.data, field.value)
+        //search(cache.data, field.value)
+        setSearch(field.value)
     }
 
     loadMeta()
 }
 
+function syncHash() {
+    if (!location.hash.startsWith('#.')) {
+        search(cache.data, decodeURI(location.hash.substring(1)))
+
+    } else {
+        const link = location.hash.substring(2)
+        if (!cache.links[link]) {
+            // looks like the object is not printed
+            // need to search and show it by id
+            console.log('opening: ' + link)
+            const meta = open(link)
+            console.dir(meta)
+        }
+    }
+}
+
 window.onload = setup
+
+window.onhashchange = syncHash 
+
 window.onkeydown = function(e) {
     if (e.repeat) return
 
@@ -210,3 +288,4 @@ window.onkeydown = function(e) {
         field.focus()
     }
 }
+
