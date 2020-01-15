@@ -40,8 +40,7 @@ body {
 }
 
 .tags {
-    padding: 15px;
-    font-size: 32px;
+    padding: 0;
 }
 
 .tags a:link { color:  #bd8c37; }
@@ -51,6 +50,23 @@ body {
 /* .tags a:link { color: #d4c26c; } */
 /* .tags a:hover { color: #e9edaf; } */
 
+.tag {
+    padding: 20px;
+    margin: 0px;
+}
+.tag:hover {
+    background: #505050;
+}
+
+.tagLink {
+    text-decoration: none;
+}
+.tagName {
+    font-size: 32px;
+}
+.tagPath {
+    font-size: 20px;
+}
 
 .help {
     color: #101112;

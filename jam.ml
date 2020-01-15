@@ -1,3 +1,4 @@
+> make help url to contain both search predicates and locator - would be more consistent
 ? move functions like select out of Frame, so there is less chance of name collisions
 > sketch mod and sketch mix modes
 > mutate function or other object into a frame

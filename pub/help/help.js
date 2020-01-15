@@ -30,7 +30,7 @@ function print(content) {
 
 function printTag(content) {
     const tags = document.getElementById('tags')
-    tags.innerHTML += '<li>' + content
+    tags.innerHTML += content
 }
 
 function metaSummary(meta) {
@@ -47,16 +47,36 @@ function metaSummary(meta) {
     return res
 }
 
+function metaTag(meta) {
+    /*
+    return `<a href="#.${meta.path}" class="tagLink">`
+        + `<div class="tag">`
+        + (meta.kind === 'page'? ''
+                : `<div class="tagPath">${meta.path}</div>`)
+        + `<div class="tagTitle">${meta.name}</div>`
+        + `<div></a>`
+    */
+    return `<div class="tag" onclick="location.href='#.${meta.path}';">`
+        + (meta.kind === 'page'? ''
+                : `<div class="tagPath">${meta.path}</div>`)
+        + `<div class="tagTitle">${meta.name}</div>`
+        + `<div>`
+}
+
 function pageToHtml(page) {
     const res = {}
 
-    res.tag = `<a href="#.${page.name}">${page.name}</a>`
-    let body = `<div id=".${page.name}" class="meta">`
+    /*
+    res.tag = `<div class="tag"><a href="#.${page.path}">${page.title}</a></div>`
+    */
+    res.tag = metaTag(page)
+
+    let body = `<div id=".${page.path}" class="meta">`
     body += `<b>${page.name}</b>`
     body += `<pre>${page.body}</pre>`
     body += '</div>'
     cache.links[page.id] = page
-    cache.links[page.name] = page
+    cache.links[page.path] = page
 
     res.body = body
     return res
@@ -65,7 +85,7 @@ function pageToHtml(page) {
 function metaToHtml(meta) {
     const res = {}
 
-    res.tag = `<a href="#.${meta.path}">${meta.path}</a>`
+    res.tag = metaTag(meta)
 
     let body = `<div id=".${meta.path}" class="meta">`
         + `<div class="path">${meta.path}</div>`
@@ -142,7 +162,7 @@ function filter(data, string, tags) {
     function filterPages(dir) {
         // now processing flat without subfolders
         Object.values(dir).forEach(page => {
-            if (page.name.toLowerCase().includes(string)) {
+            if (page.path.toLowerCase().includes(string)) {
                 res.push(page)
             }
         })
@@ -198,7 +218,6 @@ function search(data, string) {
 }
 
 function setSearch(string) {
-    console.log('set search: [' + string + ']')
     location.hash = encodeURI(string)
 }
 
@@ -252,26 +271,51 @@ function loadMeta() {
 function setup() {
     const field = document.getElementById(FIELD)
 
-    field.onkeyup = function() {
-        //search(cache.data, field.value)
-        setSearch(field.value)
+    field.onkeyup = function(e) {
+        if (e.code === 'Enter') {
+            setSearch(field.value)
+            field.blur()
+            //field.value = ''
+        } else {
+            search(cache.data, field.value)
+        }
+    }
+
+    if (!location.hash.startsWith('#.')) {
+        field.value = decodeURI(location.hash.substring(1))
     }
 
     loadMeta()
 }
 
+
+
 function syncHash() {
+    if (!cache.data) {
+        // no metadata yet
+        setTimeout(syncHash, 100)
+        return
+    }
+
     if (!location.hash.startsWith('#.')) {
-        search(cache.data, decodeURI(location.hash.substring(1)))
+        const searchString = decodeURI(location.hash.substring(1))
+
+        if (searchString !== cache.searchString) {
+            search(cache.data, searchString)
+        }
 
     } else {
         const link = location.hash.substring(2)
+
+        if (!cache.links) {
+            // nothing is printed - just open
+            const meta = open(link)
+        }
+
         if (!cache.links[link]) {
             // looks like the object is not printed
             // need to search and show it by id
-            console.log('opening: ' + link)
             const meta = open(link)
-            console.dir(meta)
         }
     }
 }
@@ -284,8 +328,15 @@ window.onkeydown = function(e) {
     if (e.repeat) return
 
     if (e.code === 'Escape' || e.code === 'Backspace') {
+
         const field = document.getElementById(FIELD)
-        field.focus()
+
+        if (document.activeElement === field) {
+            field.value = ''
+            setSearch('')
+        } else {
+            field.focus()
+        }
     }
 }
 
