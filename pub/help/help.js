@@ -50,8 +50,10 @@ function metaSummary(meta) {
         else meta.type = 'link'
     }
 
+    const type = meta.kind? meta.kind : meta.type
+
     let res = `<a href="#.${meta.path}">`
-        + meta.type + ' <b>' + meta.name + '</b>'
+        + type + ' <b>' + meta.name + '</b>'
         + (meta.data? ' - ' + meta.data.head : '')
         + '</a>'
     return res
@@ -340,6 +342,7 @@ function syncHash() {
         if (!cache.links) {
             // nothing is printed - just open
             const meta = open(link)
+            return
         }
 
         if (!cache.links[link]) {
