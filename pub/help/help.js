@@ -121,6 +121,11 @@ function metaToHtml(meta) {
     let headClass = meta.data? 'metaHead' : 'missingHead'
     body += `<div class="${headClass}">${head}</div>`
 
+    if (meta.data && meta.data.details) {
+        body += `<hr><div class="metaSection">Details</div>`
+                + `<pre>${meta.data.details}</pre>`
+    }
+
     if (meta.dir) {
         const vals = Object.values(meta.dir)
         if (vals.length > 0) {
@@ -129,6 +134,11 @@ function metaToHtml(meta) {
                 body += '<li>' + metaSummary(n)
             })
         }
+    }
+
+    if (meta.data && meta.data.notes) {
+        body += `<hr><div class="metaSection">Notes</div>`
+                + `<pre>${meta.data.notes}</pre>`
     }
 
     body += '</div>'
@@ -156,7 +166,7 @@ function printResults(res) {
         print(out.body)
     })
 
-    printTag(`<b>Total Results: ${res.length}</b>`)
+    //printTag(`<b>Total Results: ${res.length}</b>`)
 }
 
 function open(locator) {

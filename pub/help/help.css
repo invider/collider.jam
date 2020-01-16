@@ -53,6 +53,7 @@ body {
 .tag {
     padding: 20px;
     margin: 0px;
+    cursor: pointer;
 }
 .tag:hover {
     background: #505050;
@@ -109,4 +110,9 @@ body {
 .missingHead {
     color: #bd5f51;
     font-size: 36px;
+}
+
+.metaSection {
+    color: #166470;
+    font-size: 28px;
 }

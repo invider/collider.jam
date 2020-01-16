@@ -100,7 +100,7 @@ let start = function() {
 
             env.cache.help = req.body
 
-            res.status(200).send('OK')
+            res.status(200).send('done')
         })
 
         app.get('/help/data', function(req, res) {
