@@ -1,3 +1,4 @@
+> font() should accepts both just [name] and [14px name]
 > sketch mod and sketch mix modes
 > mutate function or other object into a frame
 > merge patch strategy
