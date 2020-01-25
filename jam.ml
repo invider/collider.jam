@@ -1,3 +1,4 @@
+> move metadata parser out of loader and schedule it for latter
 > automatic help #tags propagation for all child nodes (e.g. for /cmd or /trap)
 > store in local storage help usage info to show the most popular topics section (or on top?)
 > path in man should be divided to multiple hyperlinks on different nodes in the hierarchy
