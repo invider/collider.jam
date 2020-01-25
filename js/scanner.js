@@ -242,11 +242,13 @@ function determineScanMap() {
     }
 
     // try to read default unit structure from jam
-    env.scanMap = lib.readOptionalJson(
-        lib.addPath(env.jamPath, env.unitsConfig), env.scanMap)
+    const jpath = lib.addPath(env.jamPath, env.unitsConfig)
+    env.scanMap = lib.readOptionalJson(jpath, env.scanMap,
+            () => log.debug(`using ${env.unitsConfig} from: ${jpath}`, TAG))
 
     // try to read unit structure from local project
-    env.scanMap = lib.readOptionalJson(env.unitsConfig, env.scanMap)
+    env.scanMap = lib.readOptionalJson(env.unitsConfig, env.scanMap,
+            () => log.debug(`using local ./${env.unitsConfig}`))
 
     return env.scanMap
 }
