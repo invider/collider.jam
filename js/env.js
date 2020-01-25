@@ -37,4 +37,6 @@ module.exports = {
     base: '/',
     unitsPath: 'units.map',
     configPath: 'jam.config',
+
+    cache: {},
 }

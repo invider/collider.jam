@@ -90,10 +90,22 @@ function cleanAndCreateDir(path) {
     fs.ensureDirSync(path)
 }
 
-let pack = function(baseDir, outputDir, units) {
-    if (env.sketch) return
+const determinePackageName = function() {
+    const base = './'
+    const realPath = fs.realpathSync(base)
+    const name = lib.getResourceName(realPath)
+    env.name = name
+    return name
+}
 
-    let outDir = lib.addPath(baseDir, outputDir) + '/'
+const pack = function(baseDir, outputDir, units) {
+    const name = determinePackageName()
+    const outDir = env.sketch?
+            lib.addPath(baseDir, `../${env.name}.out`) + '/'
+            : lib.addPath(baseDir, outputDir) + '/'
+    env.outDir = outDir
+    
+    log.debug(`output dir: [${outDir}]`, TAG)
 	cleanAndCreateDir(outDir)
 
     units.forEach(u => {
@@ -108,20 +120,15 @@ let pack = function(baseDir, outputDir, units) {
 }
 
 const generate = function() {
-    const base = './'
-    const realPath = fs.realpathSync(base)
-    const name = lib.getResourceName(realPath)
-    env.name = name
-
-    log.debug('generating package [' + name + ']', TAG)
 
     lib.verifyBaseDir()
-
     env.scanMap = lib.readOptionalJson(env.unitsConfig, env.scanMap)
     let scannedUnits = scanner.scan(env.baseDir, env.scanMap)
     pack(env.baseDir, env.outDir, scannedUnits)
 
 	// generate dist archives
+    const name = env.name
+    log.debug(`generating package [${name}]`, TAG)
     const sourceDir = lib.addPath(env.baseDir, env.outDir) + '/'
 	const distDir = lib.addPath(env.baseDir, env.distDir) + '/'
 	cleanAndCreateDir(distDir)

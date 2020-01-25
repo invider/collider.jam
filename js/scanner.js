@@ -53,6 +53,14 @@ function loadOptionalList(path) {
     }
 }
 
+function loadOptionalUnitConfig(path) {
+    const config = loadOptionalJson(path)
+    if (config) {
+        log.debug('extending global config with: ' + path, TAG)
+        _.extendOwn(env.config, config)
+    }
+}
+
 function scanPackageDependencies(mix, packageJson) {
     if (!packageJson || !_.isObject(packageJson.dependencies)) return
     let ls = []
@@ -72,6 +80,7 @@ const Unit = function(id, mix, type, path, requireMix) {
     this.path = path
     this.requireMix = requireMix
     this.pak = loadOptionalJson(lib.addPath(path, 'pak.json'))
+    loadOptionalUnitConfig(lib.addPath(path, 'config.json'))
     this.ignore = loadOptionalList(lib.addPath(path, 'unit.ignore'))
     this.ls = listFiles(path, '')
 
@@ -233,11 +242,13 @@ function determineScanMap() {
     }
 
     // try to read default unit structure from jam
-    env.scanMap = lib.readOptionalJson(
-        lib.addPath(env.jamPath, env.unitsConfig), env.scanMap)
+    const jpath = lib.addPath(env.jamPath, env.unitsConfig)
+    env.scanMap = lib.readOptionalJson(jpath, env.scanMap,
+            () => log.debug(`using ${env.unitsConfig} from: ${jpath}`, TAG))
 
     // try to read unit structure from local project
-    env.scanMap = lib.readOptionalJson(env.unitsConfig, env.scanMap)
+    env.scanMap = lib.readOptionalJson(env.unitsConfig, env.scanMap,
+            () => log.debug(`using local ./${env.unitsConfig}`))
 
     return env.scanMap
 }

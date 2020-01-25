@@ -6,7 +6,7 @@ Following commands are available:
     init <sample-name> - init and bootstrap the project from the template
     bootstrap <sample-name> - bootstrap from a sample
     patch <patch-name> - fix the project with a patch
-    pack - assemble all units and static content in ./pub folder
+    pack - assemble all resources in ./out folder, create archives in ./dist
     clean - remove all generated content
 	clean all - remove all generated content and locally installed modules
     update - update dependencies

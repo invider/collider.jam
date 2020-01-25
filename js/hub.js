@@ -14,7 +14,7 @@ let start = function() {
 
     const app = express()
     const wss = require('express-ws')(app);
-    app.use(express.json())
+    app.use(express.json({ limit: '4mb' }))
 
     log.out('=== COLLIDER.JAM ===')
     log.out('version: ' + env.version) 
@@ -26,7 +26,6 @@ let start = function() {
     module.paths.push('./node_modules')
 
     const unitsMap = scanner.scan()
-    packager.pack(env.baseDir, env.outDir, unitsMap)
 
     /*
     // add local folder to paths and require extentions
@@ -37,18 +36,35 @@ let start = function() {
     let unitsMap = scanner.scan(env.baseDir, env.scanMap)
     */
 
+    // TODO figure out do we really need that in some scenarios?
+    if (env.config.cors) {
+        log.debug('Allowing cross-origin access')
+        app.use((req, res, next) => {
+            res.header('Access-Control-Allow-Origin', '*')
+            res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-type, Accept')
+            next()
+        })
+    }
+
 
     if (env.dynamic) {
         env.config.dynamic = true
 
         // mount units
+        let rootFlag = false
         unitsMap.forEach(u => {
             let unitURL = lib.addPath(env.base, u.id)
             log.debug('mounting ' + unitURL + ' -> ' + u.path, TAG)
 
+            if (unitURL === '/') rootFlag = true
             app.use(unitURL, express.static(u.path))
             u.url = unitURL
         })
+        if (!rootFlag) {
+            log.error('===========================================================', TAG)
+            log.error('No root path mounted! Could be a trouble with units.config!', TAG)
+            log.error('===========================================================', TAG)
+        }
 
         app.get(env.base + env.configPath, function(req, res) {
             res.json(env.config)
@@ -84,9 +100,28 @@ let start = function() {
             })
         })
 
+        app.post('/help/sync', function(req, res) {
+            // handle help data
+            log.debug('receiving help data from the client...')
+            //console.dir(req.body)
+
+            env.cache.help = req.body
+
+            res.status(200).send('done')
+        })
+
+        app.get('/help/data', function(req, res) {
+            if (env.cache.help) {
+                res.json(env.cache.help)
+            } else {
+                res.status(404).send('No help data')
+            }
+        })
+
     } else {
         log.out('serving only static package!')
         env.config.dynamic = false
+        packager.pack(env.baseDir, env.outDir, unitsMap)
 
         let localPath = lib.addPath(env.baseDir, env.outDir)
 
@@ -104,7 +139,7 @@ let start = function() {
     if (env.hub) {
         const boost = require('hub/boost')
         log.debug('boosting the app', TAG)
-        boost(app)
+        boost(app, env)
     }
 
     process.on('uncaughtException', (err) => {

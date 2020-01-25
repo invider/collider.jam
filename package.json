@@ -37,7 +37,7 @@
     "open": "^6.4.0",
     "request": "latest",
     "socket.io": "latest",
-    "underscore": "latest"
+    "underscore": "^1.9.2"
   },
   "author": "Igor Khotin & Co.",
   "license": "zlib"

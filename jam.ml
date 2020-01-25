@@ -1,4 +1,11 @@
 > font() should accepts both just [name] and [14px name]
+> move metadata parser out of loader and schedule it for latter
+> automatic help #tags propagation for all child nodes (e.g. for /cmd or /trap)
+> store in local storage help usage info to show the most popular topics section (or on top?)
+> path in man should be divided to multiple hyperlinks on different nodes in the hierarchy
+> make help url to contain both search predicates and locator - would be more consistent #man
+! man metadata can include page sorting priorities as a list of page names (just like a menu)
+? move functions like select out of Frame, so there is less chance of name collisions
 > sketch mod and sketch mix modes
 > mutate function or other object into a frame
 > merge patch strategy
