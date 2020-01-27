@@ -29,10 +29,14 @@ module.exports = {
         return path.replace(/^.*[\\\/]/, '')
     },
 
-    readOptionalJson: function(path, defaultJson) {
+    readOptionalJson: function(path, defaultJson,
+                                onSuccess, onMissing) {
         if (fs.existsSync(path)) {
-            return fs.readJsonSync(path)
+            const data = fs.readJsonSync(path)
+            if (data && onSuccess) onSuccess()
+            return data
         }
+        if (onMissing) onMissing()
         return defaultJson
     },
 

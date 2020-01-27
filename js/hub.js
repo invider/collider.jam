@@ -14,7 +14,7 @@ let start = function() {
 
     const app = express()
     const wss = require('express-ws')(app);
-    app.use(express.json())
+    app.use(express.json({ limit: '4mb' }))
 
     log.out('=== COLLIDER.JAM ===')
     log.out('version: ' + env.version) 
@@ -51,13 +51,20 @@ let start = function() {
         env.config.dynamic = true
 
         // mount units
+        let rootFlag = false
         unitsMap.forEach(u => {
             let unitURL = lib.addPath(env.base, u.id)
             log.debug('mounting ' + unitURL + ' -> ' + u.path, TAG)
 
+            if (unitURL === '/') rootFlag = true
             app.use(unitURL, express.static(u.path))
             u.url = unitURL
         })
+        if (!rootFlag) {
+            log.error('===========================================================', TAG)
+            log.error('No root path mounted! Could be a trouble with units.config!', TAG)
+            log.error('===========================================================', TAG)
+        }
 
         app.get(env.base + env.configPath, function(req, res) {
             res.json(env.config)
