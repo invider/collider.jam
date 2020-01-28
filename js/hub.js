@@ -5,15 +5,16 @@ const env = require('./env')
 const log = require('./log')
 const scanner = require('./scanner')
 const packager = require('./packager')
+const flow = require('./flow')
 const lib = require('./lib')
 const control = require('./mc/control')
 
 const TAG = 'hub'
 
-let start = function() {
+function start() {
 
     const app = express()
-    const wss = require('express-ws')(app);
+    const ws = require('express-ws')(app);
     app.use(express.json({ limit: '4mb' }))
 
     log.out('=== COLLIDER.JAM ===')
@@ -158,7 +159,21 @@ let start = function() {
     app.listen(env.port, () => {
         log.out('---Listening at http://localhost:' + env.port + ' ---', TAG);
     })
+
+    if (env.flow) flow.start(app, ws)
+    startSyncMonitor()
 }
+
+function startSyncMonitor() {
+    const syncTime = 2000
+    const syncTimeS = Math.round(syncTime/1000)
+    log.debug(`running sync every ${syncTimeS}s...`, TAG)
+
+    setInterval(() => {
+        scanner.sync()
+    }, syncTime)
+}
+
 
 module.exports = {
     start: start,
