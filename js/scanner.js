@@ -9,10 +9,24 @@ const flow = require('./flow')
 
 const TAG = 'scanner'
 
+let logLevel = 2
+
+let scans = 0
 let lastUnits
 
+function trace(msg) {
+    if (logLevel < 2) return
+    log.trace(msg, TAG)
+}
+
+function debug(msg) {
+    if (logLevel === 0) return
+    log.debug(msg, TAG)
+}
+
 function listFiles(unitPath, path, unit, onFile) {
-    log.trace('scanning ' + lib.addPath(unitPath, path), TAG)
+
+    trace('scanning ' + lib.addPath(unitPath, path), TAG)
 
     fs.readdirSync(lib.addPath(unitPath, path)).forEach(entry => {
         const localPath = lib.addPath(path, entry)
@@ -26,7 +40,7 @@ function listFiles(unitPath, path, unit, onFile) {
             if (onFile) {
                 onFile(localPath, fullPath, lstat, unit)
             } else {
-                log.trace('          ? ' + localPath)
+                trace('          ? ' + localPath)
             }
         }
     })
@@ -34,14 +48,14 @@ function listFiles(unitPath, path, unit, onFile) {
 
 function loadOptionalJson(path) {
     if (fs.existsSync(path)) {
-        log.trace('loading json: ' + path, 'scanner')
+        trace('loading json: ' + path)
         return fs.readJsonSync(path)
     }
 }
 
 function loadOptionalList(path) {
     if (fs.existsSync(path)) {
-        log.trace('loading list: ' + path, 'scanner')
+        trace('loading list: ' + path)
         const data = fs.readFileSync(path, 'utf8')
         const list = data.split(/\r?\n/g)
                 .map(e => e.trim())
@@ -56,7 +70,7 @@ function loadOptionalList(path) {
 function loadOptionalUnitConfig(path) {
     const config = loadOptionalJson(path)
     if (config) {
-        log.debug('extending global config with: ' + path, TAG)
+        debug('extending global config with: ' + path, TAG)
         _.extendOwn(env.config, config)
     }
 }
@@ -73,7 +87,7 @@ function scanPackageDependencies(mix, packageJson) {
 }
 
 const Unit = function(id, mix, type, path, requireMix) {
-    log.trace('found ' + type + ' [' + id + ']: ' + path, TAG)
+    trace('found ' + type + ' [' + id + ']: ' + path)
     this.id = id
     this.mix = mix
     this.type = type
@@ -225,7 +239,7 @@ let scanModules = function(units, path) {
                 if (entry.endsWith('.mix')
                         || entry.endsWith('.mod')
                         || entry.endsWith('.fix')) {
-                    log.debug('found a mix: ' + fullPath, TAG)
+                    trace('found a mix: ' + fullPath)
                     scanMix(units, fullPath, entry)
                 }
             }
@@ -237,7 +251,7 @@ let scanModules = function(units, path) {
 
 function determineScanMap() {
     if (env.sketch) {
-        log.debug('running in sketch mode', 'scanner')
+        debug('running in sketch mode')
 
         env.scanMap = {
             units: [
@@ -249,17 +263,17 @@ function determineScanMap() {
         }
 
     } else {
-        log.debug('running in package mode', 'scanner')
+        debug('running in package mode')
     }
 
     // try to read default unit structure from jam
     const jpath = lib.addPath(env.jamPath, env.unitsConfig)
     env.scanMap = lib.readOptionalJson(jpath, env.scanMap,
-            () => log.debug(`using ${env.unitsConfig} from: ${jpath}`, TAG))
+            () => debug(`using ${env.unitsConfig} from: ${jpath}`))
 
     // try to read unit structure from local project
     env.scanMap = lib.readOptionalJson(env.unitsConfig, env.scanMap,
-            () => log.debug(`using local ./${env.unitsConfig}`))
+            () => debug(`using local ./${env.unitsConfig}`))
 
     return env.scanMap
 }
@@ -270,7 +284,7 @@ function scanUnits() {
 
     const scanMap = determineScanMap()
 
-    log.debug('scanning environment for collider.jam units...', TAG)
+    trace('scanning environment for collider.jam units...')
     const units = new UnitMap()
 
     if (_.isArray(scanMap.mixes)) scanMap.mixes.forEach(path => {
@@ -296,8 +310,11 @@ function scanUnits() {
         includePath(units, '', './', 'mod')
     }
 
-    log.debug('units found: ' + units.length, TAG)
+    debug('units found: ' + units.length)
     lastUnits = units
+    scans ++
+    if (scans === 1) logLevel = 0
+
     return units
 }
 
@@ -311,7 +328,7 @@ function syncUnit(unit) {
 
             if (!lastTime || lstat.mtimeMs > lastTime) {
                 // we've got updated file here!
-                log.trace('[sync] ' + fullPath, TAG)
+                log.trace('[sync] ' + fullPath)
                 unit.mtime[path] = lstat.mtimeMs
                 unit.diff.push(path)
                 flow.notify(`${unit.id}:${unit.path}:${path}`)
