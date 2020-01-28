@@ -27,6 +27,12 @@ for (let i = 2; i < args.length; i++) {
         env.debug = true
         env.config.debug = true
         parsedOption = false
+
+    } else if (arg === '-f' || arg === '--flow') {
+        env.flow = true
+        env.config.flow = true
+        parsedOption = false
+
     } else if (arg === '-t' || arg === '--test') {
         //parsedOption = false
         parsedOption = true

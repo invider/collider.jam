@@ -5,31 +5,31 @@ const _ = require('underscore')
 const env = require('./env')
 const log = require('./log')
 const lib = require('./lib')
+const flow = require('./flow')
 
 const TAG = 'scanner'
 
-const mixMap = {}
+let lastUnits
 
-function listFiles(unitPath, path) {
-    let ls = []
+function listFiles(unitPath, path, unit, onFile) {
     log.trace('scanning ' + lib.addPath(unitPath, path), TAG)
 
     fs.readdirSync(lib.addPath(unitPath, path)).forEach(entry => {
         const localPath = lib.addPath(path, entry)
         const fullPath = lib.addPath(unitPath, localPath)
         const lstat = fs.lstatSync(fullPath)
+
         // check on directory
         if (lstat.isDirectory()) {
-            ls = ls.concat(listFiles(unitPath, localPath))
+            listFiles(unitPath, localPath, unit, onFile)
         } else {
-            // TODO add actual ignore config
-            if (!localPath.endsWith('.DS_Store')) {
-                log.trace('          * ' + localPath)
-                ls.push(localPath) 
+            if (onFile) {
+                onFile(localPath, fullPath, lstat, unit)
+            } else {
+                log.trace('          ? ' + localPath)
             }
         }
     })
-    return ls
 }
 
 function loadOptionalJson(path) {
@@ -82,7 +82,17 @@ const Unit = function(id, mix, type, path, requireMix) {
     this.pak = loadOptionalJson(lib.addPath(path, 'pak.json'))
     loadOptionalUnitConfig(lib.addPath(path, 'config.json'))
     this.ignore = loadOptionalList(lib.addPath(path, 'unit.ignore'))
-    this.ls = listFiles(path, '')
+
+    this.ls = []
+    this.diff = []
+    this.mtime = {}
+    listFiles(path, '', this, (localPath, fullPath, lstat, unit) => {
+        // TODO add actual ignore config
+        if (!localPath.endsWith('.DS_Store')) {
+            unit.ls.push(localPath) 
+            unit.mtime[localPath] = lstat.mtimeMs
+        }
+    })
 
     this.toString = function() {
         let s = 'unit/' + this.type + ' [' + this.id + ']\n'
@@ -153,6 +163,7 @@ UnitMap.prototype.generateMap = function() {
             __.map[unit.id] = _.extendOwn(unitMap, unit.pak)
         }
     })
+
     return this
 }
 
@@ -286,7 +297,51 @@ function scanUnits() {
     }
 
     log.debug('units found: ' + units.length, TAG)
+    lastUnits = units
     return units
+}
+
+function syncUnit(unit) {
+    listFiles(unit.path, '', unit,
+        function (path, fullPath, lstat, unit) {
+            // TODO replace with actual ignore config
+            if (path.endsWith('.DS_Store')) return
+
+            const lastTime = unit.mtime[path]
+
+            if (!lastTime || lstat.mtimeMs > lastTime) {
+                // we've got updated file here!
+                log.trace('[sync] ' + fullPath, TAG)
+                unit.mtime[path] = lstat.mtimeMs
+                unit.diff.push(path)
+                flow.notify(`${unit.id}:${unit.path}:${path}`)
+            }
+            if (!lastTime) {
+                // got a new file! register and notify
+                unit.ls.push(path) 
+            }
+            // TODO add actual ignore config
+        }
+    )
+
+    /*
+    unit.ls.forEach(path => {
+        const fullPath = lib.addPath(unit.path, path)
+        const lstat = fs.lstatSync(fullPath)
+        const lastTime = unit.mtime[path]
+        if (lstat.mtimeMs > lastTime) {
+            // we've got updated file here!
+            log.trace('[sync] ' + fullPath, TAG)
+            unit.mtime[path] = lstat.mtimeMs
+            unit.diff.push(path)
+            flow.notify(`${unit.id}:${unit.path}:${path}`)
+        }
+    })
+    */
+}
+
+function syncUnits() {
+    Object.values(lastUnits.units).forEach(u => syncUnit(u))
 }
 
 module.exports = {
@@ -294,6 +349,11 @@ module.exports = {
     // scan collider project structure
     scan: function() {
         return scanUnits().generateMap()
+    },
+
+    sync: function() {
+        if (!lastUnits) this.scan()
+        syncUnits()
     },
 
     // scan a single unit structure
