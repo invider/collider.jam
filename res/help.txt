@@ -9,22 +9,28 @@ Following commands are available:
     pack - assemble all resources in ./out folder, create archives in ./dist
     clean - remove all generated content
 	clean all - remove all generated content and locally installed modules
-    update - update dependencies
     units - list units
     files - list indexed files for each unit
     help - this message
 
 Available [jam options]:
+    -t, --test - run all the tests
+    --test <test-name> - run specified test
+    --box <box-name> - select a box to run
     -d, --debug - debug mode
-    -m, --mute - mute mode 
+    -f, --flow - flow mode to autoload updates
+    -m, --mute - mute mode to suppress any output
     -p, --port - server port
     -s, --static - static mode
-    -h, --hub - run mix hub
+    -h, --hub - run the hub included in the mix
     -mc, --mission-control - run collider.jam mission control
     --version - alternate option for version
     -h, --help - alternate option for help
 
     [custom options] can be declared and used later in hub or mod.
     These options are available in environment configuration.
+
+    [jam --showStat] - sets [/env/config/showStat] to true
+    [jam --speed 90] - sets [/env/config/speed] to 90
 
 [jam run] is executed by default if no command is available
