@@ -26,9 +26,7 @@ module.exports = {
     unitsConfig: 'units.json',
     scanMap: {
         paths: [],
-        units: [
-            ''
-        ],
+        units: [],
         mixes: [
             'node_modules'
         ],

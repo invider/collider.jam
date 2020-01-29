@@ -24,14 +24,25 @@ function debug(msg) {
     log.debug(msg, TAG)
 }
 
-function listFiles(unitPath, path, unit, onFile) {
+function isIgnored(path) {
+    // TODO add actual ignore config
+    return (path.endsWith('.DS_Store')
+        || path.includes('.git'))
+}
 
-    trace('scanning ' + lib.addPath(unitPath, path), TAG)
+function listFiles(unitPath, path, unit, onFile) {
+    if (isIgnored(path)) {
+        trace('ignoring ' + lib.addPath(unitPath, path), TAG)
+        return
+    } else {
+        trace('scanning ' + lib.addPath(unitPath, path), TAG)
+    }
 
     fs.readdirSync(lib.addPath(unitPath, path)).forEach(entry => {
         const localPath = lib.addPath(path, entry)
         const fullPath = lib.addPath(unitPath, localPath)
         const lstat = fs.lstatSync(fullPath)
+
 
         // check on directory
         if (lstat.isDirectory()) {
@@ -101,11 +112,9 @@ const Unit = function(id, mix, type, path, requireMix) {
     this.diff = []
     this.mtime = {}
     listFiles(path, '', this, (localPath, fullPath, lstat, unit) => {
-        // TODO add actual ignore config
-        if (!localPath.endsWith('.DS_Store')) {
-            unit.ls.push(localPath) 
-            unit.mtime[localPath] = lstat.mtimeMs
-        }
+        unit.ls.push(localPath) 
+        unit.mtime[localPath] = lstat.mtimeMs
+        trace('          * ' + localPath)
     })
 
     this.toString = function() {
@@ -127,7 +136,11 @@ const UnitMap = function() {
 }
 
 UnitMap.prototype.register = function(unit) {
-    if (this.units[unit.id]) throw 'unit mapped to [' + unit.id + '] already exists!'
+    if (this.units[unit.id]) {
+        log.error(`can't register unit at: ${unit.path}`)
+        log.error(`unit exists at: ${this.units[unit.id].path}`)
+        throw 'unit mapped to [' + unit.id + '] already exists!'
+    }
 
     this.length ++
     this.units[unit.id] = unit
@@ -253,13 +266,14 @@ function determineScanMap() {
     if (env.sketch) {
         debug('running in sketch mode')
 
+        // set sketch mod defaults
+        // can be redefined later
         env.scanMap = {
-            units: [
-                env.jamPath
-            ],
+            units: [],
             mixes: [
                 env.jamModules
             ],
+            paths: [],
         }
 
     } else {
@@ -275,7 +289,35 @@ function determineScanMap() {
     env.scanMap = lib.readOptionalJson(env.unitsConfig, env.scanMap,
             () => debug(`using local ./${env.unitsConfig}`))
 
+    if (env.sketch) {
+        if (!env.scanMap.units) env.scanMap.units = []
+        env.scanMap.units.push(env.jamPath)
+
+    } else {
+        if (!env.scanMap.units) env.scanMap.units = []
+        env.scanMap.units.push('')
+    }
+
     return env.scanMap
+}
+
+function dumpScanMap() {
+    const map = env.scanMap
+    debug('===================')
+    debug('       MAP         ')
+    debug('===================')
+    if (map.mixes) {
+        debug('=== mixes paths ===')
+        map.mixes.forEach(path => debug(`* [${path}]`))
+    }
+    if (map.units) {
+        debug('=== units paths ===')
+        map.units.forEach(path => debug(`* [${path}]`))
+    }
+    if (map.paths) {
+        debug('=== included ===')
+        map.paths.forEach(path => debug(`* [${path}]`))
+    }
 }
 
 function scanUnits() {
@@ -285,17 +327,22 @@ function scanUnits() {
     const scanMap = determineScanMap()
 
     trace('scanning environment for collider.jam units...')
+    dumpScanMap()
     const units = new UnitMap()
 
     if (_.isArray(scanMap.mixes)) scanMap.mixes.forEach(path => {
+        debug(`looking for mixes in ${path}`)
         scanModules(units, lib.formPath(base, path))
     })
 
     if (_.isArray(scanMap.units)) scanMap.units.forEach(path => {
+        debug(`looking for units in ${path}`)
         scanMix(units, lib.formPath(base, path))
     })
 
+    if (!scanMap.paths) debug('no paths included!!!!!')
     if (_.isArray(scanMap.paths)) scanMap.paths.forEach(path => {
+        debug(`including unit: ${path}`)
         const fullPath = lib.formPath(base, path)
         const i = fullPath.lastIndexOf('/')
         let entry = fullPath
@@ -307,11 +354,14 @@ function scanUnits() {
     })
 
     if (env.sketch) {
+        // need to include manually,
+        // since ./ is remapped to /mod
         includePath(units, '', './', 'mod')
     }
 
     debug('units found: ' + units.length)
     lastUnits = units
+
     scans ++
     if (scans === 1) logLevel = 0
 
@@ -391,7 +441,10 @@ module.exports = {
         const unitMap = scanUnits()
 
         Object.values(unitMap.units).forEach(unit => {
-            log.raw("[" + unit.type + "] - '" + unit.id + "': " + unit.path)
+            log.raw("[" + unit.type + "] - '"
+                + unit.id + "': "
+                + unit.path
+                + ` [${unit.ls.length} files]`)
         })
     },
 
