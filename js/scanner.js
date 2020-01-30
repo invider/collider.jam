@@ -48,10 +48,12 @@ function listFiles(unitPath, path, unit, onFile) {
         if (lstat.isDirectory()) {
             listFiles(unitPath, localPath, unit, onFile)
         } else {
-            if (onFile) {
-                onFile(localPath, fullPath, lstat, unit)
-            } else {
-                trace('          ? ' + localPath)
+            if (!isIgnored(localPath)) {
+                if (onFile) {
+                    onFile(localPath, fullPath, lstat, unit)
+                } else {
+                    trace('          ? ' + localPath)
+                }
             }
         }
     })
@@ -98,7 +100,8 @@ function scanPackageDependencies(mix, packageJson) {
 }
 
 const Unit = function(id, mix, type, path, requireMix) {
-    trace('found ' + type + ' [' + id + ']: ' + path)
+    trace('================================================')
+    trace(`found ${type} [${id}]: ${path}`)
     this.id = id
     this.mix = mix
     this.type = type
@@ -137,8 +140,10 @@ const UnitMap = function() {
 
 UnitMap.prototype.register = function(unit) {
     if (this.units[unit.id]) {
-        log.error(`can't register unit at: ${unit.path}`)
-        log.error(`unit exists at: ${this.units[unit.id].path}`)
+        log.error(`can't register unit at: ${unit.path} as [${unit.id}]`)
+        log.error(`id is already mapped to ${this.units[unit.id].path}`)
+        log.error(`could be the problem with ${env.unitsConfig}`)
+        log.error(`check [scanner] logs and [${env.scanMap.origin}]`)
         throw 'unit mapped to [' + unit.id + '] already exists!'
     }
 
@@ -252,6 +257,7 @@ let scanModules = function(units, path) {
                 if (entry.endsWith('.mix')
                         || entry.endsWith('.mod')
                         || entry.endsWith('.fix')) {
+                    trace('================================================')
                     trace('found a mix: ' + fullPath)
                     scanMix(units, fullPath, entry)
                 }
@@ -262,6 +268,17 @@ let scanModules = function(units, path) {
     }
 }
 
+function tryToReadScanMap(path, defaultScanMap) {
+    const scanMap = lib.readOptionalJson(path, undefined,
+            () => debug(`found ${env.unitsConfig} at: ${path}`))
+    if (scanMap) {
+        scanMap.origin= path
+        return scanMap
+    } else {
+        return defaultScanMap
+    }
+}
+
 function determineScanMap() {
     if (env.sketch) {
         debug('running in sketch mode')
@@ -269,6 +286,7 @@ function determineScanMap() {
         // set sketch mod defaults
         // can be redefined later
         env.scanMap = {
+            origin: 'default-sketch',
             units: [],
             mixes: [
                 env.jamModules
@@ -282,12 +300,16 @@ function determineScanMap() {
 
     // try to read default unit structure from jam
     const jpath = lib.addPath(env.jamPath, env.unitsConfig)
+    env.scanMap = tryToReadScanMap(jpath, env.scanMap)
+    /*
     env.scanMap = lib.readOptionalJson(jpath, env.scanMap,
             () => debug(`using ${env.unitsConfig} from: ${jpath}`))
+    */
 
     // try to read unit structure from local project
-    env.scanMap = lib.readOptionalJson(env.unitsConfig, env.scanMap,
-            () => debug(`using local ./${env.unitsConfig}`))
+    env.scanMap = tryToReadScanMap(env.unitsConfig, env.scanMap)
+    //env.scanMap = lib.readOptionalJson(env.unitsConfig, env.scanMap,
+    //        () => debug(`using local ./${env.unitsConfig}`))
 
     if (env.sketch) {
         if (!env.scanMap.units) env.scanMap.units = []
@@ -325,6 +347,7 @@ function scanUnits() {
     const base = env.baseDir
 
     const scanMap = determineScanMap()
+    debug(`using ${env.unitsConfig} from: [${scanMap.origin}]`)
 
     trace('scanning environment for collider.jam units...')
     dumpScanMap()
@@ -340,7 +363,6 @@ function scanUnits() {
         scanMix(units, lib.formPath(base, path))
     })
 
-    if (!scanMap.paths) debug('no paths included!!!!!')
     if (_.isArray(scanMap.paths)) scanMap.paths.forEach(path => {
         debug(`including unit: ${path}`)
         const fullPath = lib.formPath(base, path)
