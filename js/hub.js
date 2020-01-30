@@ -119,6 +119,14 @@ function start() {
             }
         })
 
+        app.get('/help/card', function(req, res) {
+            if (env.cache.help) {
+                res.send(env.cache.help.pages['jam-card'].body)
+            } else {
+                res.status(404).send('No help data')
+            }
+        })
+
     } else {
         log.out('serving only static package!')
         env.config.dynamic = false
