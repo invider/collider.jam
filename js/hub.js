@@ -119,6 +119,14 @@ function start() {
             }
         })
 
+        app.get('/help/card', function(req, res) {
+            if (env.cache.help) {
+                res.send(env.cache.help.pages['jam-card'].body)
+            } else {
+                res.status(404).send('No help data')
+            }
+        })
+
     } else {
         log.out('serving only static package!')
         env.config.dynamic = false
@@ -160,14 +168,16 @@ function start() {
         log.out('---Listening at http://localhost:' + env.port + ' ---', TAG);
     })
 
-    if (env.flow) flow.start(app, ws)
+    if (env.debug || env.flow) flow.start(app, ws)
     startSyncMonitor()
 }
 
 function startSyncMonitor() {
+    if (!env.config.debug && !env.config.flow) return
+
     const syncTime = 2000
     const syncTimeS = Math.round(syncTime/1000)
-    log.debug(`running sync every ${syncTimeS}s...`, TAG)
+    log.debug(`running file sync every ${syncTimeS}s...`, TAG)
 
     setInterval(() => {
         scanner.sync()

@@ -25,6 +25,7 @@ module.exports = {
 	distDir: 'dist',
     unitsConfig: 'units.json',
     scanMap: {
+        origin: 'default',
         paths: [],
         units: [],
         mixes: [
