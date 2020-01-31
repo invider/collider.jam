@@ -168,14 +168,16 @@ function start() {
         log.out('---Listening at http://localhost:' + env.port + ' ---', TAG);
     })
 
-    if (env.flow) flow.start(app, ws)
+    if (env.debug || env.flow) flow.start(app, ws)
     startSyncMonitor()
 }
 
 function startSyncMonitor() {
+    if (!env.config.debug && !env.config.flow) return
+
     const syncTime = 2000
     const syncTimeS = Math.round(syncTime/1000)
-    log.debug(`running sync every ${syncTimeS}s...`, TAG)
+    log.debug(`running file sync every ${syncTimeS}s...`, TAG)
 
     setInterval(() => {
         scanner.sync()
