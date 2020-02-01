@@ -109,8 +109,17 @@ const pack = function(baseDir, outputDir, units) {
 	cleanAndCreateDir(outDir)
 
     units.forEach(u => {
-        log.trace('copying ' + u.path + ' -> ' + lib.addPath(outDir, u.id), TAG)
-        fs.copySync(u.path, lib.addPath(outDir, u.id))
+        log.trace(`copying ${u.path} -> `
+                    + lib.addPath(outDir, u.id), TAG)
+        //fs.copySync(u.path, lib.addPath(outDir, u.id))
+        u.ls.forEach(f => {
+            const src = lib.addPath(u.path, f)
+            const dest = lib.addPath(
+                lib.addPath(outDir, u.id), f)
+
+            log.trace(`copying ${src} -> ${dest}`, TAG)
+            fs.copySync(src, dest)
+        })
     })
 
     //fs.writeFileSync(outDir + env.unitsPath, JSON.stringify(units.map))
