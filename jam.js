@@ -107,6 +107,11 @@ if (!env.debug && !env.verbose) {
 
 // save collider.jam node modules base
 env.jamPath = module.path
+if (!env.jamPath) {
+    log.warn("can't determine collider.jam module path!")
+    log.warn(`module.path = "${module.path}"`)
+    log.dump(module.paths)
+}
 env.jamModules = module.paths[0]
 
 switch(cmd) {
