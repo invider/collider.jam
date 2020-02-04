@@ -13,6 +13,7 @@ let fun = {
     trace: logFun(': ', console.log),
     debug: logFun('. ', console.log),
     out: logFun('> ', console.log),
+    warn: logFun('? ', console.error),
     err: logFun('! ', console.error),
     error: logFun('! ', console.error),
 

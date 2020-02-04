@@ -354,19 +354,19 @@ function scanUnits() {
     const units = new UnitMap()
 
     if (_.isArray(scanMap.mixes)) scanMap.mixes.forEach(path => {
-        if (!path) return
+        if (path === undefined) return
         debug(`looking for mixes in ${path}`)
         scanModules(units, lib.formPath(base, path))
     })
 
     if (_.isArray(scanMap.units)) scanMap.units.forEach(path => {
-        if (!path) return
+        if (path === undefined) return
         debug(`looking for units in ${path}`)
         scanMix(units, lib.formPath(base, path))
     })
 
     if (_.isArray(scanMap.paths)) scanMap.paths.forEach(path => {
-        if (!path) return
+        if (path === undefined) return
         debug(`including unit: ${path}`)
         const fullPath = lib.formPath(base, path)
         const i = fullPath.lastIndexOf('/')
