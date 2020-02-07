@@ -23,6 +23,7 @@ module.exports = {
     baseDir: './',
     outDir: 'out',
 	distDir: 'dist',
+    typesMeta: 'types.ts',
     unitsConfig: 'units.json',
     scanMap: {
         origin: 'default',

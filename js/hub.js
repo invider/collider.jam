@@ -7,6 +7,7 @@ const scanner = require('./scanner')
 const packager = require('./packager')
 const flow = require('./flow')
 const lib = require('./lib')
+const types = require('./types')
 const control = require('./mc/control')
 
 const TAG = 'hub'
@@ -105,8 +106,8 @@ function start() {
             // handle help data
             log.debug('receiving help data from the client...')
             //console.dir(req.body)
-
             env.cache.help = req.body
+            types.generate(env.cache.help)
 
             res.status(200).send('done')
         })
