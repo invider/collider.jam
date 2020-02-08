@@ -25,13 +25,21 @@ module.exports = {
 	distDir: 'dist',
     typesMeta: 'types.ts',
     unitsConfig: 'units.json',
-    scanMap: {
+
+    defaultScanMap: {
         origin: 'default',
         paths: [],
         units: [],
         mixes: [
             'node_modules'
         ],
+    },
+    sketchScanMap: {
+        origin: 'default-sketch',
+        units: [],
+        mixes: [
+        ],
+        paths: [],
     },
 
     base: '/',

@@ -286,17 +286,17 @@ function determineScanMap() {
 
         // set sketch mod defaults
         // can be redefined later
-        env.scanMap = {
-            origin: 'default-sketch',
-            units: [],
-            mixes: [
-                env.jamModules
-            ],
-            paths: [],
+        env.scanMap = lib.augment({}, env.sketchScanMap)
+        if (env.jamModules) {
+            env.scanMap.mixes.push(env.jamModules)
+        } else {
+            log.warn("Can't determine collider.jam module path.")
+            log.warn(`Set the path manually in mixes: [] section by creating ./${env.unitsConfig}.`)
         }
 
     } else {
         debug('running in package mode')
+        env.scanMap = lib.augment({}, env.defaultScanMap)
     }
 
     // try to read default unit structure from jam

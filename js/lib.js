@@ -7,6 +7,22 @@ const { execSync } = require('child_process')
 
 const TAG = 'lib'
 
+const isObj = function(o) {
+    return !!(o && typeof o === 'object')
+}
+const isFun = function(f) {
+    return !!(f && f.constructor && f.call && f.apply)
+}
+const isString = function(s) {
+    return toString.call(s) == "[object String]"
+}
+const isNumber = function(s) {
+    return toString.call(s) == "[object Number]"
+}
+const isArray = function(a) {
+    return Array.isArray(a)
+}
+
 module.exports = {
 
     addPath: function(base, path) {
@@ -171,4 +187,25 @@ module.exports = {
             throw `[${path}] doesn't exist`
         }
     },
+
+    augment: function() {
+        let mixin = arguments[0]
+        if (!isObj(mixin) && !isFun(mixin)) mixin = {}
+
+        for (let arg = 1; arg < arguments.length; arg++) {
+            const source = arguments[arg]
+            if (source && source !== mixin) for (let prop in source) {
+                if (prop !== '_' && prop !== '__' && prop !== '___' && prop !== '_$') {
+                    if (isObj(mixin[prop]) && isObj(arguments[arg][prop])) {
+                        // property is already assigned - augment it
+                        if (mixin !== source[prop]) augment(mixin[prop], source[prop])
+                    } else {
+                        mixin[prop] = source[prop];
+                    }
+                }
+            }
+       }
+        return mixin
+    }
+
 }
