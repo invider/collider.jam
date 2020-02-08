@@ -39,6 +39,7 @@ module.exports = {
     out: fun.out,
     err: fun.err,
     error: fun.error,
+    warn: fun.warn,
     fatal: fun.error,
     dump: fun.dump,
 }
