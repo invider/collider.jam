@@ -140,6 +140,7 @@ const UnitMap = function() {
 
 UnitMap.prototype.register = function(unit) {
     if (this.units[unit.id]) {
+        log.dump(env.scanMap)
         log.error(`can't register unit at: ${unit.path} as [${unit.id}]`)
         log.error(`id is already mapped to ${this.units[unit.id].path}`)
         log.error(`could be the problem with ${env.unitsConfig}`)

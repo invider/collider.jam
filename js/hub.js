@@ -78,7 +78,8 @@ function start() {
             log.debug('building map for unit [' + unitId + ']', TAG)
 
             if (unitId === '' || unitId === '/') {
-                let units = scanner.scan(env.baseDir, env.scanMap)
+                //let units = scanner.scan(env.baseDir, env.scanMap)
+                let units = scanner.scan()
                 res.json(units.map)
             } else {
                 // find unit's real path before the scan
@@ -95,7 +96,8 @@ function start() {
 
         app.get('/units.debug', function(req, res) {
             log.out('units debug')
-            let map = scanner.scan(env.baseDir, env.scanMap)
+            //let map = scanner.scan(env.baseDir, env.scanMap)
+            let map = scanner.scan()
             res.json({
                 units: map.units,
                 mix: map.mix,
