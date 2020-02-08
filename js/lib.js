@@ -196,9 +196,13 @@ module.exports = {
             const source = arguments[arg]
             if (source && source !== mixin) for (let prop in source) {
                 if (prop !== '_' && prop !== '__' && prop !== '___' && prop !== '_$') {
-                    if (isObj(mixin[prop]) && isObj(arguments[arg][prop])) {
+                    if (isObj(mixin[prop]) && isObj(source[prop])) {
                         // property is already assigned - augment it
                         if (mixin !== source[prop]) augment(mixin[prop], source[prop])
+                    } else if (isArray(source[prop]) {
+                        mixing[prop] = source[prop].slice()
+                    } else if (isObj(source[prop])
+                        mixing[prop] = augment({}, source[prop])
                     } else {
                         mixin[prop] = source[prop];
                     }
