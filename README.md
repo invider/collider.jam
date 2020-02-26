@@ -9,11 +9,6 @@ Welcome to Collider.JAM!
 <p align="right">
     <i><b>The Fun of the Game Jamming.</b></i>
 </p>
-<p align="center">
-    <img src="res/badge/version.svg">
-    <img src="res/badge/license.svg">
-    <br><br>
-</p>
 
 Collider.JAM is a JavaScript framework for rapid game prototyping and jamming.
 It was crafted from experience of multiple game jams we've participated in.
@@ -37,7 +32,7 @@ Table of Contents
 * [Jamming Games](#jamming-games)
 * [How to Contribute](#how-to-contribute)
 
-Check out tutorials and code examples below.
+Check out tutorials and examples below.
 And pixelate reality!
 
 
@@ -73,23 +68,14 @@ Now, to install collider.jam shell, run:
 npm install -g collider.jam
 ```
 
-Or to install latest stable version straight from the github:
-```
-npm install -g https://github.com/invider/collider.jam.git
-```
-
-Or night builds maybe?:
+To use the latest development, install directly from github:
 ```
 npm install -g https://github.com/invider/collider.jam.git#develop
 ```
 
-When installed, you can try _version_:
+When installed, check _version_ and _help_:
 ```
 jam version
-```
-
-Use _help_ to check available commands and options:
-```
 jam help
 ```
 
@@ -358,10 +344,12 @@ Jamming Games
 -------------
 Check out the following games. All created during various game jams and powered by *_collider.jam_*.
 
-* [300 Hearts for Escape](https://github.com/invider/300-hearts-for-escape) - *[Play](https://github.com/invider/300-hearts-for-escape)* - a survival trading game placed on an isolated island created during Ludum Dare 44.
+* [300 Hearts for Escape](https://github.com/invider/300-hearts-for-escape) - *[Play](https://ingwar.itch.io/300-hearts-for-escape)* - a survival trading game placed on an isolated island created during Ludum Dare 44.
+* [Cosmic Rays 'n DNAs](https://github.com/invider/cosmic-rays-n-dnas.mod) - *[Play](https://ingwar.itch.io/rays)* - fix DNA in this arcade Global Game Jam 2020 Entry.
 * [Xeno Relay Day](https://github.com/invider/xeno-relay-day) - *[Play](https://ingwar.itch.io/xeno-relay-day)* - cosmic relay network puzzler created during Global Game Jam 2018.
-* [Dream Rocket Boy](https://github.com/invider/dream-rocket-boy) - *[Play](https://github.com/invider/dream-rocket-boy)* - a single screen platformer created for Global Game Jam 2019.
+* [Dream Rocket Boy](https://github.com/invider/dream-rocket-boy) - *[Play](https://ingwar.itch.io/dream-rocket-boy)* - a single screen platformer created for Global Game Jam 2019.
 * [Master of Ritual](https://github.com/invider/master-of-ritual) - *[Play](https://ingwar.itch.io/master-or-ritual)* - dungeon crawler from Ludum Dare 43.
+* [Metro Gang](https://github.com/invider/metro-gang) - *[Play](https://ingwar.itch.io/metro-gang)*
 
 
 Jam Mixes
@@ -369,10 +357,8 @@ Jam Mixes
 These are essential modules of the framework:
 
 * [collider.mix](https://github.com/invider/collider.mix) - the most essential mix that includes collider.jam system core (jam.js) and system function definitions.
-* [collider-boot.mix](https://github.com/invider/collider-boot.mix) - contains basic samples and patches to mix from.
 * [collider-lib.mix](https://github.com/invider/collider-lib.mix) - mixes in various libraries for use (like _lib.math_)
-* [collider-ext.mix](https://github.com/invider/collider-ext.mix) - mixes in miscellaneous extentions (sprites, particles etc)
-* [collider-hud.mix](https://github.com/invider/collider-hud.mix) - HUD contains collider.jam user interface prototypes.
+* [collider-boot.mix](https://github.com/invider/collider-boot.mix) - contains basic samples and patches to mix from.
 * [collider-debug.mix](https://github.com/invider/collider-debug.mix) - debug tools
 
 How to Contribute
