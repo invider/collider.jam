@@ -30,7 +30,7 @@ function shift(level) {
 function scope(dir) {
     Object.values(dir).forEach(m => {
         if (m.type === 'function') {
-            if (m.data.usage) {
+            if (m.data && m.data.usage) {
                 println(`function ${m.name}`
                     + `(): any {}`)
             } else {
