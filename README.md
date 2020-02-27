@@ -349,7 +349,7 @@ Check out the following games. All created during various game jams and powered 
 * [Xeno Relay Day](https://github.com/invider/xeno-relay-day) - *[Play](https://ingwar.itch.io/xeno-relay-day)* - cosmic relay network puzzler created during Global Game Jam 2018.
 * [Dream Rocket Boy](https://github.com/invider/dream-rocket-boy) - *[Play](https://ingwar.itch.io/dream-rocket-boy)* - a single screen platformer created for Global Game Jam 2019.
 * [Master of Ritual](https://github.com/invider/master-of-ritual) - *[Play](https://ingwar.itch.io/master-or-ritual)* - dungeon crawler from Ludum Dare 43.
-* [Metro Gang](https://github.com/invider/metro-gang) - *[Play](https://ingwar.itch.io/metro-gang)*
+* [Metro Gang](https://github.com/invider/metro-gang) - *[Play](https://ingwar.itch.io/metro-gang)* - fight against rival gangs for control of the city in this Ludum Dare 45 Entry.
 
 
 Jam Mixes
