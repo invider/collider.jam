@@ -24,7 +24,6 @@ Table of Contents
 -----------------
 * [Install](#install)
 * [Drawing Shape](#drawing-shape)
-
 * [Flying Saucer](#flying-saucer)
 * [Spaceship](#spaceship)
 * [Jam Mixes](#jam-mixes)
@@ -34,6 +33,7 @@ Table of Contents
 * [Examples](#examples)
 * [Jamming Games](#jamming-games)
 * [How to Contribute](#how-to-contribute)
+
 
 
 Install
@@ -92,16 +92,15 @@ the root of the project.
 on how you name and organize files and directories.
 
 It could be unusual first, but makes a lot of sense
-once you start to create a lot of game prototypes.
+once you get into the jamming mode.
 
-Create a file *lab.js* inside that folder
-and fill in the following lines:
+Create a file *circle.mod/lab.js* and fill in the following lines:
 
 ```js
 function draw() {
     lineWidth(2)         // set the line width
-    stroke(.12, .4, .5)  // HSL color
-    circle(200, 200, 50) // draw
+    stroke(.12, .4, .5)  // color in float HSL
+    circle(200, 200, 50) // draw the circle
 }
 ```
 
@@ -116,12 +115,12 @@ pointing at *[http://localhost:9999]*.
 
 
 
-Move
-----
+Moving Shape
+------------
 
 Let's make some movement by introducing
 variables for the circle position and direction.
-And also the *evo(dt)* function to move it:
+We also will need the *evo(dt)* function to move it:
 
 ```js
 // position at the center of the screen
@@ -171,6 +170,75 @@ function evo(dt) {
     else if (y < r && dy < 0) dy *= -1
 }
 ```
+
+Find the working example on [GitHub](https://github.com/invider/bits.mix/tree/master/circle.mod).
+
+
+
+Prototyping in Development Mode
+-------------------------------
+
+The most rudimental *Collider.JAM* command is *jam*:
+
+```
+jam
+```
+
+It just runs the jam server without opening a web browser,
+as *jam play* does.
+
+But it is more convenient to run in development mode
+while developing:
+
+```
+jam -d
+```
+
+That enables code hot reload and help metadata
+among other things.
+
+Run *Collider.JAM* with -d option,
+open browser at http://localhost:9999
+and try to change circle color or radius.
+
+The changes will be applied in the browser
+after you saved lib.js.
+
+
+
+Drop Resource
+-------------
+Let's spice up our bouncing circle a little.
+
+Find a suitable image of a planet with transparent background,
+just like this one from OpenGameArt:
+https://opengameart.org/sites/default/files/mars_type_planet.png
+
+Download and drop it into *circle.mod/res/* folder.
+
+Now change the draw() function to the following:
+
+```js
+function draw() {
+    background('#000000')
+    lineWidth(5)
+    stroke(.58, .5, .7)
+    circle(x, y, r)
+    image(res.mars_type_planet, x-r, y-r, 2*r, 2*r)
+}
+```
+
+We've changed the background to totally black,
+to match the darkness of space.
+Then, we've added the image function to draw the planet texture. Notice, that the image name must match
+the file name without the extension.
+
+In this example we've left the circle
+and tune it width and color to resemble
+the planet's atmosphere.
+
+Check out working example on [GitHub](https://github.com/invider/bits.mix/tree/master/planet.mod).
+
 
 
 Flying Saucer
