@@ -23,52 +23,48 @@ _And pixelate reality!_
 Table of Contents
 -----------------
 * [Install](#install)
+* [Drawing Shape](#drawing-shape)
+
 * [Flying Saucer](#flying-saucer)
 * [Spaceship](#spaceship)
 * [Jam Mixes](#jam-mixes)
 * [Explore](#explore)
 * [Tutorials](#tutorials)
 * [How To](man/HowTo.md)
+* [Examples](#examples)
 * [Jamming Games](#jamming-games)
 * [How to Contribute](#how-to-contribute)
-
-Check out tutorials and examples below.
-And pixelate reality!
 
 
 Install
 -------
 
-To start jamming, we need to install collider.jam package globally.
-The shell can bootstrap and run collider.jam projects.
+To start jamming, we need to install collider.jam npm package.
+It provides the sheel to bootstrap and run game projects.
 
 Make sure you have the latest Node.js installed
-by running:
+by running in the console:
 
 ```bash
 node --version
 ```
 
-It should show something like:
+If it is something like 12.16+, you are OK:
 ```
-> v12.3.1
+> v12.16.1
 ```
 
 If not, visit [Node.js](https://nodejs.org) for installation
 instructions and package.
 
-You can use [*brew*](https://brew.sh/) on MacOS X and preferably
-[*nvm*](https://github.com/invider/nvm) on Linux
-(apt on LTS Ubuntu could install a very old version from repos)
-
 ---
-Now, to install collider.jam shell, run:
+Now, to install collider.jam, run:
 
 ```
 npm install -g collider.jam
 ```
 
-To use the latest development, install directly from github:
+Or to use the latest development version, install directly from GitHub:
 ```
 npm install -g https://github.com/invider/collider.jam.git#develop
 ```
@@ -77,6 +73,103 @@ When installed, check _version_ and _help_:
 ```
 jam version
 jam help
+```
+
+
+
+Drawing Shape
+-------------
+Select a folder to keep your game projects in
+and create a new subfolder named 'cirlce.mod':
+```
+mkdir circle.mod
+```
+
+The *.mod* extension is crucial here,
+since that is how **Collider.JAM** determines
+the root of the project.
+**Collider.JAM** has particular conventions
+on how you name and organize files and directories.
+
+It could be unusual first, but makes a lot of sense
+once you start to create a lot of game prototypes.
+
+Create a file *lab.js* inside that folder
+and fill in the following lines:
+
+```js
+function draw() {
+    lineWidth(2)         // set the line width
+    stroke(.12, .4, .5)  // HSL color
+    circle(200, 200, 50) // draw
+}
+```
+
+Now, just run 'jam play' command while in *circle.mod* folder.
+
+```
+jam play
+```
+
+Collider.JAM will start a server and open default browser
+pointing at *[http://localhost:9999]*.
+
+
+
+Move
+----
+
+Let's make some movement by introducing
+variables for the circle position and direction.
+And also the *evo(dt)* function to move it:
+
+```js
+// position at the center of the screen
+let x = rx(.5)
+let y = ry(.5)
+let r = 50
+
+// the speed along x and y axises
+let dx = 100
+let dy = 100
+
+function evo(dt) {
+    // make the movement relative to the time passed
+    x += dx * dt
+    y += dy * dt
+}
+
+function draw() {
+    background('#101010') // color in hex RGB
+    lineWidth(2)
+    stroke(.12, .4, .5)   // color in float HSL
+    circle(x, y, r)
+}
+```
+
+Notice the background() function
+in the beginning of draw().
+Since we are moving the cirlce now,
+the background needs to be refilled
+to clean up the previous frame.
+
+The problem is that the circle dissapears
+once it crossed the edge of the screen.
+
+We can introduce some boundaries on x and y,
+so our evo(dt) would look like this:
+```js
+function evo(dt) {
+    // make the movement relative to the time passed
+    x += dx * dt
+    y += dy * dt
+
+    // screen edge boundaries
+    if (x > rx(1)-r && dx > 0) dx *= -1
+    else if (x < r && dx < 0) dx *= -1
+    if (y > ry(1)-r && dy > 0) dy *= -1
+    else if (y < r && dy < 0) dy *= -1
+}
 ```
 
 
@@ -332,12 +425,21 @@ Check our following links:
 Also check out tutorials from the section below.
 
 
+
 Tutorials
 ---------
 In progress...
 
 [How To](man/HowTo.md)
 ----------------------
+
+
+
+Examples
+--------
+
+Check out examples in [bits.mix](https://github.com/invider/bits.mix).
+
 
 
 Jamming Games
