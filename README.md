@@ -24,14 +24,15 @@ Table of Contents
 -----------------
 * [Install](#install)
 * [Drawing Shape](#drawing-shape)
-* [Flying Saucer](#flying-saucer)
-* [Spaceship](#spaceship)
-* [Jam Mixes](#jam-mixes)
+* [Moving Shape](#moving-shape)
+* [Prototyping in Development Mode](#prototyping-in-development-mode)
+* [Drop Resource](#drop-resource)
+* [Handle Mouse](#handle-mouse)
 * [Explore](#explore)
-* [Tutorials](#tutorials)
 * [How To](man/HowTo.md)
 * [Examples](#examples)
 * [Jamming Games](#jamming-games)
+* [Jam Mixes](#jam-mixes)
 * [How to Contribute](#how-to-contribute)
 
 
@@ -307,7 +308,7 @@ function mouseDown(e) {
 ```
 
 And *mouseUp.js* is goint to be:
-```
+```js
 function mouseUp() {
     lab.booster = false
 }
