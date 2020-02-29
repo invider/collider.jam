@@ -1,4 +1,16 @@
 
+0.0.2-DR2 2020-02-29
+
+[+] help mod with metadata auto scan
+[+] new node inspector
+[+] hot code reload
+[+] boxes subsystem
+[+] alt node for in-scope values
+[+] extended default in-scope functions and objects
+[*] new module structure
+[-] multiple bug fixes
+
+
 0.0.1-DR1 2019-09-27
 
 [!] first public release
