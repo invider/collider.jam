@@ -241,244 +241,87 @@ Check out working example on [GitHub](https://github.com/invider/bits.mix/tree/m
 
 
 
-Flying Saucer
--------------
+Handle Mouse
+------------
+Suppose our planet is slowing down.
 
-It is time to have something moving on the screen!
-
-Open console in your jam projects folder.
-
-Make new project directory:
-```
-mkdir test-saucer
-cd test-saucer
-```
-
-Init the project and patch it with saucer:
-```
-jam init default
-jam patch saucer
-```
-
-Now run it:
-```
-jam play
-```
-
-The browser should open a window with a saucer.
-
-----
-
-Now explore the app structure:
-
-```
-/mod
-  +-/lab
-      |- background.js - prop with Z = 0 that draws background
-      |- saucer.js - the saucer object with evo() and draw() functions
-                     this particular file was added by saucer patch
-```
-
-Everything placed in /mod/lab will be spawned into an entity on the scene.
-An object is exposed by assigning it to module.exports
-
-It is super simple to create something from scratch
-(not from existing patch, as we've created the saucer).
-Just place js and resource files in the right places.
-
-
-Spaceship
----------
-
-Let's create a project from an empty mod,
-to see how it all comes together.
-
-### collider.jam project init
-
-Get back to your project dir and create a new subdirectory:
-```
-mkdir test-ship
-cd test-ship
-```
-
-Now we are bootstraping it from an empty mod:
-```
-jam init empty
-```
-
-It has created _./pub/index.html_ which already contains
-collider.jam core script.
-_./mod_ has also been created with empty res, dna and lib subdirectories.
-
-### assets
-
-Our ship should look somehow,
-so go and place an image file _ship.png_
-in _./res_ directory.
-
-It will be loaded automatically for you,
-just like anything else.
-
-### background
-
-We need a background to fill the scenery.
-
-Create _./lab/background.js_:
-```
-module.exports = {
-
-    // we want the background to be behind everything else,
-    // hence the 0 value for Z
-    Z: 0,
-
-    draw: function() {
-        // draw a solid rectangle filling the whole screen
-        ctx.fillStyle = '#151220'
-        ctx.fillRect(0, 0, ctx.width, ctx.height)
-    }
+Add the following function to reduce the speed:
+```js
+function slowDown(dt) {
+    dx *= 1 - 0.05*dt
+    dy *= 1 - 0.05*dt
 }
 ```
-We use the standard js canvas 2d context
-to fill a dark rectangle.
 
-Notice, that ctx is already in scope.
-It is one of the magic tricks of collider.jam.
-
-
-When specified, the lab frame uses Z to place nodes
-according to their Z-value.
-We've selected 0 as a background layer just for convenience.
-Actually we can use any arbitrary numbers
-(e.g. 1001 for the background, 1011 for sprites).
-
-### the ship
-
-Now create _./lab/ship.js_
-```
-module.exports = {
-    Z: 1,
-
-    // place ship in center of the screen
-    x: ctx.width/4,
-    y: ctx.height/2,
-
-    draw: function() {
-        // disable smoothing to preserve pixel-art feel
-        // for low-resolution sprites
-        ctx.imageSmoothingEnabled = false
-    
-        // draw the ship image
-        ctx.drawImage(res.ship,
-            this.x - res.ship.width/2,
-            this.y - res.ship.height/2)
-    },
+And call it from evo(dt) like that:
+```js
+function evo(dt) {
+    ...
+    slowDown(dt)
 }
 ```
-Here we specify Z=1, so the ship
-will be in front of the background.
 
-In draw() function you can take
-_res.ship_, which is already loaded,
-and draw it on the canvas.
+Now, the planet will loose 5% of it's speed
+every second.
 
-Note, that _res_ is also in scope.
-In fact, every major node of _mod_ is in scope:
-* _ - current mod
-* __ - the parent node
-* log - the logging node
-* res - the resources node
-* lib - the library node
-* dna - the node with prototypes, constructors and factories
-* env - the game's environment values
-* lab - contains all active game entities
-* mod - contains additional submods
-* cue - keeps conditional triggers
-* trap - contains event trap functions
-
-Now we can check the project. Execute:
-```
-jam
-```
-
-And open browser at _http://localhost:9999_.
-You should see your ship on a dark background.
-
-Now we have two static props on the screen -
-the ship and the background.
-Let's turn ship into an actor
-by introducing behavior.
-
-### controls
-
-We need two files in /trap.
-
-_keyDown.js_:
-```
-module.exports = function(e) {
-    switch(e.key) {
-    case 'ArrowLeft': lab.ship.move[0] = true; break;
-    case 'ArrowUp': lab.ship.move[1] = true; break;
-    case 'ArrowRight': lab.ship.move[2] = true; break;
-    case 'ArrowDown': lab.ship.move[3] = true; break;
+But we want it to accelerate on click,
+so we will include boost() function:
+```js
+function boost(mouseX, mouseY) {
+    if (!this.booster && dist(x, y, mouseX, mouseY) <= r) {
+        dx *= 1.2
+        dy *= 1.2
+        this.booster = true
     }
 }
 ```
 
-And _keyUp.js_:
-```
-module.exports = function(e) {
-    switch(e.key) {
-    case 'ArrowLeft': lab.ship.move[0] = false; break;
-    case 'ArrowUp': lab.ship.move[1] = false; break;
-    case 'ArrowRight': lab.ship.move[2] = false; break;
-    case 'ArrowDown': lab.ship.move[3] = false; break;
-    }
+We are checking if the mouse coordinates are within
+the planet radius and make 20% speed increase if so.
+The *booster* flag is needed for the visual feedback.
+We want to show the player a hint
+that the boost has actually happened.
+
+For example, we can change the atmosphere color
+in draw():
+```js
+function draw() {
+    background('#000000')
+    lineWidth(5)
+    if (this.booster) stroke(.05, .4, .6)
+    else stroke(.58, .5, .7)
+    circle(x, y, r)
+    image(res.mars_type_planet, x-r, y-r, 2*r, 2*r)
 }
 ```
 
-We determine an actual key and rise or clear
-corresponding flag inside ship.move[] array.
+It is time for the mouse handling.
+Create a folder named *trap* and place
+two .js files there - *mouseDown.js* and *mouseUp.js*.
 
-It is time to modify the ship to follow move commands:
-```
-const SPEED = ctx.height/5
-
-module.exports = {
-    Z: 1,
-
-    x: ctx.width/4,
-    y: ctx.height/2,
-    move: [],
-
-    evo: function(dt) {
-        if (this.move[0]) this.x -= SPEED*dt
-        if (this.move[2]) this.x += SPEED*dt
-        if (this.move[1]) this.y -= SPEED*dt
-        if (this.move[3]) this.y += SPEED*dt
-    },
-
-    draw: function() {
-        ctx.imageSmoothingEnabled = false
-
-        ctx.drawImage(res.ship,
-            this.x - res.ship.width/2,
-            this.y - res.ship.height/2)
-    },
+Put in *mouseDown.js*:
+```js
+function mouseDown(e) {
+    lab.boost(e.clientX, e.clientY)
 }
 ```
 
-Now we have the ship's SPEED.
-And we have evo(dt) function
-that reads the move flags
-and makes appropriate move.
+And *mouseUp.js* is goint to be:
+```
+function mouseUp() {
+    lab.booster = false
+}
+```
 
-Note, that we are multiplying
-SPEED * dt, to adjust speed
-on actual time passed since
-the last evo().
+Try it out - the planet is going to accelerate
+on mouse click. 
 
-Just update the browser to see the new behavior
-(we assume you haven't stopped the server).
+So it is all as simple as that!
+
+Just place the files in proper folders,
+follow naming conventions and
+Collider.JAM will assemble and run
+the game for you.
 
 
 
@@ -489,17 +332,7 @@ Check our following links:
 
 * [Collider.JAM Map](man/Map.md) 
 * [Collider.JAM Glossary](man/Glossary.md) 
-
-Also check out tutorials from the section below.
-
-
-
-Tutorials
----------
-In progress...
-
-[How To](man/HowTo.md)
-----------------------
+* [How To](man/HowTo.md)
 
 
 
@@ -522,21 +355,25 @@ Check out the following games. All created during various game jams and powered 
 * [Metro Gang](https://github.com/invider/metro-gang) - *[Play](https://ingwar.itch.io/metro-gang)* - fight against rival gangs for control of the city in this Ludum Dare 45 Entry.
 
 
+
 Jam Mixes
 ---------
 These are essential modules of the framework:
 
-* [collider.mix](https://github.com/invider/collider.mix) - the most essential mix that includes collider.jam system core (jam.js) and system function definitions.
-* [collider-lib.mix](https://github.com/invider/collider-lib.mix) - mixes in various libraries for use (like _lib.math_)
+* [collider.mix](https://github.com/invider/collider.mix) - the most essential mix that includes collider.jam system core (jam.js) and various library functions and data.
 * [collider-boot.mix](https://github.com/invider/collider-boot.mix) - contains basic samples and patches to mix from.
 * [collider-debug.mix](https://github.com/invider/collider-debug.mix) - debug tools
+
+
 
 How to Contribute
 -----------------
 
-<a href="https://discord.gg/c8Wmqd">Join our Discord server</a>
+<a href="https://discord.gg/c8Wmqd">Join our Discord server discussions</a>
 
-<a href="https://www.facebook.com/colliderlabs">Like _Collider Labs_ on Facebook</a>
+<a href="https://www.facebook.com/colliderlabs">Like _Collider Labs_ page on Facebook</a>
 
 <a href="https://twitter.com/chaostarter">Follow Igor Khotin on Twitter</a>
+
+Documentation, new tutorials, assets, mods and code contributions are always welcome :)
 
