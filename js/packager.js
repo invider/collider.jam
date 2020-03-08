@@ -98,12 +98,21 @@ const determinePackageName = function() {
     return name
 }
 
-const pack = function(baseDir, outputDir, units) {
-    const name = determinePackageName()
+function determineOutputDir(baseDir, outputDir) {
     const outDir = env.sketch?
             lib.addPath(baseDir, `../${env.name}.out`) + '/'
             : lib.addPath(baseDir, outputDir) + '/'
     env.outDir = outDir
+
+    if (env.sketch) {
+        env.outDir2 = lib.addPath(baseDir, `${env.name}.out`) + '/'
+    }
+    return outDir
+}
+
+const pack = function(baseDir, outputDir, units) {
+    const name = determinePackageName()
+    const outDir = determineOutputDir(baseDir, outputDir)
     
     log.debug(`output dir: [${outDir}]`, TAG)
 	cleanAndCreateDir(outDir)
@@ -126,24 +135,38 @@ const pack = function(baseDir, outputDir, units) {
     //fs.writeFileSync(outDir + env.configPath, JSON.stringify(env.config))
     fs.writeJsonSync(outDir + env.unitsPath, units.map, { spaces: '    '})
     fs.writeJsonSync(outDir + env.configPath, env.config, { spaces: '    '} )
+
+    repack()
+}
+
+const repack = function() {
+    if (!env.sketch) return
+
+    env.outDir2 = lib.addPath(env.baseDir, `${env.name}.out`) + '/'
+    cleanIfExists(env.outDir2)
+
+    log.trace(`moving ${env.outDir} -> ${env.outDir2}`)
+    fs.moveSync(env.outDir, env.outDir2)
+    env.outDir = env.outDir2
 }
 
 const generate = function() {
 
     lib.verifyBaseDir()
+	env.distDir = lib.addPath(env.baseDir, env.distDir) + '/'
+	cleanAndCreateDir(env.distDir)
+
     env.scanMap = lib.readOptionalJson(env.unitsConfig, env.scanMap)
     let scannedUnits = scanner.scan(env.baseDir, env.scanMap)
+
     pack(env.baseDir, env.outDir, scannedUnits)
 
 	// generate dist archives
     const name = env.name
     log.debug(`generating package [${name}]`, TAG)
-    const sourceDir = lib.addPath(env.baseDir, env.outDir) + '/'
-	const distDir = lib.addPath(env.baseDir, env.distDir) + '/'
-	cleanAndCreateDir(distDir)
-	zip(lib.addPath(distDir, name + '.zip'), sourceDir, 'zip')
-	zip(lib.addPath(distDir, name + '.tar'), sourceDir, 'tar')
-	zip(lib.addPath(distDir, name + '.tgz'), sourceDir, 'tgz')
+	zip(lib.addPath(env.distDir, name + '.zip'), env.outDir, 'zip')
+	zip(lib.addPath(env.distDir, name + '.tar'), env.outDir, 'tar')
+	zip(lib.addPath(env.distDir, name + '.tgz'), env.outDir, 'tgz')
 }
 
 module.exports = {

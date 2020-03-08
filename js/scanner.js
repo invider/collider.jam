@@ -27,7 +27,8 @@ function debug(msg) {
 function isIgnored(path) {
     // TODO add actual ignore config
     return (path.endsWith('.DS_Store')
-        || path.includes('.git'))
+        || path.includes('.git')
+        || path.endsWith('.out'))
 }
 
 function listFiles(unitPath, path, unit, onFile) {
@@ -260,7 +261,13 @@ let scanModules = function(units, path) {
                         || entry.endsWith('.fix')) {
                     trace('================================================')
                     trace('found a mix: ' + fullPath)
-                    scanMix(units, fullPath, entry)
+
+                    if (env.config.release
+                            && fullPath.includes('debug.mix')) {
+                        trace('ignoring for release: ' + fullPath)
+                    } else {
+                        scanMix(units, fullPath, entry)
+                    }
                 }
             }
         })
