@@ -349,17 +349,18 @@ Jamming Games
 Check out the following games. All created during various game jams and powered by *_collider.jam_*.
 
 * [300 Hearts for Escape](https://github.com/invider/300-hearts-for-escape) - *[Play](https://ingwar.itch.io/300-hearts-for-escape)* - a survival trading game placed on an isolated island created during Ludum Dare 44.
+* [Infected Island](https://github.com/invider/roguelike-pak.mod) - 7-Day Roguelike Challenge Entry
 * [Cosmic Rays 'n DNAs](https://github.com/invider/cosmic-rays-n-dnas.mod) - *[Play](https://ingwar.itch.io/rays)* - fix DNA in this arcade Global Game Jam 2020 Entry.
 * [Xeno Relay Day](https://github.com/invider/xeno-relay-day) - *[Play](https://ingwar.itch.io/xeno-relay-day)* - cosmic relay network puzzler created during Global Game Jam 2018.
 * [Dream Rocket Boy](https://github.com/invider/dream-rocket-boy) - *[Play](https://ingwar.itch.io/dream-rocket-boy)* - a single screen platformer created for Global Game Jam 2019.
 * [Master of Ritual](https://github.com/invider/master-of-ritual) - *[Play](https://ingwar.itch.io/master-or-ritual)* - dungeon crawler from Ludum Dare 43.
-* [Metro Gang](https://github.com/invider/metro-gang) - *[Play](https://ingwar.itch.io/metro-gang)* - fight against rival gangs for control of the city in this Ludum Dare 45 Entry.
+* [Metro Gang](https://github.com/invider/metro-gang.mix) - *[Play](https://ingwar.itch.io/metro-gang)* - fight against rival gangs for control of the city in this Ludum Dare 45 Entry.
 
 
 
 Jam Mixes
 ---------
-These are essential modules of the framework:
+There are a few modules **Collider.JAM** depends on:
 
 * [collider.mix](https://github.com/invider/collider.mix) - the most essential mix that includes collider.jam system core (jam.js) and various library functions and data.
 * [collider-boot.mix](https://github.com/invider/collider-boot.mix) - contains basic samples and patches to mix from.
@@ -370,7 +371,7 @@ These are essential modules of the framework:
 How to Contribute
 -----------------
 
-<a href="https://discord.gg/c8Wmqd">Join our Discord server discussions</a>
+<a href="https://discord.gg/kxNnHc2">Join our Discord server discussions</a>
 
 <a href="https://www.facebook.com/colliderlabs">Like _Collider Labs_ page on Facebook</a>
 
