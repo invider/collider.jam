@@ -105,9 +105,14 @@ if (!env.debug && !env.verbose) {
     log.dump = log.off
 }
 
-// save collider.jam node modules base
-env.jamPath = module.path
-if (!env.jamPath) {
+// determine collider.jam node modules base
+const hubPath = require.resolve('./js/hub.js')
+const jamPath = hubPath.substring(0, hubPath.length - 10)
+
+env.jamPath = module.path || jamPath
+if (env.jamPath) {
+    log.debug('collider.jam path: ' + env.jamPath)
+} else {
     log.warn("can't determine collider.jam module path!")
     log.warn(`module.path = "${module.path}"`)
     log.dump(module.paths)
