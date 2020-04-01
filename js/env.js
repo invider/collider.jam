@@ -1,7 +1,7 @@
 'use strict'
 
 module.exports = {
-    version: '0.1.0 DR1',
+    version: '0.0.3 DR3',
 
     PACKAGE_MODE: 0,
     MOD_MODE: 1,

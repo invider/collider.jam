@@ -1,6 +1,6 @@
 {
   "name": "collider.jam",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Easy and fun game framework for jamming and rapid game prototyping",
   "keywords": [
     "game framework",
@@ -30,14 +30,15 @@
   },
   "dependencies": {
     "archiver": "^3.1.1",
+    "collider-boot.mix": "git+https://github.com/invider/collider-boot.mix.git",
     "collider-debug.mix": "git+https://github.com/invider/collider-debug.mix.git",
     "express": "^4.17.1",
     "express-ws": "latest",
     "fs-extra": "^8.1.0",
     "open": "^6.4.0",
-    "request": "latest",
+    "request": "^2.88.2",
     "socket.io": "latest",
-    "underscore": "^1.9.2"
+    "underscore": "^1.10.2"
   },
   "author": "Igor Khotin & Co.",
   "license": "zlib"
