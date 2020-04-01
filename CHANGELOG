@@ -1,3 +1,13 @@
+0.0.3-DR3 2020-04-01
+[+] new wormhole bootloader
+[+] jam --release flag to ignore debug dependencies
+[+] shuffle() array in lib/math
+[+] mod.disabled flag to ignore traps on mod-level
+[*] updated manual pages
+[*] improved node inspector navigation (F2)
+[-] fixed collider.jam module path determination (F1)
+[-] fixed Firefox compatibility
+[-] fixed Safari compatibility
 
 0.0.2-DR2 2020-02-29
 
