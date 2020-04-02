@@ -5,19 +5,23 @@
 
 Welcome to Collider.JAM!
 ========================
-
 <p align="right">
-    <i><b>The Fun of the Game Jamming.</b></i>
+    <i><b>Crafting with joy.</b></i>
 </p>
 
-Collider.JAM is a JavaScript framework for rapid game prototyping and jamming.
+Collider.JAM is a hand-crafted JavaScript framework
+for game jamming, creative coding, rapid game prototyping and beyond.
 It was crafted from experience of multiple game jams we've participated in.
 
 Game prototyping is an art that mixes design, technology and creativity
 bounded by time or other limitations.
-And we believe it deserves a dedicated tool to address specific needs of a rapidly evolving and changing prototype.
+And we believe it deserves a dedicated tool to address specific needs
+of a rapidly evolving and changing prototype.
+
+Visit [Collider.JAM Home](http://colliderlabs.com/jam).
 
 Check out tutorials and code examples below.
+
 _And pixelate reality!_
 
 Table of Contents
@@ -39,6 +43,9 @@ Table of Contents
 
 Install
 -------
+<p align="right">
+    <i><b>Unlock your creativity.</b></i>
+</p>
 
 To start jamming, we need to install collider.jam npm package.
 It provides the sheel to bootstrap and run game projects.
@@ -80,6 +87,10 @@ jam help
 
 Drawing Shape
 -------------
+<p align="right">
+    <i><b>The Fun of the Game Jamming.</b></i>
+</p>
+
 Select a folder to keep your game projects in
 and create a new subfolder named 'cirlce.mod':
 ```
@@ -346,6 +357,10 @@ Check out examples in [bits.mix](https://github.com/invider/bits.mix).
 
 Jamming Games
 -------------
+<p align="right">
+    <i><b>Follow the jamming way</b></i>
+</p>
+
 Check out the following games. All created during various game jams and powered by *_collider.jam_*.
 
 * [300 Hearts for Escape](https://github.com/invider/300-hearts-for-escape) - *[Play](https://ingwar.itch.io/300-hearts-for-escape)* - a survival trading game placed on an isolated island created during Ludum Dare 44.
