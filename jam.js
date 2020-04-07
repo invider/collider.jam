@@ -44,7 +44,7 @@ for (let i = 2; i < args.length; i++) {
         env.test = true
         env.config.test = true
 
-    } else if (arg === '-h' || arg === '--hub') {
+    } else if (arg === '-b' || arg === '--hub') {
         env.hub = true
         env.config.hub = true
         parsedOption = false
@@ -124,16 +124,16 @@ if (env.jamPath) {
 env.jamModules = module.paths[0]
 
 switch(cmd) {
-    case 'version': log.raw(env.version); break;
-    case 'run': hub.start(); break;
-    case 'play': case 'open': player.play(); break;
-    case 'init': init(); break;
+    case 'version': case 'v': log.raw(env.version); break;
+    case 'run': case 'r': hub.start(); break;
+    case 'play': case 'open': case 'o': player.play(); break;
+    case 'init': case 'i': init(); break;
     case 'bootstrap': bootstrap(); break;
     case 'patch': patch(); break;
-    case 'pack': generate(); break;
-    case 'clean': clean(env.params[0]); break;
-    case 'units': printUnits(); break;
-    case 'files': printFiles(); break;
-    case 'help': help(); break;
+    case 'pack': case 'p': generate(); break;
+    case 'clean': case 'c': clean(env.params[0]); break;
+    case 'units': case 'u': printUnits(); break;
+    case 'files': case 'f': printFiles(); break;
+    case 'help': case 'h': help(); break;
     default: log.fatal('unknown command: ' + cmd, TAG)
 }

@@ -1,31 +1,31 @@
 Usage: jam <command> [jam options] [custom options]
 
-Following commands are available:
-    run - start collider.jam hub server
-    play - start collider.jam hub server if not detected and open default browser
-    init <sample-name> - init and bootstrap the project from the template
+Following commands are available [shortcuts are in brackets]:
+    [r] run    - start collider.jam server (default command)
+    [o] play, open - start the project in default web browser
+    [i] init <sample-name>  - init and bootstrap a project from template
     bootstrap <sample-name> - bootstrap from a sample
-    patch <patch-name> - fix the project with a patch
-    pack - assemble all resources in ./out folder, create archives in ./dist
-    clean - remove all generated content
-	clean all - remove all generated content and locally installed modules
-    units - list units
-    files - list indexed files for each unit
-    help - this message
+    patch <patch-name>      - fix the project with a patch
+    [p] pack   - assemble all resources in ./out folder, create archives in ./dist
+    [c] clean  - remove all generated content
+    clean all  - remove all generated content and locally installed modules
+    [u] units  - list units
+    [f] files  - list indexed files for each unit
+    [h] help   - this message
 
 Available [jam options]:
-    -d, --debug - debug mode
+    -d, --debug  - debug mode
     -t, --test [test-name] - run all the tests, or a test specified by name
-    -y, --types - generate types.ts meta info
+    -y, --types  - generate types.ts meta info
     --box <box-name> - select a box to run
-    -f, --flow - flow mode to autoload updates
-    -m, --mute - mute mode to suppress any output
-    -p, --port - server port
+    -f, --flow   - flow mode to autoload updates (automatically enabled on debug)
+    -m, --mute   - mute mode to suppress any output
+    -p, --port   - server port
     -s, --static - static mode
-    -h, --hub - run the hub included in the mix
+    -b, --hub    - run the hub/boost included in the mix
     -mc, --mission-control - run collider.jam mission control
-    --version - alternate option for version
-    -h, --help - alternate option for help
+    --version    - alternate option for version
+    -h, --help   - alternate option for help
 
     [custom options] can be declared and used later in hub or mod.
     These options are available in environment configuration.
