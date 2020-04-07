@@ -20,6 +20,7 @@ function cleanIfExists(path) {
 function clean(opt) {
     cleanIfExists(lib.addPath(env.baseDir, env.outDir))
 	cleanIfExists(lib.addPath(env.baseDir, env.distDir))
+	cleanIfExists(lib.addPath(env.baseDir, env.typesMeta))
 	if (opt === 'all') {
 		cleanIfExists(lib.addPath(env.baseDir, 'node_modules'))
 	}
