@@ -32,7 +32,7 @@
   "dependencies": {
     "archiver": "^3.1.1",
     "collider-boot.mix": "git+https://github.com/invider/collider-boot.mix.git",
-    "collider-debug.mix": "git+https://github.com/invider/collider-debug.mix.git",
+    "collider-dev.mix": "git+https://github.com/invider/collider-dev.mix.git",
     "express": "^4.17.1",
     "express-ws": "latest",
     "fs-extra": "^8.1.0",
@@ -42,5 +42,5 @@
     "underscore": "^1.10.2"
   },
   "author": "Igor Khotin & Co.",
-  "license": "zlib"
+  "license": "Zlib"
 }
