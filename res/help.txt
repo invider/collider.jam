@@ -14,10 +14,10 @@ Following commands are available:
     help - this message
 
 Available [jam options]:
-    -t, --test - run all the tests
-    --test <test-name> - run specified test
-    --box <box-name> - select a box to run
     -d, --debug - debug mode
+    -t, --test [test-name] - run all the tests, or a test specified by name
+    -y, --types - generate types.ts meta info
+    --box <box-name> - select a box to run
     -f, --flow - flow mode to autoload updates
     -m, --mute - mute mode to suppress any output
     -p, --port - server port

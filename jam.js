@@ -28,6 +28,10 @@ for (let i = 2; i < args.length; i++) {
         env.config.debug = true
         parsedOption = false
 
+    } else if (arg === '-y' || arg === '--types') {
+        env.types = true
+        parsedOption = false
+
     } else if (arg === '-f' || arg === '--flow') {
         env.flow = true
         env.config.flow = true

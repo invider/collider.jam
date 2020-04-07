@@ -128,6 +128,7 @@ function flat(meta, level) {
 }
 
 function generate(meta) {
+    if (!env.types) return
     log.debug(TAG, `generating ${env.typesMeta}`)
     
     buf = ''
