@@ -141,15 +141,17 @@ const UnitMap = function() {
 
 UnitMap.prototype.register = function(unit) {
     if (this.units[unit.id]) {
-        log.dump(env.scanMap)
-        log.error(`can't register unit at: ${unit.path} as [${unit.id}]`)
-        log.error(`id is already mapped to ${this.units[unit.id].path}`)
-        log.error(`could be the problem with ${env.unitsConfig}`)
-        log.error(`check [scanner] logs and [${env.scanMap.origin}]`)
-        throw 'unit mapped to [' + unit.id + '] already exists!'
+        //log.dump(env.scanMap)
+        trace(`unit [${unit.id}] at: ${unit.path}`)
+        trace(`is replacing unit ${this.units[unit.id].path}`)
+        trace(`could be a problem with ${env.unitsConfig}`)
+        trace('figure out if that is what you really want')
+        trace(`if not, check [scanner] logs and [${env.scanMap.origin}]`)
+        //throw 'unit mapped to [' + unit.id + '] already exists!'
+    } else {
+        this.length ++
     }
 
-    this.length ++
     this.units[unit.id] = unit
 
     // map mix to unit
@@ -289,7 +291,12 @@ function tryToReadScanMap(path, defaultScanMap) {
 
 function determineScanMap() {
     if (env.sketch) {
-        debug('running in sketch mode')
+
+        if (env.mode === env.MOD_MODE) {
+            debug('running in sketch mod mode')
+        } else {
+            debug('running in sketch mix mode')
+        }
 
         // set sketch mod defaults
         // can be redefined later
@@ -322,6 +329,10 @@ function determineScanMap() {
     if (env.sketch) {
         if (!env.scanMap.units) env.scanMap.units = []
         env.scanMap.units.push(env.jamPath)
+
+        if (env.mode === env.MIX_MODE) {
+            env.scanMap.units.push('./')
+        }
 
     } else {
         if (!env.scanMap.units) env.scanMap.units = []
@@ -386,7 +397,7 @@ function scanUnits() {
         includePath(units, '', fullPath, entry)
     })
 
-    if (env.sketch) {
+    if (env.sketch && env.mode === env.MOD_MODE) {
         // need to include manually,
         // since ./ is remapped to /mod
         includePath(units, '', './', 'mod')

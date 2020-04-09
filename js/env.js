@@ -5,6 +5,7 @@ module.exports = {
 
     PACKAGE_MODE: 0,
     MOD_MODE: 1,
+    MIX_MODE: 2,
 
     mode: 0,
     sketch: false,
@@ -37,8 +38,7 @@ module.exports = {
     sketchScanMap: {
         origin: 'default-sketch',
         units: [],
-        mixes: [
-        ],
+        mixes: [],
         paths: [],
     },
 

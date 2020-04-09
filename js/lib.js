@@ -59,13 +59,20 @@ module.exports = {
     checkBaseDir: function(path) {
         let packageMarker = false
         let modMarker = false
+        let mixMarker = false
 
         let lstat = fs.lstatSync(path)
         if (lstat.isDirectory()) {
             const realpath = fs.realpathSync(path)
+
+            // figure out if we are inside a mod or a mix
             if (realpath.endsWith('mod')) {
                 modMarker = true
+            } else if (realpath.endsWith('mix')) {
+                mixMarker = true
             }
+
+            // figure out if we are inside a package
             fs.readdirSync(path).forEach(entry => {
                 if (entry === env.unitsJson || entry === 'package.json') {
                    packageMarker = true 
@@ -83,6 +90,12 @@ module.exports = {
         } else if (modMarker) {
             base = {
                 mode: env.MOD_MODE,
+                path: path,
+            }
+            env.sketch = true
+        } else if (mixMarker) {
+            base = {
+                mode: env.MIX_MODE,
                 path: path,
             }
             env.sketch = true
