@@ -265,7 +265,7 @@ let scanModules = function(units, path) {
                     trace('found a mix: ' + fullPath)
 
                     if (env.config.release
-                            && fullPath.includes('debug.mix')) {
+                            && fullPath.includes('dev.mix')) {
                         trace('ignoring for release: ' + fullPath)
                     } else {
                         scanMix(units, fullPath, entry)
