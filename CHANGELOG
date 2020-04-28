@@ -1,20 +1,20 @@
 0.0.4-DR4 2020-04-28
-[+] *.spawn.js autospawn
+[+] *.spawn.js entities autospawn
 [+] custom post-processors for *.js and *.json files
-[+] execute all *setup() function on start
+[+] execute all *setup() functions on start
 [+] enable background by default
 [+] poke() and pick() support in lab frames
 [+] getMod() in frames
-[+] get a custom random source with ability to set the seed
 [+] dynamic Z-sorting in lab frame
 [+] masked and ignored traps
+[+] get a custom random source with ability to set the seed
 [+] mod and lab control (pause, resume, hide, show etc)
-[+] run mixes in sketch mod
+[+] run mixes in sketch mode
 [+] translate, scale and rotate nodes
 [+] mod transitions
-[+] flexible font() function with separate handling of font and size
-[+] jam command shortcuts
+[+] flexible font() function with separate handling of fonts and sizes
 [+] *.ogg and *.mp3 files support
+[+] jam command shortcuts
 [+] -y/--types option to generate types metadata
 [*] migrated mods from collider-debug.mix to collider-dev.mix
 
