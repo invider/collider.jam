@@ -18,8 +18,18 @@ function cleanIfExists(path) {
 }
 
 function clean(opt) {
-    cleanIfExists(lib.addPath(env.baseDir, env.outDir))
-	cleanIfExists(lib.addPath(env.baseDir, env.distDir))
+    lib.verifyBaseDir()
+	env.distDir = lib.addPath(env.baseDir, env.distDir) + '/'
+
+    env.scanMap = lib.readOptionalJson(env.unitsConfig, env.scanMap)
+    let scannedUnits = scanner.scan(env.baseDir, env.scanMap)
+
+    determinePackageName()
+    determineOutputDir(env.baseDir, env.outDir)
+
+    if (env.outDir) cleanIfExists(lib.addPath(env.baseDir, env.outDir))
+    if (env.outDir2) cleanIfExists(lib.addPath(env.baseDir, env.outDir2))
+	if (env.distDir) cleanIfExists(lib.addPath(env.baseDir, env.distDir))
 	cleanIfExists(lib.addPath(env.baseDir, env.typesMeta))
 	if (opt === 'all') {
 		cleanIfExists(lib.addPath(env.baseDir, 'node_modules'))
