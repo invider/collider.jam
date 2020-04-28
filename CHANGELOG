@@ -1,3 +1,23 @@
+0.0.4-DR4 2020-04-28
+[+] *.spawn.js autospawn
+[+] custom post-processors for *.js and *.json files
+[+] execute all *setup() function on start
+[+] enable background by default
+[+] poke() and pick() support in lab frames
+[+] getMod() in frames
+[+] get a custom random source with ability to set the seed
+[+] dynamic Z-sorting in lab frame
+[+] masked and ignored traps
+[+] mod and lab control (pause, resume, hide, show etc)
+[+] run mixes in sketch mod
+[+] translate, scale and rotate nodes
+[+] mod transitions
+[+] flexible font() function with separate handling of font and size
+[+] jam command shortcuts
+[+] *.ogg and *.mp3 files support
+[+] -y/--types option to generate types metadata
+[*] migrated mods from collider-debug.mix to collider-dev.mix
+
 0.0.3-DR3 2020-04-01
 [+] new wormhole bootloader
 [+] jam --release flag to ignore debug dependencies

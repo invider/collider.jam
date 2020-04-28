@@ -1,7 +1,7 @@
 {
   "name": "collider.jam",
-  "version": "0.0.3",
-  "description": "Easy and fun game framework for jamming and rapid game prototyping",
+  "version": "0.0.4",
+  "description": "Hand-crafted and fun to use game framework for jamming, creative coding, and rapid game prototyping",
   "keywords": [
     "game framework",
     "game engine",
