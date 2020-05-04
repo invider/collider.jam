@@ -6,7 +6,7 @@ Following commands are available [shortcuts are in brackets]:
     [i] init <sample-name>  - init and bootstrap a project from template
     bootstrap <sample-name> - bootstrap from a sample
     patch <patch-name>      - fix the project with a patch
-    [p] pack   - assemble all resources in ./out folder, create archives in ./dist
+    [p] pack [out|dist| ] - assemble all resources in <out> folder, create archives in ./dist
     [c] clean  - remove all generated content
     clean all  - remove all generated content and locally installed modules
     [u] units  - list units

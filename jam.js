@@ -130,7 +130,7 @@ switch(cmd) {
     case 'init': case 'i': init(); break;
     case 'bootstrap': bootstrap(); break;
     case 'patch': patch(); break;
-    case 'pack': case 'p': generate(); break;
+    case 'pack': case 'p': generate(env.params[0]); break;
     case 'clean': case 'c': clean(env.params[0]); break;
     case 'units': case 'u': printUnits(); break;
     case 'files': case 'f': printFiles(); break;

@@ -67,7 +67,7 @@ function zip(target, source, type) {
 			size = Math.round(size/1024)
 			suffix = 'mb'
 		}
-		log.out('created [' + target + ']: ' + size + suffix)
+		log.out('created [' + target + ']: ' + size + suffix, TAG)
 	})
 
 	archive.on('warning', function(err) {
@@ -92,12 +92,16 @@ function zip(target, source, type) {
 
 }
 
-function cleanAndCreateDir(path) {
+function cleanPath(path) {
     if (fs.existsSync(path)) {
 		// remove dir first
         log.debug('cleaning up [' + path + ']', TAG) 
         fs.removeSync(path)
     }
+}
+
+function cleanAndCreateDir(path) {
+    cleanPath(path)
     fs.ensureDirSync(path)
 }
 
@@ -109,10 +113,11 @@ const determinePackageName = function() {
     return name
 }
 
-function determineOutputDir(baseDir, outputDir) {
+function determineOutputDir() {
+    const baseDir = env.baseDir
     const outDir = env.sketch?
             lib.addPath(baseDir, `../${env.name}.out`) + '/'
-            : lib.addPath(baseDir, outputDir) + '/'
+            : lib.addPath(baseDir, env.outDir) + '/'
     env.outDir = outDir
 
     if (env.sketch) {
@@ -121,9 +126,15 @@ function determineOutputDir(baseDir, outputDir) {
     return outDir
 }
 
-const pack = function(baseDir, outputDir, units) {
+function determineFinalOutputDir() {
+    determineOutputDir()
+    if (env.sketch) return env.outDir2
+    else return env.outDir
+}
+
+function pack(baseDir, outputDir, units) {
     const name = determinePackageName()
-    const outDir = determineOutputDir(baseDir, outputDir)
+    const outDir = determineOutputDir()
     
     log.debug(`output dir: [${outDir}]`, TAG)
 	cleanAndCreateDir(outDir)
@@ -147,37 +158,50 @@ const pack = function(baseDir, outputDir, units) {
     fs.writeJsonSync(outDir + env.unitsPath, units.map, { spaces: '    '})
     fs.writeJsonSync(outDir + env.configPath, env.config, { spaces: '    '} )
 
-    repack()
+    if (env.sketch) moveIntoSketch()
 }
 
-const repack = function() {
+function moveIntoSketch() {
     if (!env.sketch) return
-
-    env.outDir2 = lib.addPath(env.baseDir, `${env.name}.out`) + '/'
+    //env.outDir2 = lib.addPath(env.baseDir, `${env.name}.out`) + '/'
     cleanIfExists(env.outDir2)
 
-    log.trace(`moving ${env.outDir} -> ${env.outDir2}`)
+    log.trace(`moving ${env.outDir} -> ${env.outDir2}`, TAG)
     fs.moveSync(env.outDir, env.outDir2)
     env.outDir = env.outDir2
 }
 
-const generate = function() {
+function generateDist() {
+    // generate dist archives
+    const name = env.name || determinePackageName()
+    const srcDir = determineFinalOutputDir()
+    log.debug(`generating dist package [${name}]`, TAG)
+    log.debug(`source dir: [${srcDir}]`, TAG)
+    zip(lib.addPath(env.distDir, name + '.zip'), srcDir, 'zip')
+    zip(lib.addPath(env.distDir, name + '.tar'), srcDir, 'tar')
+    zip(lib.addPath(env.distDir, name + '.tgz'), srcDir, 'tgz')
+}
 
+function generate(opt) {
     lib.verifyBaseDir()
-	env.distDir = lib.addPath(env.baseDir, env.distDir) + '/'
-	cleanAndCreateDir(env.distDir)
+    env.distDir = lib.addPath(env.baseDir, env.distDir) + '/'
+
+    if (opt === 'out') clean(env.distDir)
+    else cleanAndCreateDir(env.distDir)
+
+    if (opt === 'dist') {
+        generateDist()
+        return
+    }
 
     env.scanMap = lib.readOptionalJson(env.unitsConfig, env.scanMap)
     let scannedUnits = scanner.scan(env.baseDir, env.scanMap)
 
     pack(env.baseDir, env.outDir, scannedUnits)
 
-	// generate dist archives
-    const name = env.name
-    log.debug(`generating package [${name}]`, TAG)
-	zip(lib.addPath(env.distDir, name + '.zip'), env.outDir, 'zip')
-	zip(lib.addPath(env.distDir, name + '.tar'), env.outDir, 'tar')
-	zip(lib.addPath(env.distDir, name + '.tgz'), env.outDir, 'tgz')
+    if (opt !== 'out') {
+        generateDist()
+    }
 }
 
 module.exports = {
