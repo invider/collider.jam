@@ -26,6 +26,8 @@ for (let i = 2; i < args.length; i++) {
     if (arg === '-d' || arg === '--debug') {
         env.debug = true
         env.config.debug = true
+        env.flow = true
+        env.config.flow = true
         parsedOption = false
 
     } else if (arg === '-y' || arg === '--types') {
@@ -62,6 +64,11 @@ for (let i = 2; i < args.length; i++) {
 
     } else if (arg === '-s' || arg === '--static') {
         env.dynamic = false
+        parsedOption = false
+
+    } else if (arg === '-g' || arg === '--pregen') {
+        env.dynamic = false
+        env.pregen = true
         parsedOption = false
 
     } else if (arg === '-v' || arg === '--verbose') {

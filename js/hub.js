@@ -29,15 +29,6 @@ function start() {
 
     const unitsMap = scanner.scan()
 
-    /*
-    // add local folder to paths and require extentions
-    module.paths.push('./')
-    module.paths.push('./node_modules')
-
-    env.scanMap = lib.readOptionalJson(env.unitsConfig, env.scanMap)
-    let unitsMap = scanner.scan(env.baseDir, env.scanMap)
-    */
-
     // TODO figure out do we really need that in some scenarios?
     if (env.config.cors) {
         log.debug('Allowing cross-origin access')
@@ -47,7 +38,6 @@ function start() {
             next()
         })
     }
-
 
     if (env.dynamic) {
         env.config.dynamic = true
@@ -131,13 +121,21 @@ function start() {
         })
 
     } else {
-        log.out('serving only static package!')
+        log.out('serving only static package!', TAG)
         env.config.dynamic = false
-        packager.pack(env.baseDir, env.outDir, unitsMap)
+        env.flow = false
+        env.config.flow = false
+
+        if (!env.pregen) {
+            packager.pack(env.baseDir, env.outDir, unitsMap)
+        } else {
+            env.outDir = packager.determineFinalOutputDir()
+            log.out(`using pregenerated package [${env.outDir}]`, TAG)
+        }
 
         let localPath = lib.addPath(env.baseDir, env.outDir)
 
-        log.debug('mounting ' + env.base + ' -> ' + localPath, TAG)
+        log.debug(`mounting [${env.base}] -> [${localPath}]`, TAG)
         app.use(env.base, express.static(localPath)) // mount to root
     }
 
@@ -171,12 +169,14 @@ function start() {
         log.out('---Listening at http://localhost:' + env.port + ' ---', TAG);
     })
 
-    if (env.debug || env.flow) flow.start(app, ws)
-    startSyncMonitor()
+    if (env.flow) {
+        flow.start(app, ws)
+        startSyncMonitor()
+    }
 }
 
 function startSyncMonitor() {
-    if (!env.config.debug && !env.config.flow) return
+    if (!env.config.dynamic && !env.config.debug && !env.config.flow) return
 
     const syncTime = 2000
     const syncTimeS = Math.round(syncTime/1000)

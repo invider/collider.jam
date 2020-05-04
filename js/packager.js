@@ -114,6 +114,8 @@ const determinePackageName = function() {
 }
 
 function determineOutputDir() {
+    if (!env.name) determinePackageName()
+
     const baseDir = env.baseDir
     const outDir = env.sketch?
             lib.addPath(baseDir, `../${env.name}.out`) + '/'
@@ -208,4 +210,5 @@ module.exports = {
     pack: pack,
     generate: generate,
 	clean: clean,
+    determineFinalOutputDir: determineFinalOutputDir,
 }

@@ -22,6 +22,7 @@ Available [jam options]:
     -m, --mute   - mute mode to suppress any output
     -p, --port   - server port
     -s, --static - static mode
+    -g, --pregen - run pregenerated package in static mode
     -b, --hub    - run the hub/boost included in the mix
     -mc, --mission-control - run collider.jam mission control
     --version    - alternate option for version
