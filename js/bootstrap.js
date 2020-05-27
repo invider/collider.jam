@@ -69,7 +69,7 @@ module.exports = {
 
         log.out(`bootstrapping from [${sample}]`, 'bootstrap')
 
-        env.scanMap = lib.readOptionalJson(env.unitsConfig, env.scanMap)
+        env.scanMap = lib.readOptionalJson(env.mapConfig, env.scanMap)
         let scannedUnits = scanner.scan(env.baseDir, env.scanMap)
 
         let sampleDescr = scannedUnits.sample[sample]
@@ -91,7 +91,7 @@ module.exports = {
 
         log.out(`applying patch [${id}]`)
 
-        env.scanMap = lib.readOptionalJson(env.unitsConfig, env.scanMap)
+        env.scanMap = lib.readOptionalJson(env.mapConfig, env.scanMap)
         let scannedUnits = scanner.scan(env.baseDir, env.scanMap)
 
         let patch = scannedUnits.patch[id]

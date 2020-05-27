@@ -144,7 +144,7 @@ UnitMap.prototype.register = function(unit) {
         //log.dump(env.scanMap)
         trace(`unit [${unit.id}] at: ${unit.path}`)
         trace(`is replacing unit ${this.units[unit.id].path}`)
-        trace(`could be a problem with ${env.unitsConfig}`)
+        trace(`could be a problem with ${env.mapConfig}`)
         trace('figure out if that is what you really want')
         trace(`if not, check [scanner] logs and [${env.scanMap.origin}]`)
         //throw 'unit mapped to [' + unit.id + '] already exists!'
@@ -280,7 +280,7 @@ let scanModules = function(units, path) {
 
 function tryToReadScanMap(path, defaultScanMap) {
     const scanMap = lib.readOptionalJson(path, undefined,
-            () => debug(`found ${env.unitsConfig} at: ${path}`))
+            () => debug(`found ${env.mapConfig} at: ${path}`))
     if (scanMap) {
         scanMap.origin= path
         return scanMap
@@ -305,7 +305,7 @@ function determineScanMap() {
             env.scanMap.mixes.push(env.jamModules)
         } else {
             log.warn("Can't determine collider.jam module path.")
-            log.warn(`Set the path manually in mixes: [] section by creating ./${env.unitsConfig}.`)
+            log.warn(`Set the path manually in mixes: [] section by creating ./${env.mapConfig}.`)
         }
 
     } else {
@@ -314,17 +314,17 @@ function determineScanMap() {
     }
 
     // try to read default unit structure from jam
-    const jpath = lib.addPath(env.jamPath, env.unitsConfig)
+    const jpath = lib.addPath(env.jamPath, env.mapConfig)
     env.scanMap = tryToReadScanMap(jpath, env.scanMap)
     /*
     env.scanMap = lib.readOptionalJson(jpath, env.scanMap,
-            () => debug(`using ${env.unitsConfig} from: ${jpath}`))
+            () => debug(`using ${env.mapConfig} from: ${jpath}`))
     */
 
     // try to read unit structure from local project
-    env.scanMap = tryToReadScanMap(env.unitsConfig, env.scanMap)
-    //env.scanMap = lib.readOptionalJson(env.unitsConfig, env.scanMap,
-    //        () => debug(`using local ./${env.unitsConfig}`))
+    env.scanMap = tryToReadScanMap(env.mapConfig, env.scanMap)
+    //env.scanMap = lib.readOptionalJson(env.mapConfig, env.scanMap,
+    //        () => debug(`using local ./${env.mapConfig}`))
 
     if (env.sketch) {
         if (!env.scanMap.units) env.scanMap.units = []
@@ -366,7 +366,7 @@ function scanUnits() {
     const base = env.baseDir
 
     const scanMap = determineScanMap()
-    debug(`using ${env.unitsConfig} from: [${scanMap.origin}]`)
+    debug(`using ${env.mapConfig} from: [${scanMap.origin}]`)
 
     trace('scanning environment for collider.jam units...')
     dumpScanMap()

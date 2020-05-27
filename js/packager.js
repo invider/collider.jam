@@ -21,7 +21,7 @@ function clean(opt) {
     lib.verifyBaseDir()
 	env.distDir = lib.addPath(env.baseDir, env.distDir) + '/'
 
-    env.scanMap = lib.readOptionalJson(env.unitsConfig, env.scanMap)
+    env.scanMap = lib.readOptionalJson(env.mapConfig, env.scanMap)
     let scannedUnits = scanner.scan(env.baseDir, env.scanMap)
 
     determinePackageName()
@@ -196,7 +196,7 @@ function generate(opt) {
         return
     }
 
-    env.scanMap = lib.readOptionalJson(env.unitsConfig, env.scanMap)
+    env.scanMap = lib.readOptionalJson(env.mapConfig, env.scanMap)
     let scannedUnits = scanner.scan(env.baseDir, env.scanMap)
 
     pack(env.baseDir, env.outDir, scannedUnits)
