@@ -142,9 +142,14 @@ const UnitMap = function() {
 UnitMap.prototype.register = function(unit) {
 
     if (unit.pak && unit.pak.optional) {
-        debug(`skipping [${unit.id}]`
-            + `- include explicitly in ${env.pakConfig} if needed`)
-        return
+
+        if (env.scanMap.include && env.scanMap.include.includes(unit.id)) {
+            debug(`including optional [${unit.id}] according to config`)
+        } else {
+            debug(`skipping [${unit.id}]`
+                + `- include explicitly in ${env.pakConfig} if needed`)
+            return
+        }
     }
 
     if (this.units[unit.id]) {
