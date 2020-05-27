@@ -140,6 +140,13 @@ const UnitMap = function() {
 }
 
 UnitMap.prototype.register = function(unit) {
+
+    if (unit.pak && unit.pak.optional) {
+        debug(`skipping [${unit.id}]`
+            + `- include explicitly in ${env.pakConfig} if needed`)
+        return
+    }
+
     if (this.units[unit.id]) {
         //log.dump(env.scanMap)
         trace(`unit [${unit.id}] at: ${unit.path}`)
@@ -292,6 +299,12 @@ function tryToReadScanMap(path, defaultScanMap) {
     }
 }
 
+function remap(path, scanMap) {
+    const remap = lib.readOptionalJson(path, undefined,
+            () => debug(`found ${env.remapConfig} at: ${path}`))
+    if (remap) lib.augment(scanMap, remap)
+}
+
 function determineScanMap() {
     if (env.sketch) {
 
@@ -326,6 +339,7 @@ function determineScanMap() {
 
     // try to read unit structure from local project
     env.scanMap = tryToReadScanMap(env.mapConfig, env.scanMap)
+    remap(env.remapConfig, env.scanMap)
     //env.scanMap = lib.readOptionalJson(env.mapConfig, env.scanMap,
     //        () => debug(`using local ./${env.mapConfig}`))
 
@@ -351,16 +365,26 @@ function dumpScanMap() {
     debug('       MAP         ')
     debug('===================')
     if (map.mixes) {
-        debug('=== mixes paths ===')
+        debug('=== module paths ===')
         map.mixes.forEach(path => debug(`* [${path}]`))
     }
     if (map.units) {
-        debug('=== units paths ===')
+        debug('=== mixes paths ===')
         map.units.forEach(path => debug(`* [${path}]`))
     }
     if (map.paths) {
-        debug('=== included ===')
+        debug('=== units included ===')
         map.paths.forEach(path => debug(`* [${path}]`))
+    }
+
+    if (map.include) {
+        debug('=== include ===')
+        map.include.forEach(path => debug(`* [${path}]`))
+    }
+
+    if (map.ignore) {
+        debug('=== ignore ===')
+        map.ignore.forEach(path => debug(`* [${path}]`))
     }
 }
 

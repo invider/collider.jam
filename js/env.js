@@ -26,6 +26,7 @@ module.exports = {
 	distDir: 'dist',
     typesMeta: 'types.ts',
     mapConfig: 'map.json',
+    remapConfig: 'remap.json',
     pakConfig: 'pak.json',
 
     defaultScanMap: {
