@@ -108,7 +108,7 @@ const Unit = function(id, mix, type, path, requireMix) {
     this.type = type
     this.path = path
     this.requireMix = requireMix
-    this.pak = loadOptionalJson(lib.addPath(path, 'pak.json'))
+    this.pak = loadOptionalJson(lib.addPath(path, env.pakConfig))
     loadOptionalUnitConfig(lib.addPath(path, 'config.json'))
     this.ignore = loadOptionalList(lib.addPath(path, 'unit.ignore'))
 
@@ -258,12 +258,11 @@ let scanModules = function(units, path) {
 
             let lstat = fs.lstatSync(fullPath)
             if (lstat.isDirectory() || lstat.isSymbolicLink()) {
-                if (entry.endsWith('.mix')
-                        || entry.endsWith('.mod')
-                        || entry.endsWith('.fix')) {
+                if (entry.endsWith('.mix')) {
                     trace('================================================')
                     trace('found a mix: ' + fullPath)
 
+                    // TODO dev/release includes should be configurable
                     if (env.config.release
                             && fullPath.includes('dev.mix')) {
                         trace('ignoring for release: ' + fullPath)
@@ -273,6 +272,10 @@ let scanModules = function(units, path) {
                 }
             }
         })
+
+        // also scan for mods and fixes
+        scanMix(units, path)
+
     } catch (e) {
         log.error(e, TAG)
     }
@@ -400,6 +403,8 @@ function scanUnits() {
     if (env.sketch && env.mode === env.MOD_MODE) {
         // need to include manually,
         // since ./ is remapped to /mod
+        trace('================================================')
+        debug(`map patch: including sketch mod at [./]`)
         includePath(units, '', './', 'mod')
     }
 
