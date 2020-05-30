@@ -1,5 +1,10 @@
 {
     "modules": [
         "/home/shock/dna/jam/"
+    ],
+    "ignorePaths": [
+        ".*\\.git",
+        ".*\\.out",
+        ".DS_Store"
     ]
 }

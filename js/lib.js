@@ -212,7 +212,7 @@ module.exports = {
                 if (prop !== '_' && prop !== '__' && prop !== '___' && prop !== '_$') {
                     if (isObj(mixin[prop]) && isObj(source[prop])) {
                         // property is already assigned - augment it
-                        if (mixin !== source[prop]) augment(mixin[prop], source[prop])
+                        if (mixin !== source[prop]) this.augment(mixin[prop], source[prop])
                     } else if (isArray(source[prop])) {
                         mixin[prop] = source[prop].slice()
                     } else if (isObj(source[prop])) {

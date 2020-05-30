@@ -25,15 +25,24 @@ function debug(msg) {
 }
 
 function isIgnored(path) {
-    // TODO add actual ignore config
+    if (!env.scanMap.ignorePaths) return false
+
+    for (let i = 0; i < env.scanMap.ignorePaths.length; i++) {
+        const ipath = env.scanMap.ignorePaths[i]
+        const irex = new RegExp(ipath)
+        if (irex.test(path)) return true
+    }
+    return false
+    /*
     return (path.endsWith('.DS_Store')
         || path.includes('.git')
         || path.endsWith('.out'))
+        */
 }
 
 function listFiles(unitPath, path, unit, onFile) {
     if (isIgnored(path)) {
-        trace('ignoring ' + lib.addPath(unitPath, path), TAG)
+        trace('ignoring X ' + lib.addPath(unitPath, path), TAG)
         return
     } else {
         trace('scanning ' + lib.addPath(unitPath, path), TAG)
@@ -49,7 +58,9 @@ function listFiles(unitPath, path, unit, onFile) {
         if (lstat.isDirectory()) {
             listFiles(unitPath, localPath, unit, onFile)
         } else {
-            if (!isIgnored(localPath)) {
+            if (isIgnored(localPath)) {
+                trace('          X ' + localPath + ' (ignored)')
+            } else {
                 if (onFile) {
                     onFile(localPath, fullPath, lstat, unit)
                 } else {
@@ -306,10 +317,25 @@ function tryToReadScanMap(path, defaultScanMap) {
     }
 }
 
+function augmentArray(target, source, name) {
+    const tar = target[name] || []
+    if (source[name]) {
+        target[name] = tar.concat(source[name])
+    }
+}
+
 function remap(path, scanMap) {
     const remap = lib.readOptionalJson(path, undefined,
             () => debug(`found ${env.remapConfig} at: ${path}`))
-    if (remap) lib.augment(scanMap, remap)
+    if (remap) {
+        //lib.augment(scanMap, remap)
+        augmentArray(scanMap, remap, 'units')
+        augmentArray(scanMap, remap, 'mixes')
+        augmentArray(scanMap, remap, 'modules')
+        augmentArray(scanMap, remap, 'include')
+        augmentArray(scanMap, remap, 'ignore')
+        augmentArray(scanMap, remap, 'ignorePaths')
+    }
 }
 
 function determineScanMap() {
