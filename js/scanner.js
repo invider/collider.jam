@@ -142,9 +142,11 @@ const UnitMap = function() {
 UnitMap.prototype.register = function(unit) {
 
     if (unit.pak && unit.pak.optional) {
+        // unit defined as optional
+        if (env.scanMap.include
+                && env.scanMap.include.includes(unit.id)) {
+            debug(`including optional [${unit.id}] according to the config`)
 
-        if (env.scanMap.include && env.scanMap.include.includes(unit.id)) {
-            debug(`including optional [${unit.id}] according to config`)
         } else {
             debug(`skipping [${unit.id}]`
                 + `- include explicitly in ${env.pakConfig} if needed`)
@@ -323,10 +325,10 @@ function determineScanMap() {
         // can be redefined later
         env.scanMap = lib.augment({}, env.sketchScanMap)
         if (env.jamModules) {
-            env.scanMap.mixes.push(env.jamModules)
+            env.scanMap.modules.push(env.jamModules)
         } else {
             log.warn("Can't determine collider.jam module path.")
-            log.warn(`Set the path manually in mixes: [] section by creating ./${env.mapConfig}.`)
+            log.warn(`Set the path manually in modules: [] section by creating ./${env.mapConfig}.`)
         }
 
     } else {
@@ -349,16 +351,16 @@ function determineScanMap() {
     //        () => debug(`using local ./${env.mapConfig}`))
 
     if (env.sketch) {
-        if (!env.scanMap.units) env.scanMap.units = []
-        env.scanMap.units.push(env.jamPath)
+        if (!env.scanMap.mixes) env.scanMap.mixes = []
+        env.scanMap.mixes.push(env.jamPath)
 
         if (env.mode === env.MIX_MODE) {
-            env.scanMap.units.push('./')
+            env.scanMap.mixes.push('./')
         }
 
     } else {
-        if (!env.scanMap.units) env.scanMap.units = []
-        env.scanMap.units.push('')
+        if (!env.scanMap.mixes) env.scanMap.mixes = []
+        env.scanMap.mixes.push('')
     }
 
     return env.scanMap
@@ -366,30 +368,35 @@ function determineScanMap() {
 
 function dumpScanMap() {
     const map = env.scanMap
-    debug('===================')
-    debug('       MAP         ')
-    debug('===================')
-    if (map.mixes) {
+    debug('=======================')
+    debug('|         MAP         |')
+    debug('=======================')
+    if (map.modules && map.modules.length > 0) {
         debug('=== module paths ===')
+        map.modules.forEach(path => debug(`* [${path}]`))
+    }
+    if (map.mixes && map.mixes.length > 0) {
+        debug('=== mixes paths ===')
         map.mixes.forEach(path => debug(`* [${path}]`))
     }
-    if (map.units) {
-        debug('=== mixes paths ===')
+    if (map.units && map.units.length > 0) {
+        debug('=== units included ===')
         map.units.forEach(path => debug(`* [${path}]`))
     }
-    if (map.paths) {
-        debug('=== units included ===')
-        map.paths.forEach(path => debug(`* [${path}]`))
-    }
 
-    if (map.include) {
+    if (map.include && map.include.length > 0) {
         debug('=== include ===')
         map.include.forEach(path => debug(`* [${path}]`))
     }
 
-    if (map.ignore) {
+    if (map.ignore && map.ignore.length > 0) {
         debug('=== ignore ===')
         map.ignore.forEach(path => debug(`* [${path}]`))
+    }
+
+    if (map.ignorePaths && map.ignorePaths.length > 0) {
+        debug('=== ignore paths ===')
+        map.ignorePaths.forEach(path => debug(`* [${path}]`))
     }
 }
 
@@ -404,21 +411,21 @@ function scanUnits() {
     dumpScanMap()
     const units = new UnitMap()
 
+    if (_.isArray(scanMap.modules)) scanMap.modules.forEach(path => {
+        if (path === undefined) return
+        debug(`looking for units in [${path}]`)
+        scanModules(units, lib.formPath(base, path))
+    })
+
     if (_.isArray(scanMap.mixes)) scanMap.mixes.forEach(path => {
         if (path === undefined) return
-        debug(`looking for mixes in ${path}`)
-        scanModules(units, lib.formPath(base, path))
+        debug(`looking for units in mix [${path}]`)
+        scanMix(units, lib.formPath(base, path))
     })
 
     if (_.isArray(scanMap.units)) scanMap.units.forEach(path => {
         if (path === undefined) return
-        debug(`looking for units in ${path}`)
-        scanMix(units, lib.formPath(base, path))
-    })
-
-    if (_.isArray(scanMap.paths)) scanMap.paths.forEach(path => {
-        if (path === undefined) return
-        debug(`including unit: ${path}`)
+        debug(`including unit: [${path}]`)
         const fullPath = lib.formPath(base, path)
         const i = fullPath.lastIndexOf('/')
         let entry = fullPath

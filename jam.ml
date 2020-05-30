@@ -1,17 +1,11 @@
 >>> bot
 >>> mission control
-V sketch mod and sketch mix modes
 > take units from the package or take global units modes
-> auto-include flag for global units (ignore in packaged or custom deploy)
 > web-pack like functionality to pak non-mixed packages as libraries
 > mod control (pause, pauseAll, hide, hideAll etc)
-> mod transition
 > menu.mod
 > animation node
-> transform lab node
-> dynamic Z
 > platform physics
-> font() should accepts both just [name] and [14px name]
 > move metadata parser out of loader and schedule it for latter
 > automatic help #tags propagation for all child nodes (e.g. for /cmd or /trap)
 > store in local storage help usage info to show the most popular topics section (or on top?)
@@ -25,12 +19,18 @@ V sketch mod and sketch mix modes
 > leave original patch strategy
 > before() and after() chaining strategy for function patch
 > notify in logs about any patching conflicts (like start.js replacing original mod.start!)
-> .dna type for fast setup
 > tribal nodes that automatically spawns particular dna when data is attached to the node
 > augment nodes to automatically extend/augment objects as they are attached to a node
 > meta actions (like in lua metatables) - do custom stuff on particular fs event (attach, detach etc)
-> smart event bindings
+> smart event bindings (plumbing?)
 
+V optional flag for global units (ignore optional by default)
+V sketch mod and sketch mix modes
+V .spawn data files for fast setup
+V font() should accepts both just [name] and [14px name]
+V mod transition
+V transform lab node
+V dynamic Z
 V log(msg) should be a function - not a raw frame
 V units.json is loaded from jam or local folder and not from the base
 

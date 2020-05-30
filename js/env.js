@@ -31,9 +31,9 @@ module.exports = {
 
     defaultScanMap: {
         origin: 'default',
-        paths: [],
         units: [],
-        mixes: [
+        mixes: [],
+        modules: [
             'node_modules'
         ],
     },
@@ -41,7 +41,7 @@ module.exports = {
         origin: 'default-sketch',
         units: [],
         mixes: [],
-        paths: [],
+        modules: [],
     },
 
     base: '/',
