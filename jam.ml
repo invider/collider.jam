@@ -1,10 +1,10 @@
 >>> bot
 >>> mission control
-> take units from the package or take global units modes
-> web-pack like functionality to pak non-mixed packages as libraries
-> mod control (pause, pauseAll, hide, hideAll etc)
+>>> interactive tutorial
+> core testing
 > menu.mod
 > animation node
+> web-pack like functionality to pak non-mixed packages as libraries
 > platform physics
 > move metadata parser out of loader and schedule it for latter
 > automatic help #tags propagation for all child nodes (e.g. for /cmd or /trap)
@@ -24,6 +24,8 @@
 > meta actions (like in lua metatables) - do custom stuff on particular fs event (attach, detach etc)
 > smart event bindings (plumbing?)
 
+V take units from the package or take global units modes
+V mod control (pause, pauseAll, hide, hideAll etc)
 V optional flag for global units (ignore optional by default)
 V sketch mod and sketch mix modes
 V .spawn data files for fast setup

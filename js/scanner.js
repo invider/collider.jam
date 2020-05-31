@@ -24,6 +24,11 @@ function debug(msg) {
     log.debug(msg, TAG)
 }
 
+function warn(msg) {
+    if (logLevel < 2) return
+    log.warn(msg, TAG)
+}
+
 function isIgnored(path) {
     if (!env.scanMap.ignorePaths) return false
 
@@ -37,7 +42,7 @@ function isIgnored(path) {
     return (path.endsWith('.DS_Store')
         || path.includes('.git')
         || path.endsWith('.out'))
-        */
+    */
 }
 
 function listFiles(unitPath, path, unit, onFile) {
@@ -144,6 +149,7 @@ const Unit = function(id, mix, type, path, requireMix) {
 const UnitMap = function() {
     this.length = 0
     this.units = {}
+    this.opt = {}
     this.map = {}
     this.mix = {}
     this.sample = {}
@@ -151,7 +157,7 @@ const UnitMap = function() {
 }
 
 UnitMap.prototype.register = function(unit) {
-
+    let units = this.units
     if (unit.pak && unit.pak.optional) {
         // unit defined as optional
         if (env.scanMap.include
@@ -161,23 +167,23 @@ UnitMap.prototype.register = function(unit) {
         } else {
             debug(`skipping [${unit.id}]`
                 + `- include explicitly in ${env.pakConfig} if needed`)
-            return
+            units = this.opt
         }
     }
 
-    if (this.units[unit.id]) {
+    if (units[unit.id]) {
         //log.dump(env.scanMap)
-        trace(`unit [${unit.id}] at: ${unit.path}`)
-        trace(`is replacing unit ${this.units[unit.id].path}`)
-        trace(`could be a problem with ${env.mapConfig}`)
-        trace('figure out if that is what you really want')
-        trace(`if not, check [scanner] logs and [${env.scanMap.origin}]`)
+        warn(`unit [${unit.id}] at: ${unit.path}`)
+        warn(`is replacing unit ${this.units[unit.id].path}`)
+        warn(`could be a problem with ${env.mapConfig}`)
+        warn('figure out if that is what you really want')
+        warn(`if not, check [scanner] logs and [${env.scanMap.origin}]`)
         //throw 'unit mapped to [' + unit.id + '] already exists!'
     } else {
         this.length ++
     }
 
-    this.units[unit.id] = unit
+    units[unit.id] = unit
 
     // map mix to unit
     if (unit.type !== 'pub') {
@@ -556,6 +562,13 @@ module.exports = {
                 + unit.id + "': "
                 + unit.path
                 + ` [${unit.ls.length} files]`)
+        })
+
+        Object.values(unitMap.opt).forEach(unit => {
+            log.raw(" X [" + unit.type + "] - '"
+                + unit.id + "': "
+                + unit.path
+                + ` [${unit.ls.length} files] (skipped)`)
         })
     },
 

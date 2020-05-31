@@ -3,8 +3,11 @@
         "/home/shock/dna/jam/"
     ],
     "ignorePaths": [
-        ".*\\.git",
+        "map.json",
+        "remap.json",
+        "dist",
         ".*\\.out",
+        ".*\\.git",
         ".DS_Store"
     ]
 }
