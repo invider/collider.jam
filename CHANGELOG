@@ -1,3 +1,14 @@
+0.0.5-DR5 2020-06-01
+[+] gif files autoload support
+[*] upper-case extensions
+[+] map.json and remap.json configurations
+[+] optional units and include list in the scan man
+[*] proper scan for mods and fixes in modules
+[*] run all functions in /setup and all setup* functions on startup
+[+] --pregen/-g option to run a pregenerated package
+[*] sketch packaging updated
+[-] width() and height() functions removed to avoid global namespace pollution
+
 0.0.4-DR4 2020-04-28
 [+] *.spawn.js entities autospawn
 [+] custom post-processors for *.js and *.json files
