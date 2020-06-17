@@ -1,13 +1,10 @@
 {
-    "modules": [
-        "/home/shock/dna/jam/"
-    ],
     "ignorePaths": [
         "map.json",
         "remap.json",
         "dist",
         ".*\\.out",
         ".*\\.git",
-        ".DS_Store"
+        ".*\\.DS_Store"
     ]
 }

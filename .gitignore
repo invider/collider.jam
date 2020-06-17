@@ -10,8 +10,7 @@ node_modules
 *.tar.gz
 
 # collider.jam
-units.json
+remap.json
 
 # ml
 *.ml.bak
-
