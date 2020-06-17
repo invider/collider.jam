@@ -35,7 +35,7 @@
     "collider-dev.mix": "git+https://github.com/invider/collider-dev.mix.git",
     "express": "^4.17.1",
     "express-ws": "latest",
-    "fs-extra": "latest",
+    "fs-extra": "^9.0.1",
     "open": "latest",
     "request": "latest",
     "socket.io": "latest",

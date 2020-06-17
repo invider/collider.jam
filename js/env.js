@@ -1,5 +1,14 @@
 'use strict'
 
+const ignorePaths = [
+    "map.json",
+    "remap.json",
+    "dist",
+    ".*\\.out",
+    ".*\\.git",
+    ".*\\.DS_Store",
+]
+
 module.exports = {
     version: '0.0.5 DR5',
     PACKAGE_MODE: 0,
@@ -35,12 +44,14 @@ module.exports = {
         modules: [
             'node_modules'
         ],
+        ignorePaths: ignorePaths,
     },
     sketchScanMap: {
         origin: 'default-sketch',
         units: [],
         mixes: [],
         modules: [],
+        ignorePaths: ignorePaths,
     },
 
     base: '/',

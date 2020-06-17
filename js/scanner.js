@@ -330,17 +330,23 @@ function augmentArray(target, source, name) {
     }
 }
 
+function replaceArray(target, source, name) {
+    if (source[name]) {
+        target[name] = source[name]
+    }
+}
+
 function remap(path, scanMap) {
     const remap = lib.readOptionalJson(path, undefined,
             () => debug(`found ${env.remapConfig} at: ${path}`))
     if (remap) {
         //lib.augment(scanMap, remap)
-        augmentArray(scanMap, remap, 'units')
-        augmentArray(scanMap, remap, 'mixes')
-        augmentArray(scanMap, remap, 'modules')
-        augmentArray(scanMap, remap, 'include')
-        augmentArray(scanMap, remap, 'ignore')
-        augmentArray(scanMap, remap, 'ignorePaths')
+        replaceArray(scanMap, remap, 'units')
+        replaceArray(scanMap, remap, 'mixes')
+        replaceArray(scanMap, remap, 'modules')
+        replaceArray(scanMap, remap, 'include')
+        replaceArray(scanMap, remap, 'ignore')
+        replaceArray(scanMap, remap, 'ignorePaths')
     }
 }
 
@@ -356,6 +362,8 @@ function determineScanMap() {
         // set sketch mod defaults
         // can be redefined later
         env.scanMap = lib.augment({}, env.sketchScanMap)
+
+        log.debug('MODULES: ' + env.jamModules)
         if (env.jamModules) {
             env.scanMap.modules.push(env.jamModules)
         } else {
@@ -378,6 +386,7 @@ function determineScanMap() {
 
     // try to read unit structure from local project
     env.scanMap = tryToReadScanMap(env.mapConfig, env.scanMap)
+    remap(env.jamPath + '/' + env.remapConfig, env.scanMap)
     remap(env.remapConfig, env.scanMap)
     //env.scanMap = lib.readOptionalJson(env.mapConfig, env.scanMap,
     //        () => debug(`using local ./${env.mapConfig}`))
