@@ -9,6 +9,7 @@ const flow = require('./flow')
 const lib = require('./lib')
 const types = require('./types')
 const control = require('./mc/control')
+const url = require('url');
 
 const TAG = 'hub'
 
@@ -115,6 +116,32 @@ function start() {
         app.get('/help/card', function(req, res) {
             if (env.cache.help) {
                 res.send(env.cache.help.pages['jam-card'].body)
+            } else {
+                res.status(404).send('No help data')
+            }
+        })
+
+        /*
+         * let typeMap = {
+                'fi': vscode.CompletionItemKind.Field,
+                'v': vscode.CompletionItemKind.Variable,
+                'f': vscode.CompletionItemKind.Function,
+                'p': vscode.CompletionItemKind.Property
+            };
+        */
+        app.get('/help/autocomplete', function(req, res) {
+            if (env.cache.help) {
+
+                const query = url.parse(req.url,true).query
+                console.dir(query);
+
+                res.send([
+                    'fi test',
+                    'v doSomething',
+                    'f doAnotherThing',
+                    'p checkItOut',
+                ].join('\n'))
+
             } else {
                 res.status(404).send('No help data')
             }
