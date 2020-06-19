@@ -36,6 +36,7 @@ module.exports = {
     mapConfig: 'map.json',
     remapConfig: 'remap.json',
     pakConfig: 'pak.json',
+    metaCache: '.meta.cache',
 
     defaultScanMap: {
         origin: 'default',

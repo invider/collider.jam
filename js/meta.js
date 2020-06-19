@@ -1,4 +1,6 @@
+const fs = require('fs')
 const env = require('./env')
+const log = require('./log')
 const types = require('./types')
 
 function scan(name, meta, dir) {
@@ -39,6 +41,8 @@ function list(dir) {
 }
 
 function lookup(dir, parts) {
+    if (!dir) return ''
+
     if (!parts || parts.length === 0 || parts[0] === '') {
         return list(dir)
     } else {
@@ -70,11 +74,40 @@ function fillContext(dir) {
     dir.trap = dir._.trap
 }
 
+
 module.exports = {
 
-    sync: function (data) {
+    load: function() {
+        log.debug('loading metadata cache...', 'meta')
+
+        const meta = this
+        fs.exists(env.metaCache, (exists) => {
+
+            if (exists) {
+                fs.readFile(env.metaCache, (err, json) => {
+                    if (err) throw err
+
+                    const data = JSON.parse(json)
+                    meta.sync(data, true)
+                })
+
+            } else {
+                log.debug('no metadata cache found')
+            }
+        })
+    },
+
+    save: function(data) {
+        const json = JSON.stringify(data)
+        fs.writeFile(env.metaCache, json, (err) => {
+            if (err) throw err
+        })
+    },
+
+    sync: function(data, nosave) {
         env.cache.help = data
         types.generate(env.cache.help)
+        if (!nosave) this.save(data)
 
         const map = {
             _$: {},

@@ -159,6 +159,9 @@ function start() {
             }
         })
 
+        // try to load cached meta
+        meta.load()
+
     } else {
         log.out('serving only static package!', TAG)
         env.config.dynamic = false
