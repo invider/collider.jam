@@ -22,35 +22,56 @@ function scan(name, meta, dir) {
         }
     } else {
         if (meta.type === 'function') dir[name] = 'f'
-        else dir[name] = 'p'
+        else dir[name] = 'fi'
     }
 
     return dir
 }
 
-function list(dir) {
+function list(dir, partial) {
     if (!dir) return ''
 
+    let i = 0
     let res = ''
     Object.keys(dir).forEach(k => {
-        const v = dir[k]
-        const type = v === 'f'? 'f' : 'p'
-        res += type + ' ' + k + '\n'
+        if (partial) {
+            if (k.startsWith(partial)) {
+                const v = dir[k]
+                const type = v === 'f'? 'f' : 'fi'
+                res += type + ' ' + k + '\n'
+                i++
+            }
+
+        } else {
+            const v = dir[k]
+            const type = v === 'f'? 'f' : 'fi'
+            res += type + ' ' + k + '\n'
+            i++
+        }
     })
+
+    //log.debug('found: ' + i)
     return res
 }
 
-function lookup(dir, parts) {
+function lookup(dir, path) {
     if (!dir) return ''
 
-    if (!parts || parts.length === 0 || parts[0] === '') {
+    if (!path || path.length === 0) {
         return list(dir)
-    } else {
-        const next = parts[0]
-        parts.shift()
 
-        if (!dir[next]) return ''
-        return lookup(dir[next], parts)
+    } else {
+        const nextDot = path.indexOf('.')
+        if (nextDot >= 0) {
+            const next = path.substring(0, nextDot)
+            const nextPath = path.substring(nextDot+1, path.length)
+
+            if (!dir[next]) return ''
+            return lookup(dir[next], nextPath)
+
+        } else {
+            return list(dir, path)
+        }
     }
 }
 
@@ -58,7 +79,7 @@ function fillContext(dir) {
     dir._ = dir._$
 
     // TODO fill context
-    dir.ctx = true
+    dir.ctx = 'fi'
 
     dir.sys = dir._.sys
     dir.lib = dir._.lib
@@ -72,6 +93,12 @@ function fillContext(dir) {
     dir.cue = dir._.cue
     dir.job = dir._.job
     dir.trap = dir._.trap
+
+    const alt = dir._.alt
+    Object.keys(alt).forEach(k => {
+        const v = alt[k]
+        dir[k] = v
+    })
 }
 
 
@@ -124,9 +151,8 @@ module.exports = {
     autocomplete: function(context, file) {
         if (context === undefined) return ''
 
-        const parts = context.split('.')
-        const res = lookup(this.map, parts)
-        console.dir(res)
+        //log.debug('>>> ' + context)
+        const res = lookup(this.map, context)
         return res
     },
 
