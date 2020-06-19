@@ -147,6 +147,21 @@ function start() {
             }
         })
 
+        app.get('/help/definition', function(req, res) {
+            if (env.cache.help) {
+
+                const query = url.parse(req.url,true).query
+                console.dir(query);
+
+                res.send([
+                    '/home/shock/dna/jam/collider.mix/pub/collider.js 11 4'
+                ].join('\n'))
+
+            } else {
+                res.status(404).send('No help data')
+            }
+        })
+
     } else {
         log.out('serving only static package!', TAG)
         env.config.dynamic = false
