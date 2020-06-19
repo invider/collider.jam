@@ -7,7 +7,7 @@ const scanner = require('./scanner')
 const packager = require('./packager')
 const flow = require('./flow')
 const lib = require('./lib')
-const types = require('./types')
+const meta = require('./meta')
 const control = require('./mc/control')
 const url = require('url');
 
@@ -99,8 +99,7 @@ function start() {
             // handle help data
             log.debug('receiving help data from the client...')
             //console.dir(req.body)
-            env.cache.help = req.body
-            types.generate(env.cache.help)
+            meta.sync(req.body)
 
             res.status(200).send('done')
         })
@@ -131,16 +130,9 @@ function start() {
         */
         app.get('/help/autocomplete', function(req, res) {
             if (env.cache.help) {
-
                 const query = url.parse(req.url,true).query
-                console.dir(query);
-
-                res.send([
-                    'fi test',
-                    'v doSomething',
-                    'f doAnotherThing',
-                    'p checkItOut',
-                ].join('\n'))
+                res.send(meta.autocomplete(
+                    query.context, query.file))
 
             } else {
                 res.status(404).send('No help data')
@@ -151,11 +143,8 @@ function start() {
             if (env.cache.help) {
 
                 const query = url.parse(req.url,true).query
-                console.dir(query);
-
-                res.send([
-                    '/home/shock/dna/jam/collider.mix/pub/collider.js 11 4'
-                ].join('\n'))
+                res.send( meta.definition(
+                    query.context, query.file))
 
             } else {
                 res.status(404).send('No help data')
