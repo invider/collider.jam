@@ -108,7 +108,15 @@ function start() {
             if (env.cache.help) {
                 res.json(env.cache.help)
             } else {
-                res.status(404).send('No help data')
+                res.status(404).send('No help data!')
+            }
+        })
+
+        app.get('/help/defs', function(req, res) {
+            if (meta.map) {
+                res.json(meta.map)
+            } else {
+                res.status(404).send('No definition data!')
             }
         })
 
@@ -116,7 +124,7 @@ function start() {
             if (env.cache.help) {
                 res.send(env.cache.help.pages['jam-card'].body)
             } else {
-                res.status(404).send('No help data')
+                res.status(404).send('No help data!')
             }
         })
 
@@ -135,7 +143,7 @@ function start() {
                     query.context, query.file))
 
             } else {
-                res.status(404).send('No help data')
+                res.status(404).send('No help data!')
             }
         })
 
@@ -147,7 +155,7 @@ function start() {
                     query.context, query.file))
 
             } else {
-                res.status(404).send('No help data')
+                res.status(404).send('No help data!')
             }
         })
 
