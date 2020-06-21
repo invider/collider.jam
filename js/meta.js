@@ -35,7 +35,7 @@ function list(dir, partial) {
     let res = ''
     Object.keys(dir).forEach(k => {
         if (partial) {
-            if (k.startsWith(partial)) {
+            if (k.includes(partial)) {
                 const v = dir[k]
                 const type = v === 'f'? 'f' : 'fi'
                 res += type + ' ' + k + '\n'
