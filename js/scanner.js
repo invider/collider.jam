@@ -30,6 +30,7 @@ function warn(msg) {
 }
 
 function isIgnored(path) {
+    if (lib.getResourceName(path).startsWith('.')) return true
     if (!env.scanMap.ignorePaths) return false
 
     for (let i = 0; i < env.scanMap.ignorePaths.length; i++) {
