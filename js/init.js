@@ -35,10 +35,7 @@ module.exports = function() {
               "collider.jam": "https://github.com/invider/collider.jam.git",
               "collider.mix": "https://github.com/invider/collider.mix.git",
               "collider-boot.mix": "https://github.com/invider/collider-boot.mix.git",
-              "collider-lib.mix": "https://github.com/invider/collider-lib.mix.git",
-              "collider-ext.mix": "https://github.com/invider/collider-ext.mix.git",
-              "collider-hud.mix": "https://github.com/invider/collider-hud.mix.git",
-              "collider-debug.mix": "https://github.com/invider/collider-debug.mix.git",
+              "collider-dev.mix": "https://github.com/invider/collider-dev.mix.git",
             },
         }
         fs.writeJsonSync('./package.json', packageJson, { spaces: '    ' })
