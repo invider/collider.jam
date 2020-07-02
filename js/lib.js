@@ -30,6 +30,12 @@ module.exports = {
         if (!path) return base
         if (path.startsWith(base)) return path
         if (base.length >= 1 && !base.endsWith('/')) base += '/'
+
+        if (base === './') {
+            if (path.startsWith('/')) return path
+            // check for Windows absolute path
+            if (/[a-zA-Z]:.*/.test(path)) return path
+        }
         return base + path
     },
 
@@ -39,8 +45,7 @@ module.exports = {
         if (base.length >= 1 && !base.endsWith('/')) base += '/'
 
         if (base === './') {
-            if (path.startsWith('/')
-                || path.startsWith('.')) return path
+            if (path.startsWith('/')) return path
 
             // check for Windows absolute path
             if (/[a-zA-Z]:.*/.test(path)) return path
