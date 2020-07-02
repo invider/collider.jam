@@ -59,7 +59,6 @@ function listFiles(unitPath, path, unit, onFile) {
         const fullPath = lib.addPath(unitPath, localPath)
         const lstat = fs.lstatSync(fullPath)
 
-
         // check on directory
         if (lstat.isDirectory()) {
             listFiles(unitPath, localPath, unit, onFile)

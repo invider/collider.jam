@@ -28,7 +28,7 @@ module.exports = {
     addPath: function(base, path) {
         if (!base) return path
         if (!path) return base
-        if (path.startsWith(base)) return path
+        //if (path.startsWith(base)) return path
         if (base.length >= 1 && !base.endsWith('/')) base += '/'
 
         if (base === './') {
