@@ -263,7 +263,7 @@ function includePath(units, mix, fullPath, entry, requireMix) {
             path: fullPath,
         })
     } else if (entry === '') {
-        units.register(new Unit(lib.addPath(mix, entry), mix, 'mod', fullPath, requireMix))
+        units.register(new Unit(mix, mix, 'mod', fullPath, requireMix))
     }
 }
 
@@ -465,7 +465,20 @@ function scanUnits() {
         scanMix(units, lib.formPath(base, path))
     })
 
-    if (_.isArray(scanMap.units)) scanMap.units.forEach(path => {
+    if (_.isArray(scanMap.units)) scanMap.units.forEach(unit => {
+        if (!unit || !unit.path) return
+        unit.id = unit.id || ''
+        debug(`including unit: [${unit.id}][${unit.path}]`)
+        const fullPath = lib.formPath(base, unit.path)
+        const i = fullPath.lastIndexOf('/')
+        let entry = fullPath
+        if (i >= 0) {
+            entry = fullPath.substring(i+1)
+        }
+        entry = unit.name || entry
+
+        includePath(units, unit.id, fullPath, entry)
+        /*
         if (path === undefined) return
         debug(`including unit: [${path}]`)
         const fullPath = lib.formPath(base, path)
@@ -476,6 +489,7 @@ function scanUnits() {
         }
 
         includePath(units, '', fullPath, entry)
+        */
     })
 
     if (env.sketch && env.mode === env.MOD_MODE) {
