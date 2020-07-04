@@ -1,5 +1,12 @@
+
+.npmrc
+
 *.ml
 *.tar
 *.tgz
 *.tar.gz
-units.json
+map.json
+remap.json
+
+.DS_Store
+
