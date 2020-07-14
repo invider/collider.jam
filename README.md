@@ -318,7 +318,7 @@ function mouseDown(e) {
 }
 ```
 
-And *mouseUp.js* is goint to be:
+And *mouseUp.js* is going to be:
 ```js
 function mouseUp() {
     lab.booster = false
