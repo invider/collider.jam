@@ -363,12 +363,12 @@ function determineScanMap() {
         // can be redefined later
         env.scanMap = lib.augment({}, env.sketchScanMap)
 
-        log.debug('MODULES: ' + env.jamModules)
+        debug('MODULES: ' + env.jamModules)
         if (env.jamModules) {
             env.scanMap.modules.push(env.jamModules)
         } else {
-            log.warn("Can't determine collider.jam module path.")
-            log.warn(`Set the path manually in modules: [] section by creating ./${env.mapConfig}.`)
+            warn("Can't determine collider.jam module path.")
+            warn(`Set the path manually in modules: [] section by creating ./${env.mapConfig}.`)
         }
 
     } else {
