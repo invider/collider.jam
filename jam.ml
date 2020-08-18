@@ -1,13 +1,20 @@
 >>> interactive tutorial (netdrifter)
 >>> ghost bot
 >>> mission control
+    > opinion.mixer
     > masterlist
     > team chat
-    > data cloud
+> code completion for vim
+> inspector panel
+> node global search
 > local life-cycle scripts for mods - to clean, build etc...
 > core testing
 > menu.mod
 > platform physics
+> assert guards
+> object pool node
+> object picking to inspect
+> object dragging to spawn
 > move metadata parser out of loader and schedule it for latter?
 > automatic help #tags propagation for all child nodes (e.g. for /cmd or /trap)
 > pin topic in help
