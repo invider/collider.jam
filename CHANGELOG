@@ -1,3 +1,25 @@
+0.0.8-DR7 2020-08-19
+[+] major help enhancement
+[*] optimized help loading speed
+[*] new help style
+[+] list support in help markdown
+[+] markdown links support in help
+[+] embedded images support in help markdown
+[+] headers support in help markdown
+[+] SlideCamera smooth zooming and lookAt()
+[+] _circular and _centered flags
+[+] assert() with type refines included in scope
+[*] /res, /lib and /dna are supplemented for boxes
+[+] onAugment() and onSupplement() handlers
+[-] fixed spacing in comments
+[-] fixed help metadata for autoexported constructors
+[*] mouse/touch event handling for non-sizable components
+[-] fixed event data in mouseDown
+[-] fixed event coords transformation for zoomable nodes
+[-] fixed LabFrame.pick() bug
+
+
+
 0.0.6-DR6 2020-07-04
 [+] jsDoc-style type metadata extraction
 [+] autocomplete end-points with help meta data on jam server
