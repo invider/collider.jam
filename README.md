@@ -353,9 +353,9 @@ Examples
 
 Check out following examples:
 
-[Bits Mix](https://github.com/invider/bits.mix) - various code snippets
-[Hello Planet Impact](https://github.com/invider/hello-collider-impact.mod) - asteroid impact simulation
-[Game of Life](https://github.com/invider/game-of-life.mod) - Conway's Game of Life
+* [Bits Mix](https://github.com/invider/bits.mix) - various code snippets
+* [Hello Planet Impact](https://github.com/invider/hello-collider-impact.mod) - asteroid impact simulation
+* [Game of Life](https://github.com/invider/game-of-life.mod) - Conway's Game of Life
 
 
 
