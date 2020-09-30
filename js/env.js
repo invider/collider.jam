@@ -37,6 +37,7 @@ module.exports = {
     remapConfig: 'remap.json',
     pakConfig: 'pak.json',
     metaCache: '.meta.cache',
+    colliderPackage: 'collider.jam',
 
     defaultScanMap: {
         origin: 'default',

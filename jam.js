@@ -66,9 +66,13 @@ for (let i = 2; i < args.length; i++) {
         env.dynamic = false
         parsedOption = false
 
-    } else if (arg === '-g' || arg === '--pregen') {
+    } else if (arg === '-n' || arg === '--pregen') {
         env.dynamic = false
         env.pregen = true
+        parsedOption = false
+
+    } else if (arg === '-g' || arg === '--global') {
+        env.globalMode = true
         parsedOption = false
 
     } else if (arg === '-v' || arg === '--verbose') {
@@ -120,7 +124,7 @@ if (!env.debug && !env.verbose) {
 const hubPath = require.resolve('./js/hub.js')
 const jamPath = hubPath.substring(0, hubPath.length - 10)
 
-env.jamPath = module.path || jamPath
+env.jamPath = jamPath
 if (env.jamPath) {
     log.debug('collider.jam path: ' + env.jamPath)
 } else {

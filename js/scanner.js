@@ -374,6 +374,11 @@ function determineScanMap() {
     } else {
         debug('running in package mode')
         env.scanMap = lib.augment({}, env.defaultScanMap)
+
+        if (!env.globalMode) {
+            env.jamPath = './node_modules/' + env.colliderPackage
+            debug('switching to local modules: ' + env.jamPath)
+        }
     }
 
     // try to read default unit structure from jam

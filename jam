@@ -51,7 +51,7 @@ update_flags() {
     fi
     # check local collider.jam shell
     if [ -d ./node_modules/$JAM_MODULE ]; then
-        JAM_MODULE_FLAG=1
+        JAM_PACKAGE_FLAG=1
     fi
     if [ -f ./node_modules/$JAM_MODULE/jam.js ]; then
         JAM_SHELL_FLAG=1
@@ -194,16 +194,16 @@ if [[ ! $PACKAGE_FLAG ]]; then
 
 else
 
-    if [[ ! $MODULES_FLAG || ! $JAM_MODULE_FLAG ]]; then
-        echo 'Modules missing!'
-        echo 'Installing dependencies... '
+    if [[ ! $MODULES_FLAG || ! $JAM_PACKAGE_FLAG ]]; then
+        echo '[jam-starter] Modules missing!'
+        echo '[jam-starter] Installing dependencies... '
         $NPM update
         check_status
     fi
 
     if [[ ! $GLOBAL_JAM_FLAG ]]; then
-        echo "no global collider.jam installation found!"
-        echo "to install, type ./jam install"
+        echo "[jam-starter] no global collider.jam installation found!"
+        echo "[jam-starter] to install, type ./jam install"
     fi
 
     cmd $1

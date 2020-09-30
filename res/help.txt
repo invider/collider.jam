@@ -15,6 +15,7 @@ Following commands are available [shortcuts are in brackets]:
 
 Available [jam options]:
     -d, --debug  - debug mode
+    -g, --global - use global modules in package mode
     -t, --test [test-name] - run all the tests, or a test specified by name
     -y, --types  - generate types.ts meta info
     --box <box-name> - select a box to run
@@ -22,7 +23,7 @@ Available [jam options]:
     -m, --mute   - mute mode to suppress any output
     -p, --port   - server port
     -s, --static - static mode
-    -g, --pregen - run pregenerated package in static mode
+    -n, --pregen - run pregenerated package in static mode
     -b, --hub    - run the hub/boost included in the mix
     -mc, --mission-control - run collider.jam mission control
     --version    - alternate option for version
