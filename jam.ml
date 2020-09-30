@@ -4,6 +4,11 @@
     > opinion.mixer
     > masterlist
     > team chat
+> show red boot error on 404 resource
+> fix first file comment parsing - exclude deep comments as first
+> autotag metadata with mod, make it searchable
+> metadata for folders as a simple local md file with a special name
+> test subfolders in any place, scan mix for all test nodes
 > code completion for vim
 > inspector panel
 > node global search
