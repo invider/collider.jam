@@ -1,0 +1,4 @@
+jam new <object> [name] [params] - create a new entity of specified type
+
+aliases: n, create
+

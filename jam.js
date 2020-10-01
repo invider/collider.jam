@@ -4,6 +4,7 @@ const env = require('./js/env')
 const log = require('./js/log')
 const hub = require('./js/hub')
 const init  = require('./js/init')
+const create = require('./js/create')
 const { bootstrap, patch } = require('./js/bootstrap')
 const { generate, clean } = require('./js/packager')
 const { printUnits, printFiles } = require('./js/scanner')
@@ -141,10 +142,11 @@ switch(cmd) {
     case 'init': case 'i': init(); break;
     case 'bootstrap': bootstrap(); break;
     case 'patch': patch(); break;
+    case 'create': case 'new':  case 'n': create(env.params); break;
     case 'pack': case 'p': generate(env.params[0]); break;
     case 'clean': case 'c': clean(env.params[0]); break;
     case 'units': case 'u': printUnits(); break;
     case 'files': case 'f': printFiles(); break;
-    case 'help': case 'h': help(); break;
+    case 'help': case 'h': help(env.params[0]); break;
     default: log.fatal('unknown command: ' + cmd, TAG)
 }

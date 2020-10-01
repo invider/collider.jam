@@ -1,0 +1,32 @@
+const MIN_SPEED = ry(.05)
+const MAX_SPEED = rx(.4)
+
+let x = rx(.5)
+let y = ry(.5)
+
+let timer = 0
+let dx = 0
+let dy = 0
+
+function evo(dt) {
+    timer -= dt
+    if (timer < 0) {
+        // pick a new random direction, speed
+        const fi = lib.math.rndfi()
+        const speed = MIN_SPEED + RND(MAX_SPEED - MIN_SPEED)
+        dx = cos(fi) * speed
+        dy = sin(fi) * speed
+        // reset the timer
+        timer = 1 + rnd(2)
+    }
+
+    // move
+    x = warp(x + dx * dt, 0, rx(1))
+    y = warp(y + dy * dt, 0, ry(1))
+}
+
+function draw() {
+    lineWidth(4)
+    fill(.55, .5, .5)
+    plot(x, y)
+}

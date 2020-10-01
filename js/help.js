@@ -3,8 +3,14 @@
 const log = require('./log')
 const fs = require('fs-extra')
 
-module.exports = function() {
-    const content = fs.readFileSync(module.path + '/../res/help.txt')
-    const text = content.toString('utf-8')
-    log.raw(text.trim())
+module.exports = function(topic) {
+    topic = topic || 'help'
+
+    try {
+        const content = fs.readFileSync(`${module.path}/../res/${topic}.txt`)
+        const text = content.toString('utf-8')
+        log.raw(text.trim())
+    } catch (e) {
+        log.error(`unable to find topic [${topic}]`)
+    }
 }
