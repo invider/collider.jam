@@ -31,7 +31,6 @@ const generators = {
     trap: {
         head: 'create a trap',
         create: function(params) {
-            // todo new trap
             const name = params[1]
             if (!name) throw 'trap name is expected'
 
@@ -47,7 +46,6 @@ const generators = {
     'brownian-dot': {
         head: 'create a brownian-moving dot',
         create: function(params) {
-            // todo new trap
             const name = params[1]
             if (!name) throw 'entity name is expected'
 
@@ -55,6 +53,32 @@ const generators = {
             const path = `${dir}/${name}.js`
             const src = readProto('brownian-dot')
 
+            touch(dir)
+            write(path, src)
+        }
+    },
+
+    'class': {
+        head: 'create a sample dna class',
+        create: function(params) {
+            let cname = params[1]
+            if (!cname) throw 'class name is expected'
+            const rest = cname.substring(1)
+            cname = cname.substring(0, 1).toUpperCase() + rest
+            let oname = cname.substring(0, 1).toLowerCase() + rest
+
+            // create dna
+            let dir = './dna'
+            let path = `${dir}/${cname}.js`
+            let src = replace(readProto('sample-class/Dna'), 'class', cname)
+            touch(dir)
+            write(path, src)
+
+            // create lab .spawn.js
+            dir = './lab'
+            path = `${dir}/${oname}.spawn.js`
+            src = replace(readProto('sample-class/lab.spawn'), 'class', cname)
+            src = replace(src, 'name', oname)
             touch(dir)
             write(path, src)
         }

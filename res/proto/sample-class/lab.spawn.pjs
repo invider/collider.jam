@@ -1,0 +1,5 @@
+const <name> = {
+    DNA: '<class>',
+    x: rx(.3),
+    y: ry(.3),
+}
