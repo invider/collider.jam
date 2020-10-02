@@ -27,5 +27,5 @@ function draw() {
     lineWidth(5)
     stroke(.58, .5, .7)   // color in float HSL
     circle(x, y, r)       // atmosphere haze
-    image(res.mars_type_planet, x-r, y-r, 2*r, 2*r) // planet texture
+    image(res.<name>, x-r, y-r, 2*r, 2*r) // planet texture
 }

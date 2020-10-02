@@ -58,6 +58,14 @@ module.exports = {
     },
 
     getDir: function(path) {
+        if (path.endsWith('/')) return path.substring(0, path.length - 1)
+        const i = path.lastIndexOf('/')
+        if (i < 0) return './'
+        return path.substring(0, i)
+    },
+
+    levelUp: function(path) {
+        if (path.endsWith('/')) path = path.substring(0, path.length - 1)
         const i = path.lastIndexOf('/')
         if (i < 0) return './'
         return path.substring(0, i)

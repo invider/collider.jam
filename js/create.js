@@ -4,8 +4,13 @@ const lib = require('./lib')
 const help = require('./help')
 const fs = require('fs-extra')
 
-const COL = 12
-const protoPath = `${module.path}/../proto`
+const COL = 24
+const protoPath = lib.levelUp(module.path) + '/proto'
+
+function expect(val, errorMessage) {
+    if (val) return val
+    throw (errorMessage || 'parameter is expected')
+}
 
 function read(path) {
     const content = fs.readFileSync(`${protoPath}/${path}`)
@@ -23,7 +28,7 @@ function replace(src, key, val) {
 }
 
 function replaceAll(src, macro) {
-    if (!src) return
+    if (!src || !macro) return src
     Object.entries(macro).forEach(e => {
         src = replace(src, e[0], e[1])
     })
@@ -43,6 +48,11 @@ function write(path, src) {
     log.raw(src)
 
     fs.writeFileSync(path, src)
+}
+
+function cp(source, dest) {
+    log.raw(`copying ${source} => ${dest}...`)
+    fs.copySync(source, dest)
 }
 
 function realPath(path, macro) {
@@ -83,14 +93,17 @@ function patch(path, macro) {
 
     verifyPaths(rules.paths)
     rules.forEach(rule => {
-        console.dir(rule)
+        const dir = lib.getDir(rule.dest)
         switch(rule.action) {
             case 'patch':
-                const dir = lib.getDir(rule.dest)
-                let src = readProto(path + '/' + rule.source)
+                let src = readProto(`${path}/${rule.source}`)
                 src = replaceAll(src, macro)
                 touch(dir)
                 write(rule.dest, src)
+                break
+            case 'cp':
+                touch(dir)
+                cp(`${protoPath}/${path}/${rule.source}`, rule.dest)
                 break
         }
     })
@@ -99,66 +112,75 @@ function patch(path, macro) {
 const generators = {
 
     trap: {
+        usage: '<name>',
         head: 'create a trap',
         create: function(params) {
-            const name = params[1]
-            if (!name) throw 'trap name is expected'
-
-            const dir = './trap'
-            const path = `${dir}/${name}.js`
-            const src = replace(readProto('trap'), 'name', name)
-
-            notExists(path)
-            touch(dir)
-            write(path, src)
+            const macro = {
+                'name': expect(params[1], 'trap name is expected'),
+            }
+            patch('trap', macro)
         }
     },
 
     'brownian-dot': {
+        usage: '<name>',
         head: 'create a brownian-moving dot',
         create: function(params) {
-            const name = params[1]
-            if (!name) throw 'entity name is expected'
+            const macro = {
+                'name': expect(params[1], 'entity name is expected'),
+            }
+            patch('brownian-dot', macro)
+        }
+    },
 
-            const dir = './lab'
-            const path = `${dir}/${name}.js`
-            const src = readProto('brownian-dot')
-
-            notExists(path)
-            touch(dir)
-            write(path, src)
+    'bouncing-planet': {
+        usage: '<name>',
+        head: 'create a bouncing planet',
+        create: function(params) {
+            const macro = {
+                'name': expect(params[1], 'entity name is expected'),
+            }
+            patch('bouncing-planet', macro)
         }
     },
 
     'class': {
+        usage: '<name>',
         head: 'create a sample dna class',
         create: function(params) {
-            let cname = params[1]
-            if (!cname) throw 'class name is expected'
+            const name = expect(params[1], 'class name is expected')
             const rest = cname.substring(1)
-            cname = cname.substring(0, 1).toUpperCase() + rest
-            let oname = cname.substring(0, 1).toLowerCase() + rest
 
             const macro = {
-                'class': cname,
-                'obj':   oname,
+                'class': name.substring(0, 1).toUpperCase() + rest,
+                'obj':   name.substring(0, 1).toLowerCase() + rest,
             }
             patch('sample-class', macro)
+        }
+    },
+
+    'eyes': {
+        usage: '',
+        head: 'mouse tracking eyes',
+        create: function(params) {
+            patch('eyes')
         }
     },
 }
 
 function tab(s, n) {
     if (!n || n < 0) return s
-    for (let i = 0; i < n; i++) s += ' '
+    for (let i = 0; i < n; i++) s += '.'
     return s
 }
 
 function list() {
     Object.entries(generators).forEach(e => {
-        const name = tab(e[0], COL - e[0].length)
-        const head = e[1].head
-        log.raw(name + ' ' + head)
+        let header = e[0] + ' '
+        if (e[1].usage) header += e[1].usage + ' '
+        header = tab(header, COL - header.length)
+
+        log.raw(header + ' ' + e[1].head)
     })
 }
 
@@ -176,11 +198,11 @@ function create(param) {
         if (!gen) {
             log.error(`unknown object type [${type}]! Run [jam new list] for available options`)
         } else {
-            try {
+            //try {
                 gen.create(param)
-            } catch (e) {
-                log.error(e)
-            }
+            //} catch (e) {
+             //   log.error(e)
+            //}
         }
     }
 }

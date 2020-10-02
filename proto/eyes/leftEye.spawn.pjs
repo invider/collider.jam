@@ -1,0 +1,5 @@
+module.exports = {
+    DNA: 'eye',
+    x: rx(.8 - .025),
+    y: ry(.1),
+}

@@ -1,0 +1,3 @@
+patch eye ./dna/eye.js
+patch leftEye.spawn ./lab/leftEye.spawn.js
+patch rightEye.spawn ./lab/rightEye.spawn.js
