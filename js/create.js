@@ -198,11 +198,11 @@ function create(param) {
         if (!gen) {
             log.error(`unknown object type [${type}]! Run [jam new list] for available options`)
         } else {
-            //try {
+            try {
                 gen.create(param)
-            //} catch (e) {
-             //   log.error(e)
-            //}
+            } catch (e) {
+                log.error(e)
+            }
         }
     }
 }
