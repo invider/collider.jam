@@ -1,4 +1,4 @@
-const <name> = {
+const <obj> = {
     DNA: '<class>',
     x: rx(.3),
     y: ry(.3),

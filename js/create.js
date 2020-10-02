@@ -1,22 +1,41 @@
 const env = require('./env')
 const log = require('./log')
+const lib = require('./lib')
 const help = require('./help')
 const fs = require('fs-extra')
 
 const COL = 12
+const protoPath = `${module.path}/../proto`
 
-function readProto(name) {
-    const content = fs.readFileSync(`${module.path}/../res/proto/${name}.pjs`)
+function read(path) {
+    const content = fs.readFileSync(`${protoPath}/${path}`)
     const source = content.toString('utf-8')
     return source
 }
 
+function readProto(name) {
+    return read(name + '.pjs')
+}
+
 function replace(src, key, val) {
+    if (!src) return
     return src.replace('<' + key + '>', val)
+}
+
+function replaceAll(src, macro) {
+    if (!src) return
+    Object.entries(macro).forEach(e => {
+        src = replace(src, e[0], e[1])
+    })
+    return src
 }
 
 function touch(path) {
     fs.ensureDir(path)
+}
+
+function notExists(path) {
+    if (fs.existsSync(path)) throw `path conflict - [${path}] already exists!`
 }
 
 function write(path, src) {
@@ -24,6 +43,57 @@ function write(path, src) {
     log.raw(src)
 
     fs.writeFileSync(path, src)
+}
+
+function realPath(path, macro) {
+    return replaceAll(path, macro)
+}
+
+function readRules(path, macro) {
+    const src = read(path + '/patch.rules')
+
+    const rules = []
+    rules.paths = []
+
+    const lines = src.split('\n')
+        .map(l => l.trim())
+        .filter(l => l.length > 0)
+        .filter(l => !l.startsWith('#') && !l.startsWith('--'))
+
+    lines.forEach(l => {
+        const rule = l.split(/\s|\t/).filter(Boolean)
+        const path = realPath(rule[2], macro)
+
+        rules.push({
+            action: rule[0],
+            source: rule[1],
+            dest:   path,
+        })
+        if (path) rules.paths.push(path)
+    })
+    return rules
+}
+
+function verifyPaths(paths) {
+    paths.forEach(path => notExists(path))
+}
+
+function patch(path, macro) {
+    const rules = readRules(path, macro)
+
+    verifyPaths(rules.paths)
+    rules.forEach(rule => {
+        console.dir(rule)
+        switch(rule.action) {
+            case 'patch':
+                const dir = lib.getDir(rule.dest)
+                let src = readProto(path + '/' + rule.source)
+                src = replaceAll(src, macro)
+                touch(dir)
+                write(rule.dest, src)
+                break
+        }
+    })
 }
 
 const generators = {
@@ -38,6 +108,7 @@ const generators = {
             const path = `${dir}/${name}.js`
             const src = replace(readProto('trap'), 'name', name)
 
+            notExists(path)
             touch(dir)
             write(path, src)
         }
@@ -53,6 +124,7 @@ const generators = {
             const path = `${dir}/${name}.js`
             const src = readProto('brownian-dot')
 
+            notExists(path)
             touch(dir)
             write(path, src)
         }
@@ -67,20 +139,11 @@ const generators = {
             cname = cname.substring(0, 1).toUpperCase() + rest
             let oname = cname.substring(0, 1).toLowerCase() + rest
 
-            // create dna
-            let dir = './dna'
-            let path = `${dir}/${cname}.js`
-            let src = replace(readProto('sample-class/Dna'), 'class', cname)
-            touch(dir)
-            write(path, src)
-
-            // create lab .spawn.js
-            dir = './lab'
-            path = `${dir}/${oname}.spawn.js`
-            src = replace(readProto('sample-class/lab.spawn'), 'class', cname)
-            src = replace(src, 'name', oname)
-            touch(dir)
-            write(path, src)
+            const macro = {
+                'class': cname,
+                'obj':   oname,
+            }
+            patch('sample-class', macro)
         }
     },
 }

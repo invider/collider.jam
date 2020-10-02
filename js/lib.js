@@ -57,6 +57,12 @@ module.exports = {
         return path.replace(/^.*[\\\/]/, '')
     },
 
+    getDir: function(path) {
+        const i = path.lastIndexOf('/')
+        if (i < 0) return './'
+        return path.substring(0, i)
+    },
+
     readOptionalJson: function(path, defaultJson,
                                 onSuccess, onMissing) {
         if (fs.existsSync(path)) {

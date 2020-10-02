@@ -1,9 +1,8 @@
-
 // default values
 const df = {
     x: rx(.5),
     y: ry(.5),
-    w: ry(.1),
+    r: ry(.05),
     dx: 0,
     dy: 0,
     speed: ry(.3),
@@ -32,12 +31,12 @@ class <class> {
         this.y = warp(this.y + this.dy * dt, 0, ry(1))
 
         // reflect from the screen edges
-        if (this.dx > 0 && this.x > rx(1) - this.w/2
-                || this.dx < 0 && this.x < this.w/2) {
+        if (this.dx > 0 && this.x > rx(1) - this.r
+                || this.dx < 0 && this.x < this.r) {
             this.dx *= -1
         }
-        if (this.dy > 0 && this.y > ry(1) - this.w/2
-                || this.dy < 0 && this.y < this.w/2) {
+        if (this.dy > 0 && this.y > ry(1) - this.r
+                || this.dy < 0 && this.y < this.r) {
             this.dy *= -1
         }
     }
@@ -48,7 +47,7 @@ class <class> {
 
         lineWidth(2)
         stroke(.52, .5, .5)
-        rect(-this.w/2, -this.w/2, this.w, this.w)
+        circle(0, 0, this.r)
 
         restore()
     }
