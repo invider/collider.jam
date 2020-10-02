@@ -1,0 +1,5 @@
+const <factory> = {
+    DNA: '<factory>',
+    x: RND(ctx.width),
+    y: RND(ctx.height),
+}

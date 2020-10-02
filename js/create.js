@@ -181,6 +181,21 @@ const generators = {
         }
     },
 
+    'factory': {
+        usage: '<name>',
+        head: 'create a sample dna factory',
+        create: function(params) {
+            const name = expect(params[0], 'factory name is expected')
+            const rest = name.substring(1)
+            const fname = name.substring(0, 1).toLowerCase() + rest
+
+            const macro = {
+                'factory': fname,
+            }
+            patch('sample-factory', macro)
+        }
+    },
+
     'eyes': {
         usage: '',
         head: 'mouse tracking eyes',

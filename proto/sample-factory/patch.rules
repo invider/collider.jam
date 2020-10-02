@@ -1,0 +1,3 @@
+-- place dna and spawn in lab
+patch saucer ./dna/<factory>.js
+patch lab.spawn ./lab/<factory>.spawn.js

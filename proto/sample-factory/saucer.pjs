@@ -1,0 +1,65 @@
+function evo(dt) {
+    this.t -= dt
+    if (this.t < 0) {
+        // it's time to change the direction!
+        const max = ctx.height/5
+        this.dx = lib.math.rndi(max) - max/2
+        this.dy = lib.math.rndi(max) - max/2
+        this.t = lib.math.rndi(8) + 2
+    }
+
+    // move
+    this.x += this.dx*dt
+    this.y += this.dy*dt
+
+    // check the screen edges
+    if (this.x < 0 || this.x > ctx.width
+            || this.y < 0 || this.y > ctx.height) {
+
+        // go back to base in 5 seconds
+        this.dx = (ctx.width/2 - this.x)/5
+        this.dy = (ctx.height/2 - this.y)/5
+        this.t = 5
+    }
+}
+
+function draw() {
+    // define saucer sizes and color
+    const sw = 70 
+    const tw = 25 
+    const sh = 20
+    fill('#609040')
+    const { x, y } = this
+
+    // draw the saucer shape
+    polygon(
+        x - sw/2, y,
+        x - tw/2, y-sh/2,
+        x + tw/2, y-sh/2,
+        x + sw/2, y,
+        x + tw/2, y+sh/2,
+        x - tw/2, y+sh/2,
+    )
+}
+
+function <factory>() {
+
+    // construct a saucer
+    const saucer = {
+        Z: 1000, // we want saucer to be on top of existing entities
+
+        // saucer coordinates
+        x: ctx.width/2,
+        y: ctx.height/2,
+
+        // current movement state
+        dx: 0, 
+        dy: 0,
+        t: 0,
+    }
+
+    saucer.evo = evo
+    saucer.draw = draw
+
+    return saucer
+}
