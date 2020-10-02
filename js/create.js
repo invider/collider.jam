@@ -118,6 +118,51 @@ function patch(path, macro) {
 
 const generators = {
 
+    'class': {
+        usage: '<name>',
+        head: 'create a sample dna class',
+        create: function(params) {
+            const name = expect(params[0], 'class name is expected')
+            const rest = name.substring(1)
+
+            const macro = {
+                'class': name.substring(0, 1).toUpperCase() + rest,
+                'obj':   name.substring(0, 1).toLowerCase() + rest,
+            }
+            patch('sample-class', macro)
+        }
+    },
+
+    'prototype': {
+        usage: '<name>',
+        head: 'create a sample dna prototype',
+        create: function(params) {
+            const name = expect(params[0], 'prototype name is expected')
+            const rest = name.substring(1)
+
+            const macro = {
+                'prototype': name.substring(0, 1).toUpperCase() + rest,
+                'obj':   name.substring(0, 1).toLowerCase() + rest,
+            }
+            patch('sample-prototype', macro)
+        }
+    },
+
+    factory: {
+        usage: '<name>',
+        head: 'create a sample dna factory',
+        create: function(params) {
+            const name = expect(params[0], 'factory name is expected')
+            const rest = name.substring(1)
+            const fname = name.substring(0, 1).toLowerCase() + rest
+
+            const macro = {
+                'factory': fname,
+            }
+            patch('sample-factory', macro)
+        }
+    },
+
     trap: {
         usage: '<name>',
         head: 'create a trap',
@@ -151,56 +196,19 @@ const generators = {
         }
     },
 
-    'class': {
-        usage: '<name>',
-        head: 'create a sample dna class',
-        create: function(params) {
-            const name = expect(params[0], 'class name is expected')
-            const rest = name.substring(1)
-
-            const macro = {
-                'class': name.substring(0, 1).toUpperCase() + rest,
-                'obj':   name.substring(0, 1).toLowerCase() + rest,
-            }
-            patch('sample-class', macro)
-        }
-    },
-
-    'prototype': {
-        usage: '<name>',
-        head: 'create a sample dna prototype',
-        create: function(params) {
-            const name = expect(params[0], 'prototype name is expected')
-            const rest = name.substring(1)
-
-            const macro = {
-                'prototype': name.substring(0, 1).toUpperCase() + rest,
-                'obj':   name.substring(0, 1).toLowerCase() + rest,
-            }
-            patch('sample-prototype', macro)
-        }
-    },
-
-    'factory': {
-        usage: '<name>',
-        head: 'create a sample dna factory',
-        create: function(params) {
-            const name = expect(params[0], 'factory name is expected')
-            const rest = name.substring(1)
-            const fname = name.substring(0, 1).toLowerCase() + rest
-
-            const macro = {
-                'factory': fname,
-            }
-            patch('sample-factory', macro)
-        }
-    },
-
-    'eyes': {
+    eyes: {
         usage: '',
         head: 'mouse tracking eyes',
         create: function(params) {
             patch('eyes')
+        }
+    },
+
+    score: {
+        usage: '',
+        head: 'create a score indicator',
+        create: function(params) {
+            patch('score')
         }
     },
 }

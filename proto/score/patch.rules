@@ -1,0 +1,4 @@
+patch score     ./lab/score.js
+patch scoreUp   ./trap/scoreUp.js
+patch click     ./trap/click.js
+patch each5s    ./cue/each5s.js

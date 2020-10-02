@@ -1,0 +1,12 @@
+function init() {
+    env.score = 0
+}
+
+function draw() {
+    baseTop()
+    alignRight()
+    fill(.8, .5, .5)
+    font('32px moon')
+
+    text('Score: ' + env.score, rx(1) - 25, 25)
+}
