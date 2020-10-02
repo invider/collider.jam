@@ -4,6 +4,7 @@ Following commands are available [shortcuts are in brackets]:
     [r] run    - start collider.jam server (default command)
     [o] play, open - start the project in default web browser
     [i] init <sample-name>  - init and bootstrap a project from template
+    [n] new | create - create a new entity, run "new ls" to list posibilities
     bootstrap <sample-name> - bootstrap from a sample
     patch <patch-name>      - fix the project with a patch
     [p] pack [out|dist| ] - assemble all resources in <out> folder, create archives in ./dist

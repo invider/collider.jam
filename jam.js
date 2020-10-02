@@ -36,6 +36,8 @@ for (let i = 2; i < args.length; i++) {
         parsedOption = false
 
     } else if (arg === '-f' || arg === '--flow') {
+        // TODO make it into a --force flag?
+        //      should it be hot reload or something?
         env.flow = true
         env.config.flow = true
         parsedOption = false

@@ -24,7 +24,7 @@ function readProto(name) {
 
 function replace(src, key, val) {
     if (!src) return
-    return src.replace('<' + key + '>', val)
+    return src.split('<' + key + '>').join(val)
 }
 
 function replaceAll(src, macro) {
@@ -40,7 +40,14 @@ function touch(path) {
 }
 
 function notExists(path) {
-    if (fs.existsSync(path)) throw `path conflict - [${path}] already exists!`
+    if (fs.existsSync(path)) {
+        if (env.force) {
+            log.warn(`path conflict - [${path}] already exists! Force overwrite!`)
+        } else {
+            throw (`path conflict - [${path}] already exists!`
+                + '\nUse [jam new -f] or [jam new force] to override')
+        }
+    }
 }
 
 function write(path, src) {
@@ -116,7 +123,7 @@ const generators = {
         head: 'create a trap',
         create: function(params) {
             const macro = {
-                'name': expect(params[1], 'trap name is expected'),
+                'name': expect(params[0], 'trap name is expected'),
             }
             patch('trap', macro)
         }
@@ -127,7 +134,7 @@ const generators = {
         head: 'create a brownian-moving dot',
         create: function(params) {
             const macro = {
-                'name': expect(params[1], 'entity name is expected'),
+                'name': expect(params[0], 'entity name is expected'),
             }
             patch('brownian-dot', macro)
         }
@@ -138,7 +145,7 @@ const generators = {
         head: 'create a bouncing planet',
         create: function(params) {
             const macro = {
-                'name': expect(params[1], 'entity name is expected'),
+                'name': expect(params[0], 'entity name is expected'),
             }
             patch('bouncing-planet', macro)
         }
@@ -148,14 +155,29 @@ const generators = {
         usage: '<name>',
         head: 'create a sample dna class',
         create: function(params) {
-            const name = expect(params[1], 'class name is expected')
-            const rest = cname.substring(1)
+            const name = expect(params[0], 'class name is expected')
+            const rest = name.substring(1)
 
             const macro = {
                 'class': name.substring(0, 1).toUpperCase() + rest,
                 'obj':   name.substring(0, 1).toLowerCase() + rest,
             }
             patch('sample-class', macro)
+        }
+    },
+
+    'prototype': {
+        usage: '<name>',
+        head: 'create a sample dna prototype',
+        create: function(params) {
+            const name = expect(params[0], 'prototype name is expected')
+            const rest = name.substring(1)
+
+            const macro = {
+                'prototype': name.substring(0, 1).toUpperCase() + rest,
+                'obj':   name.substring(0, 1).toLowerCase() + rest,
+            }
+            patch('sample-prototype', macro)
         }
     },
 
@@ -185,7 +207,16 @@ function list() {
 }
 
 function create(param) {
-    const type = param[0]
+    let type = param[0]
+    param.splice(0, 1)
+
+    if (type === 'f' || type === 'force') {
+        env.force = true
+        type = param[0]
+        param.splice(0, 1)
+        console.dir(param)
+    }
+
 
     if (!type) {
         log.error('entity type MUST be specified!')
