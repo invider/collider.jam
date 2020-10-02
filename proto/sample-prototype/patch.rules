@@ -1,0 +1,3 @@
+-- place dna and spawn in lab
+patch Dna       ./dna/<prototype>.js
+patch lab.spawn ./lab/<obj>.spawn.js

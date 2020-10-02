@@ -1,0 +1,84 @@
+const df = {
+    x: 0,
+    y: 0,
+    r: 25,
+    dir: 0,
+    speed: 100,
+    timer: 0,
+    action: 0,
+}
+
+function <prototype>(st) {
+    augment(this, df)
+    augment(this, st)
+}
+
+<prototype>.prototype.evo = function(dt) {
+    this.timer -= dt
+    if (this.timer < 0) {
+        // it's time to choose a new action!
+        this.action = RND(5)
+        if (this.action > 3) this.action = 3
+        this.timer = 0.3 + rnd(3)
+    }
+
+    switch(this.action) {
+        case 0:
+            // do nothing
+            break
+        case 1:
+            // turn left
+            this.dir -= HALF_PI * dt
+            break
+        case 2:
+            // turn right
+            this.dir += HALF_PI * dt
+            break
+        case 3:
+            // move forward
+            this.x = warp(this.x + cos(this.dir) * this.speed * dt, 0, rx(1))
+            this.y = warp(this.y + sin(this.dir) * this.speed * dt, 0, ry(1))
+
+            // exhaust particle
+            // NOTE It is higly ineffective to keep each particle as a node.
+            //      Use Emitter to do it more efficiently.
+            lab.attach({
+                x: this.x - cos(this.dir)*25,
+                y: this.y - sin(this.dir)*25,
+                dir: lib.math.normalizeAngle(this.dir + PI - .2 + rnd(.4)),
+                speed: 150 + rnd(50),
+                lifetime: 7,
+
+                evo(dt) {
+                    this.lifetime -= dt
+                    if (this.lifetime <= 0) {
+                        const particle = this
+                        defer(() => kill(particle))
+                    }
+                    this.x += cos(this.dir) * this.speed * dt
+                    this.y += sin(this.dir) * this.speed * dt
+                },
+                draw() {
+                    lineWidth(3)
+                    fill(.08, .5, .55)
+                    plot(this.x, this.y)
+                },
+            })
+            break
+    }
+}
+
+<prototype>.prototype.draw = function() {
+    const { x, y, r, dir } = this
+    save()
+    translate(x, y)
+    rotate(dir)
+
+    lineWidth(2)
+    stroke(.15, .5, .5)
+    triangle(r, 0, -.7*r, -.6*r, -.7*r, .6*r)
+
+    line(-0.9*r, -0.3*r, -0.9*r, 0.3*r)
+
+    restore()
+}

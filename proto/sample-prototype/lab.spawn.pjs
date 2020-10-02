@@ -1,0 +1,5 @@
+const <obj> = {
+    DNA: '<prototype>',
+    x: rx(.5),
+    y: ry(.5),
+}
