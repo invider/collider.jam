@@ -65,6 +65,7 @@ module.exports = {
     },
 
     levelUp: function(path) {
+        if (!path) return ''
         if (path.endsWith('/')) path = path.substring(0, path.length - 1)
         const i = path.lastIndexOf('/')
         if (i < 0) return './'

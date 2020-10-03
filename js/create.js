@@ -5,6 +5,9 @@ const help = require('./help')
 const fs = require('fs-extra')
 
 const COL = 24
+// TODO figure out how to throw module.path
+//      and use collider package path instead
+//      module.path can be empty!!!!
 const protoPath = lib.levelUp(module.path) + '/proto'
 
 function expect(val, errorMessage) {
