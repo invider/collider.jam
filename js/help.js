@@ -7,6 +7,8 @@ module.exports = function(topic) {
     topic = topic || 'help'
 
     try {
+        // TODO fix module.path - could be undefined
+        //      determine from package path
         const content = fs.readFileSync(`${module.path}/../res/${topic}.txt`)
         const text = content.toString('utf-8')
         log.raw(text.trim())
