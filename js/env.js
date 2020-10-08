@@ -1,5 +1,6 @@
 'use strict'
 
+// TODO include some auto-ignore paths - like fix, ignore
 const ignorePaths = [
     "map.json",
     "remap.json",

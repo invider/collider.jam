@@ -5,10 +5,6 @@ const help = require('./help')
 const fs = require('fs-extra')
 
 const COL = 24
-// TODO figure out how to throw module.path
-//      and use collider package path instead
-//      module.path can be empty!!!!
-const protoPath = lib.levelUp(module.path) + '/proto'
 
 function expect(val, errorMessage) {
     if (val) return val
@@ -16,6 +12,7 @@ function expect(val, errorMessage) {
 }
 
 function read(path) {
+    const protoPath = env.jamPath + '/proto'
     const content = fs.readFileSync(`${protoPath}/${path}`)
     const source = content.toString('utf-8')
     return source
@@ -100,6 +97,7 @@ function verifyPaths(paths) {
 
 function patch(path, macro) {
     const rules = readRules(path, macro)
+    const protoPath = env.jamPath + '/proto'
 
     verifyPaths(rules.paths)
     rules.forEach(rule => {

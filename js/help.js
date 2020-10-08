@@ -1,15 +1,14 @@
 'use strict'
 
-const log = require('./log')
 const fs = require('fs-extra')
+const log = require('./log')
+const env = require('./env')
 
 module.exports = function(topic) {
     topic = topic || 'help'
 
     try {
-        // TODO fix module.path - could be undefined
-        //      determine from package path
-        const content = fs.readFileSync(`${module.path}/../res/${topic}.txt`)
+        const content = fs.readFileSync(`${env.jamPath}/res/${topic}.txt`)
         const text = content.toString('utf-8')
         log.raw(text.trim())
     } catch (e) {

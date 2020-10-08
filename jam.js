@@ -132,9 +132,8 @@ if (env.jamPath) {
     log.debug('collider.jam path: ' + env.jamPath)
 } else {
     log.warn("can't determine collider.jam module path!")
-    log.warn(`module.path = "${module.path}"`)
-    log.dump(module.paths)
 }
+// TODO the right way is to scan all available paths
 env.jamModules = module.paths[0]
 
 switch(cmd) {

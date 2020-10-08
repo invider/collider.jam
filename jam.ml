@@ -4,6 +4,7 @@
     > opinion.mixer
     > masterlist
     > team chat
+> fix Frame.kill() and kill logic in general
 > show red boot error on 404 resource
 > fix first file comment parsing - exclude deep comments as first
 > autotag metadata with mod, make it searchable
