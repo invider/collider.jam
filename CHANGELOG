@@ -1,3 +1,32 @@
+0.0.9-DR8 2020-10-08
+[+] jam new command with a bunch of prototypes ready for creation
+[*] local package.json/node_modules are used by default unless --global is specified
+[+] improved help coverage
+[+] console commands to navigate the mix - ls, cd, cmd, kill, select, exit
+[*] moved kill() and killAll() to LabNode
+[-] fixed missing module.path problem in jam help
+[*] improved SlideCamera
+[*] run setup() on all nodes in /lab on start
+[+] multichannel sfx is enabled by default in standard sfx()
+[+] math.normalVector() implementation
+[+] mutable array-based 2d vector in /lib
+[+] immutable object-based 2d vector  in /lib
+[+] custom shape node within(x, y) support in pick() and hud
+[+] require() implemented
+[+] gtrap() to trap globally from included mods
+[+] defer() function to schedule function calls
+[+] Frame.flatMap() implementation
+[+] on...() events handling in /lab
+[+] onSpawn() now called for all spawned nodes
+[+] select() and selectOne() included in global scope
+[+] support of deep selection by instanceof, name and id in select/selectOne
+[+] support of randomly placed * patters in select/selectOne path
+[-] fixed mouse event button parameter
+[-] fixed bearing() function
+[-] isMutable() retired - no actual use for it anyways
+
+
+
 0.0.8-DR7 2020-08-19
 [+] major help enhancements
 [*] optimized help loading speed
