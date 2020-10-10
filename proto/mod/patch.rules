@@ -1,0 +1,8 @@
+mkdir <name>.mod
+
+cp res  <name>.mod/res
+cp lib  <name>.mod/lib
+cp dna  <name>.mod/dna
+cp lab  <name>.mod/lab
+cp trap <name>.mod/trap
+cp setup.js <name>.mod/setup.js

@@ -27,7 +27,7 @@ function replace(src, key, val) {
     return src.split('<' + key + '>').join(val)
 }
 
-function replaceAll(src, macro) {
+function applyMacro(src, macro) {
     if (!src || !macro) return src
     Object.entries(macro).forEach(e => {
         src = replace(src, e[0], e[1])
@@ -63,7 +63,7 @@ function cp(source, dest) {
 }
 
 function realPath(path, macro) {
-    return replaceAll(path, macro)
+    return applyMacro(path, macro)
 }
 
 function readRules(path, macro) {
@@ -79,12 +79,11 @@ function readRules(path, macro) {
 
     lines.forEach(l => {
         const rule = l.split(/\s|\t/).filter(Boolean)
-        const path = realPath(rule[2], macro)
 
         rules.push({
             action: rule[0],
-            source: rule[1],
-            dest:   path,
+            source: applyMacro(rule[1], macro),
+            dest:   applyMacro(rule[2], macro),
         })
         if (path) rules.paths.push(path)
     })
@@ -101,23 +100,55 @@ function patch(path, macro) {
 
     verifyPaths(rules.paths)
     rules.forEach(rule => {
-        const dir = lib.getDir(rule.dest)
         switch(rule.action) {
             case 'patch':
                 let src = readProto(`${path}/${rule.source}`)
-                src = replaceAll(src, macro)
+                src = applyMacro(src, macro)
+                const dir = lib.getDir(rule.dest)
                 touch(dir)
                 write(rule.dest, src)
                 break
+
             case 'cp':
-                touch(dir)
+                const cpDir = lib.getDir(rule.dest)
+                touch(cpDir)
                 cp(`${protoPath}/${path}/${rule.source}`, rule.dest)
+                break
+
+            case 'mkdir':
+                touch(rule.source)
                 break
         }
     })
 }
 
 const generators = {
+
+    'mod': {
+        usage: '<name>',
+        head:  'create a sample mod',
+        create: function(params) {
+            const name = expect(params[0], 'mod name is expected')
+
+            const macro = {
+                'name': name,
+            }
+            patch('mod', macro)
+        },
+    },
+
+    'empty-mod': {
+        usage: '<name>',
+        head:  'create an empty mod',
+        create: function(params) {
+            const name = expect(params[0], 'mod name is expected')
+
+            const macro = {
+                'name': name,
+            }
+            patch('mod', macro)
+        },
+    },
 
     'class': {
         usage: '<name>',
@@ -257,6 +288,7 @@ function create(param) {
                 gen.create(param)
             } catch (e) {
                 log.error(e)
+                if (env.debug) throw e
             }
         }
     }
