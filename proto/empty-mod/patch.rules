@@ -1,0 +1,5 @@
+mkdir <name>.mod/res
+mkdir <name>.mod/lib
+mkdir <name>.mod/dna
+mkdir <name>.mod/lab
+mkdir <name>.mod/trap

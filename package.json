@@ -30,13 +30,13 @@
     "url": "https://github.com/invider/collider.jam.git"
   },
   "dependencies": {
-    "archiver": "^5.0.0",
+    "archiver": "^5.0.2",
     "collider-boot.mix": "git+https://github.com/invider/collider-boot.mix.git",
     "collider-dev.mix": "git+https://github.com/invider/collider-dev.mix.git",
     "express": "^4.17.1",
     "express-ws": "latest",
     "fs-extra": "^9.0.1",
-    "open": "^7.1.0",
+    "open": "^7.3.0",
     "request": "latest",
     "socket.io": "latest",
     "underscore": "^1.11.0"
