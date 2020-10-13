@@ -351,6 +351,8 @@ function remap(path, scanMap) {
 }
 
 function determineScanMap() {
+    if (env.scanMap) return env.scanMap
+
     if (env.sketch) {
 
         if (env.mode === env.MOD_MODE) {
@@ -496,7 +498,7 @@ function scanUnits() {
         */
     })
 
-    if (env.sketch && env.mode === env.MOD_MODE) {
+    if (env.sketch && env.mode === env.MOD_MODE && !env.freezeScanMap) {
         // need to include manually,
         // since ./ is remapped to /mod
         trace('================================================')

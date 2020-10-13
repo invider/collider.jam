@@ -134,6 +134,12 @@ function determineFinalOutputDir() {
     else return env.outDir
 }
 
+function saveUnitsMap(outDir, units) {
+    const path = lib.addPath(outDir, env.unitsPath)
+    log.debug(`saving units map to [${path}]`, TAG)
+    fs.writeJsonSync(path, units.map, { spaces: '    '})
+}
+
 function pack(baseDir, outputDir, units) {
     const name = determinePackageName()
     const outDir = determineOutputDir()
@@ -157,7 +163,7 @@ function pack(baseDir, outputDir, units) {
 
     //fs.writeFileSync(outDir + env.unitsPath, JSON.stringify(units.map))
     //fs.writeFileSync(outDir + env.configPath, JSON.stringify(env.config))
-    fs.writeJsonSync(outDir + env.unitsPath, units.map, { spaces: '    '})
+    saveUnitsMap(outDir, units)
     fs.writeJsonSync(outDir + env.configPath, env.config, { spaces: '    '} )
 
     if (env.sketch) moveIntoSketch()
@@ -173,7 +179,31 @@ function moveIntoSketch() {
     env.outDir = env.outDir2
 }
 
-function generateDist() {
+function regenerateUnitMap() {
+    determineOutputDir()
+    const outDir = env.outDir2 || env.outDir
+
+    env.scanMap = {
+        origin: 'packager-out-scan',
+        units: [],
+        modules: [ outDir ],
+        ignorePaths: [
+            'fav',
+            'jam.config',
+            'units.map',
+            'index.html',
+            'site.webmanifest'
+        ]
+    }
+    env.freezeScanMap = true
+    let scannedUnits = scanner.scan(env.baseDir, env.scanMap)
+    saveUnitsMap(outDir, scannedUnits)
+    //console.dir(env.scanMap)
+    //console.dir(scannedUnits)
+}
+
+function generateDist(rescan) {
+    if (rescan) regenerateUnitMap()
     // generate dist archives
     const name = env.name || determinePackageName()
     const srcDir = determineFinalOutputDir()
@@ -192,7 +222,7 @@ function generate(opt) {
     else cleanAndCreateDir(env.distDir)
 
     if (opt === 'dist') {
-        generateDist()
+        generateDist(true)
         return
     }
 
