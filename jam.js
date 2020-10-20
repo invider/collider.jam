@@ -146,6 +146,7 @@ switch(cmd) {
     case 'create': case 'new':  case 'n': create(env.params); break;
     case 'pack': case 'p': generate(env.params[0]); break;
     case 'clean': case 'c': clean(env.params[0]); break;
+    case 'ca': clean('all'); break;
     case 'units': case 'u': printUnits(); break;
     case 'files': case 'f': printFiles(); break;
     case 'help': case 'h': help(env.params[0]); break;
