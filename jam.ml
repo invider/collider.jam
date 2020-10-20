@@ -4,7 +4,8 @@
     > opinion.mixer
     > masterlist
     > team chat
-> fix Frame.kill() and kill logic in general
+> jam s/start/getting-started/help start command
+> run test by a tag
 > show red boot error on 404 resource
 > fix first file comment parsing - exclude deep comments as first
 > autotag metadata with mod, make it searchable
@@ -53,6 +54,7 @@
 > refactor HUD layout model
 > refactor Emitter
 
+V fix Frame.kill() and kill logic in general
 V animation node
 V web-pack like functionality to pak non-mixed packages as libraries
 V [-] scan problem with frame=file name (e.g. test/test.js)
