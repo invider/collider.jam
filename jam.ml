@@ -1,10 +1,27 @@
 >>> interactive tutorial (netdrifter)
+>> pong
+>> life
+>> pinball
+>> breakout
+>> snake
+>> pacman
+>> blocks (tetris)
+>> tempest
+>> lander
+>> qix
+>> dino jump (endless runner)
+>> missile command
+>>> platformer
+>>> dune/warcraft-like
+>>> network space shooter
+>>> gulf and artificial life forms
 >>> ghost bot
 >>> mission control
     > opinion.mixer
     > masterlist
     > team chat
 > jam s/start/getting-started/help start command
+> CONTRIBUTE.md for the project
 > run test by a tag
 > show red boot error on 404 resource
 > fix first file comment parsing - exclude deep comments as first
