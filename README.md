@@ -391,9 +391,7 @@ There are a few modules **Collider.JAM** depends on:
 How to Contribute
 -----------------
 
-<iframe src="https://ghbtns.com/github-btn.html?user=invider&repo=collider.jam&type=star&count=true&size=large" frameborder="0" scrolling="0" width="170" height="30" title="GitHub"></iframe>
-
-Join our [Discord server discussions](https://discord.gg/kxNnHc2).
+Star this repo and join our [Discord server discussions](https://discord.gg/kxNnHc2).
 
 Create something and share it with #collider.jam tag.
 
