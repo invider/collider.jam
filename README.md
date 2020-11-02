@@ -391,14 +391,11 @@ There are a few modules **Collider.JAM** depends on:
 How to Contribute
 -----------------
 
-Join our [Discord server discussions](https://discord.gg/kxNnHc2).
+<iframe src="https://ghbtns.com/github-btn.html?user=invider&repo=collider.jam&type=star&count=true&size=large" frameborder="0" scrolling="0" width="170" height="30" title="GitHub"></iframe>
 
-<!-- Place this tag where you want the button to render. -->
-<a class="github-button" href="https://github.com/ntkme/github-buttons" data-icon="octicon-star" aria-label="Star ntkme/github-buttons on GitHub">Star Collider.JAM</a>
+Join our [Discord server discussions](https://discord.gg/kxNnHc2).
 
 Create something and share it with #collider.jam tag.
 
 More details on [how to contribute](CONTRIBUTING.md).
 
-<!-- Place this tag in your head or just before your close body tag. -->
-<script async defer src="https://buttons.github.io/buttons.js"></script>
