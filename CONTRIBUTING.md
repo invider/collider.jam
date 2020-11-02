@@ -17,7 +17,7 @@ are covered in the [blog](http://ikhotin.com/posts/)
 
 There is [an invasion mailing list](http://collider.land/subscribe.html)
 with news not only on Collider.JAM, but on the whole
-pixelation/gamifiction revolution.
+pixelation/gamification revolution.
 
 You can also Like [_Collider Labs_ page](https://www.facebook.com/colliderlabs)
 on Facebook.
@@ -29,13 +29,13 @@ Create, Share, Feedback
 
 The easiest way to participate is to create and share something.
 
-Don't hesitate to provide the feedback on the experience - 
-all the problems, unexpected behavior and missing documentation.
-This input is higly appreciated.
+Don't hesitate to provide feedback on the experience - 
+all the problems, unexpected behavior, and missing documentation.
+This input is highly appreciated.
 
 
 Extend
 ------
 
-Documentation, new tutorials, assets, mods and code contributions are always welcome :)
+Documentation, new tutorials, assets, mods, and code contributions are always welcome :)
 

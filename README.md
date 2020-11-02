@@ -3,11 +3,13 @@
 <img src="res/logo.jpg">
 </a></p>
 
+
 Welcome to Collider.JAM!
 ========================
 [collider.land](http://collider.land)
 | [start](http://collider.land/start.html)
 | [design](http://collider.land/help/#design)
+| [reason](http://colliderlabs.com/jam)
 | [man](http://collider.land/help/)
 | [blog](http://ikhotin.com/posts/)
 | [discord](https://discord.gg/kxNnHc2)
@@ -17,19 +19,22 @@ Welcome to Collider.JAM!
 </p>
 
 Collider.JAM is a hand-crafted JavaScript framework
-for game jamming, creative coding, rapid game prototyping and beyond.
-It was crafted from experience of multiple game jams we've participated in.
+for game jamming, creative coding, rapid game prototyping, and beyond.
+It was crafted from the experience of multiple game jams we've participated in.
 
-Game prototyping is an art that mixes design, technology and creativity
+Game prototyping is an art that mixes design, technology, and creativity
 bounded by time or other limitations.
-And we believe it deserves a dedicated tool to address specific needs
+And we believe it deserves a dedicated tool to address the specific needs
 of a rapidly evolving and changing prototype.
 
-Visit [Collider.JAM Home](http://colliderlabs.com/jam).
+Visit [collider.land](http://collider.land)
+and check out [online docs](http://collider.land/help/).
 
-Check out tutorials and code examples below.
+Look at the sources from [examples](#examples) and [jam games](#jam-games-with-sources).
 
 _And pixelate reality!_
+
+
 
 Table of Contents
 -----------------
@@ -42,7 +47,7 @@ Table of Contents
 * [Explore](#explore)
 * [How To](man/HowTo.md)
 * [Examples](#examples)
-* [Jamming Games](#jamming-games)
+* [Jam Games with Sources](#jam-games-with-sources)
 * [Jam Mixes](#jam-mixes)
 * [How to Contribute](#how-to-contribute)
 
@@ -54,8 +59,8 @@ Install
     <i><b>Unlock your creativity.</b></i>
 </p>
 
-To start jamming, we need to install collider.jam npm package.
-It provides the sheel to bootstrap and run game projects.
+To start jamming, we need to install the collider.jam npm package.
+It provides the shell for bootstrap and running game projects.
 
 Make sure you have the latest Node.js installed
 by running in the console:
@@ -110,7 +115,7 @@ the root of the project.
 **Collider.JAM** has particular conventions
 on how you name and organize files and directories.
 
-It could be unusual first, but makes a lot of sense
+It could be unusual at first, but makes a lot of sense
 once you get into the jamming mode.
 
 Create a file *circle.mod/lab.js* and fill in the following lines:
@@ -129,7 +134,7 @@ Now, just run 'jam play' command while in *circle.mod* folder.
 jam play
 ```
 
-Collider.JAM will start a server and open default browser
+Collider.JAM will start a server and open the default browser
 pointing at *[http://localhost:9999]*.
 
 
@@ -166,12 +171,12 @@ function draw() {
 ```
 
 Notice the background() function
-in the beginning of draw().
-Since we are moving the cirlce now,
+at the beginning of draw().
+Since we are moving the circle now,
 the background needs to be refilled
 to clean up the previous frame.
 
-The problem is that the circle dissapears
+The problem is that the circle disappears
 once it crossed the edge of the screen.
 
 We can introduce some boundaries on x and y,
@@ -213,15 +218,17 @@ while developing:
 jam -d
 ```
 
-That enables code hot reload and help metadata
+That enables hot reload and help metadata
 among other things.
 
 Run *Collider.JAM* with -d option,
-open browser at http://localhost:9999
+then open the browser at http://localhost:9999
 and try to change circle color or radius.
 
 The changes will be applied in the browser
 after you saved lib.js.
+
+Also, you can hit F1 while and get online help now.
 
 
 
@@ -229,7 +236,7 @@ Drop Resource
 -------------
 Let's spice up our bouncing circle a little.
 
-Find a suitable image of a planet with transparent background,
+Find a suitable image of a planet with a transparent background,
 just like this one from OpenGameArt:
 https://opengameart.org/sites/default/files/mars_type_planet.png
 
@@ -249,14 +256,14 @@ function draw() {
 
 We've changed the background to totally black,
 to match the darkness of space.
-Then, we've added the image function to draw the planet texture. Notice, that the image name must match
+Then, we've added the image function to draw the planet's texture. Notice, that the image name must match
 the file name without the extension.
 
-In this example we've left the circle
-and tune it width and color to resemble
+In this example, we've left the circle
+and tune its width and color to resemble
 the planet's atmosphere.
 
-Check out working example on [GitHub](https://github.com/invider/bits.mix/tree/master/planet.mod).
+Check out the working example on [GitHub](https://github.com/invider/bits.mix/tree/master/planet.mod).
 
 
 
@@ -280,8 +287,7 @@ function evo(dt) {
 }
 ```
 
-Now, the planet will loose 5% of it's speed
-every second.
+Now, the planet will lose 5% of its speed every second.
 
 But we want it to accelerate on click,
 so we will include boost() function:
@@ -296,8 +302,8 @@ function boost(mouseX, mouseY) {
 ```
 
 We are checking if the mouse coordinates are within
-the planet radius and make 20% speed increase if so.
-The *booster* flag is needed for the visual feedback.
+the planet radius and make a 20% speed increase if so.
+The *booster* flag is needed for visual feedback.
 We want to show the player a hint
 that the boost has actually happened.
 
@@ -314,7 +320,7 @@ function draw() {
 }
 ```
 
-It is time for the mouse handling.
+It is time for mouse handling.
 Create a folder named *trap* and place
 two .js files there - *mouseDown.js* and *mouseUp.js*.
 
@@ -363,12 +369,13 @@ Check out the following examples:
 * [Bits Mix](https://github.com/invider/bits.mix) - various code snippets.
 * [Hello Planet Impact](https://github.com/invider/hello-collider-impact.mod) - asteroid impact simulation.
 * [Pong](https://github.com/invider/pong-ce.mod) - classic arcade reimplementation.
+* [Vector Zone](https://github.com/invider/vector-zone.mod) - local multiplayer arcade shooter.
 * [Game of Life](https://github.com/invider/game-of-life.mod) - Conway's Game of Life.
 
 
 
-Jam Games with Source Code
---------------------------
+Jam Games with Sources
+----------------------
 <p align="right">
     <i><b>Follow the jamming way</b></i>
 </p>
@@ -410,4 +417,5 @@ Star this repo and join our [Discord server discussions](https://discord.gg/kxNn
 Create something and share it with #collider.jam tag.
 
 More details on [how to contribute](CONTRIBUTING.md).
+
 
