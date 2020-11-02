@@ -391,11 +391,12 @@ There are a few modules **Collider.JAM** depends on:
 How to Contribute
 -----------------
 
-<a href="https://discord.gg/kxNnHc2">Join our Discord server discussions</a>
+Join our [Discord server discussions](https://discord.gg/kxNnHc2).
 
-<a href="https://www.facebook.com/colliderlabs">Like _Collider Labs_ page on Facebook</a>
+<!-- Place this tag where you want the button to render. -->
+<a class="github-button" href="https://github.com/ntkme/github-buttons" data-icon="octicon-star" aria-label="Star ntkme/github-buttons on GitHub">Star Collider.JAM</a>
 
-<a href="https://twitter.com/chaostarter">Follow Igor Khotin on Twitter</a>
+Create something and share it with #collider.jam tag.
 
-Documentation, new tutorials, assets, mods and code contributions are always welcome :)
+More details on [how to contribute](CONTRIBUTING.md).
 
