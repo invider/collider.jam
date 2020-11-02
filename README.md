@@ -5,6 +5,13 @@
 
 Welcome to Collider.JAM!
 ========================
+[collider.land](http://collider.land)
+| [start](http://collider.land/start.html)
+| [design](http://collider.land/help/#design)
+| [man](http://collider.land/help/)
+| [blog](http://ikhotin.com/posts/)
+| [discord](https://discord.gg/kxNnHc2)
+
 <p align="right">
     <i><b>Crafting with joy.</b></i>
 </p>
@@ -351,23 +358,30 @@ Check our following links:
 Examples
 --------
 
-Check out following examples:
+Check out the following examples:
 
-* [Bits Mix](https://github.com/invider/bits.mix) - various code snippets
-* [Hello Planet Impact](https://github.com/invider/hello-collider-impact.mod) - asteroid impact simulation
-* [Game of Life](https://github.com/invider/game-of-life.mod) - Conway's Game of Life
+* [Bits Mix](https://github.com/invider/bits.mix) - various code snippets.
+* [Hello Planet Impact](https://github.com/invider/hello-collider-impact.mod) - asteroid impact simulation.
+* [Pong](https://github.com/invider/pong-ce.mod) - classic arcade reimplementation.
+* [Game of Life](https://github.com/invider/game-of-life.mod) - Conway's Game of Life.
 
 
 
-Jamming Games
--------------
+Jam Games with Source Code
+--------------------------
 <p align="right">
     <i><b>Follow the jamming way</b></i>
 </p>
 
 Check out the following games. All created during various game jams and powered by *_collider.jam_*.
 
-* [Station Keeping](https://github.com/invider/station-keeping.mod) - *[Play](https://invadium.itch.io/station-keeping)* - space survival trading simulation from Ludum Dare 46
+*Note, that older games could use old-style or deprecated features.
+But mostly they are OK and show various different ways you can organize
+a project in Collider.JAM.*
+
+* [Enceladus Dockyards](https://github.com/invider/enceladus-dockyards.mix) - *[Play](https://invadium.itch.io/enceladus-dockyards)* - turn-based space ship battle simulation from GameBoy Jam 8.
+* [Jump 'N Loop](https://github.com/invider/jump-n-loop.mod) - *[Play](https://invadium.itch.io/jump-n-loop)* - rythm-based runner from Ludum Dare 47.
+* [Station Keeping](https://github.com/invider/station-keeping.mod) - *[Play](https://invadium.itch.io/station-keeping)* - space survival trading simulation from Ludum Dare 46.
 * [300 Hearts for Escape](https://github.com/invider/300-hearts-for-escape) - *[Play](https://ingwar.itch.io/300-hearts-for-escape)* - a survival trading game placed on an isolated island created during Ludum Dare 44.
 * [Cosmic Rays 'n DNAs](https://github.com/invider/cosmic-rays-n-dnas.mod) - *[Play](https://ingwar.itch.io/rays)* - fix DNA in this arcade Global Game Jam 2020 Entry.
 * [Infected Island](https://github.com/invider/roguelike-pak.mod) - 7-Day Roguelike Challenge Entry
@@ -380,9 +394,9 @@ Check out the following games. All created during various game jams and powered 
 
 Jam Mixes
 ---------
-There are a few modules **Collider.JAM** depends on:
+There are a number of projects **Collider.JAM** depends on:
 
-* [collider.mix](https://github.com/invider/collider.mix) - the most essential mix that includes collider.jam system core (jam.js) and various library functions and data.
+* [collider.mix](https://github.com/invider/collider.mix) - the most essential mix that includes collider.jam system core (collider.js) and various library functions and data.
 * [collider-boot.mix](https://github.com/invider/collider-boot.mix) - contains basic samples and patches to mix from.
 * [collider-debug.mix](https://github.com/invider/collider-debug.mix) - debug tools
 
