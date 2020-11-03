@@ -2,8 +2,8 @@
 How to Contribute
 =================
 
-Join the Discussion
--------------------
+Follow and Discuss
+------------------
 
 Join Collider.JAM [Discord server](https://discord.gg/kxNnHc2)
 to participate in the discussion and find out what is going on.

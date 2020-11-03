@@ -84,12 +84,12 @@ Now, to install collider.jam, run:
 npm install -g collider.jam
 ```
 
-Or to use the latest development version, install directly from GitHub:
+Or you can get the latest development version directly from GitHub:
 ```
 npm install -g https://github.com/invider/collider.jam.git#develop
 ```
 
-When installed, check _version_ and _help_:
+When installed, check the version and try help:
 ```
 jam version
 jam help
@@ -103,13 +103,13 @@ Drawing Shape
     <i><b>The Fun of the Game Jamming.</b></i>
 </p>
 
-Select a folder to keep your game projects in
-and create a new subfolder named 'cirlce.mod':
+
+Create a folder named 'cirlce.mod' in any convenient place
 ```
 mkdir circle.mod
 ```
 
-The *.mod* extension is crucial here,
+The *.mod* extension is crucial,
 since that is how **Collider.JAM** determines
 the root of the project.
 **Collider.JAM** has particular conventions
@@ -121,6 +121,8 @@ once you get into the jamming mode.
 Create a file *circle.mod/lab.js* and fill in the following lines:
 
 ```js
+// circle.mod/lab.js
+
 function draw() {
     lineWidth(2)         // set the line width
     stroke(.12, .4, .5)  // color in float HSL
@@ -128,14 +130,14 @@ function draw() {
 }
 ```
 
-Now, just run 'jam play' command while in *circle.mod* folder.
-
+Now, run 'jam play' command while inside *circle.mod* folder:
 ```
 jam play
 ```
 
 Collider.JAM will start a server and open the default browser
 pointing at *[http://localhost:9999]*.
+You should see the circle.
 
 
 
@@ -144,9 +146,11 @@ Moving Shape
 
 Let's make some movement by introducing
 variables for the circle position and direction.
-We also will need the *evo(dt)* function to move it:
+We also need the *evo(dt)* function to move it:
 
 ```js
+// circle.mod/lab.js
+
 // position at the center of the screen
 let x = rx(.5)
 let y = ry(.5)
@@ -157,24 +161,18 @@ let dx = 100
 let dy = 100
 
 function evo(dt) {
-    // make the movement relative to the time passed
+    // dt(delta time) holds the time in seconds passed since the last update
+    // make the movement factored by the delta time
     x += dx * dt
     y += dy * dt
 }
 
 function draw() {
-    background('#101010') // color in hex RGB
     lineWidth(2)
     stroke(.12, .4, .5)   // color in float HSL
     circle(x, y, r)
 }
 ```
-
-Notice the background() function
-at the beginning of draw().
-Since we are moving the circle now,
-the background needs to be refilled
-to clean up the previous frame.
 
 The problem is that the circle disappears
 once it crossed the edge of the screen.
@@ -183,17 +181,18 @@ We can introduce some boundaries on x and y,
 so our evo(dt) would look like this:
 ```js
 function evo(dt) {
-    // make the movement relative to the time passed
+    // make the movement factored by the delta time
     x += dx * dt
     y += dy * dt
 
-    // screen edge boundaries
+    // bounce off the screen edges
     if (x > rx(1)-r && dx > 0) dx *= -1
     else if (x < r && dx < 0) dx *= -1
     if (y > ry(1)-r && dy > 0) dy *= -1
     else if (y < r && dy < 0) dy *= -1
 }
 ```
+
 
 Find the working example on [GitHub](https://github.com/invider/bits.mix/tree/master/circle.mod).
 
@@ -225,20 +224,26 @@ Run *Collider.JAM* with -d option,
 then open the browser at http://localhost:9999
 and try to change circle color or radius.
 
-The changes will be applied in the browser
-after you saved lib.js.
+The changes will be visible in the browser
+soon after you saved lib.js.
 
-Also, you can hit F1 while and get online help now.
+Also, you can hit F1 and get online help
+on everything in the mix, including
+Collider.JAM utilities and your code!
 
 
 
 Drop Resource
 -------------
-Let's spice up our bouncing circle a little.
+Let's improve our bouncing circle.
 
 Find a suitable image of a planet with a transparent background,
-just like this one from OpenGameArt:
-https://opengameart.org/sites/default/files/mars_type_planet.png
+just like  from
+[this one](https://opengameart.org/sites/default/files/mars_type_planet.png)
+from [OpenGameArt](https://opengameart.org).
+Or any from [this procedurally generated collection](https://github.com/invider/procedural-november.pak/tree/main/planets).
+
+
 
 Download and drop it into *circle.mod/res/* folder.
 
@@ -341,7 +346,7 @@ function mouseUp() {
 Try it out - the planet is going to accelerate
 on mouse click. 
 
-So it is all as simple as that!
+The _jamming way_ is as simple as that!
 
 Just place the files in proper folders,
 follow naming conventions and
@@ -355,9 +360,14 @@ Explore
 
 Check our following links:
 
-* [Collider.JAM Map](man/Map.md) 
-* [Collider.JAM Glossary](man/Glossary.md) 
-* [How To](man/HowTo.md)
+* [collider.land](http://collider.land)
+* [start](http://collider.land/start.html)
+* [design](http://collider.land/help/#design)
+* [reason](http://colliderlabs.com/jam)
+* [man](http://collider.land/help/)
+* [blog](http://ikhotin.com/posts/)
+* [map](man/Map.md) 
+* [glossary](man/Glossary.md) 
 
 
 
@@ -417,5 +427,4 @@ Star this repo and join our [Discord server discussions](https://discord.gg/kxNn
 Create something and share it with #collider.jam tag.
 
 More details on [how to contribute](CONTRIBUTING.md).
-
 
