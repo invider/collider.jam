@@ -67,12 +67,9 @@ by running in the console:
 
 ```bash
 node --version
-```
-
-If it is something like 12.16+, you are OK:
-```
 > v12.16.1
 ```
+If it is something like 12+, you are OK.
 
 If not, visit [Node.js](https://nodejs.org) for installation
 instructions and package.
