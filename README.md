@@ -245,13 +245,17 @@ Or any from [this procedurally generated collection](https://github.com/invider/
 
 
 
-Download and drop it into *circle.mod/res/* folder.
+Download and drop it into the *circle.mod/res/* folder.
 
-Now change the draw() function to the following:
+Now add init() and change the draw() function to the following:
 
 ```js
+function init() {
+    this.background = '#000000' // black color in hex RGB
+}
+
+
 function draw() {
-    background('#000000')
     lineWidth(5)
     stroke(.58, .5, .7)
     circle(x, y, r)
@@ -259,16 +263,16 @@ function draw() {
 }
 ```
 
-We've changed the background to totally black,
-to match the darkness of space.
-Then, we've added the image function to draw the planet's texture. Notice, that the image name must match
-the file name without the extension.
+We've changed the background to totally black - to match the darkness of space.
 
-In this example, we've left the circle
-and tune its width and color to resemble
+Then, we've called the image function to draw the planet's texture. Notice, that the image resource name must match
+the file name without the extension.
+It is the way resources are mapped and loaded.
+
+We've preserved the circle and tuned its width and color to resemble
 the planet's atmosphere.
 
-Check out the working example on [GitHub](https://github.com/invider/bits.mix/tree/master/planet.mod).
+Check out the final version on [GitHub](https://github.com/invider/bits.mix/tree/master/planet.mod).
 
 
 
