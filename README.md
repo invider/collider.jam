@@ -22,17 +22,15 @@ Collider.JAM is a hand-crafted JavaScript framework
 for game jamming, creative coding, rapid game prototyping, and beyond.
 It was crafted from the experience of multiple game jams we've participated in.
 
-Game prototyping is an art that mixes design, technology, and creativity
-bounded by time or other limitations.
-And we believe it deserves a dedicated tool to address the specific needs
-of a rapidly evolving and changing prototype.
+Game prototyping is an art that mixes design, technology, creativity, and hyper-focused productivity.
+And we believe it deserves a dedicated tool, capable to address the specific needs of a rapidly evolving prototype.
 
 Visit [collider.land](http://collider.land)
 and check out [online docs](http://collider.land/help/).
 
 Look at the sources from [examples](#examples) and [jam games](#jam-games-with-sources).
 
-_And pixelate reality!_
+_Follow the jamming way and pixelate reality!_
 
 
 
@@ -60,7 +58,7 @@ Install
 </p>
 
 To start jamming, we need to install the collider.jam npm package.
-It provides the shell for bootstrap and running game projects.
+It provides a shell capable to bootstrap and run game projects.
 
 Make sure you have the latest Node.js installed
 by running in the console:
@@ -235,10 +233,10 @@ Drop Resource
 Let's improve our bouncing circle.
 
 Find a suitable image of a planet with a transparent background,
-just like  from
+just like
 [this one](https://opengameart.org/sites/default/files/mars_type_planet.png)
 from [OpenGameArt](https://opengameart.org).
-Or any from [this procedurally generated collection](https://github.com/invider/procedural-november.pak/tree/main/planets).
+Or pick any planet from [this procedurally generated collection](https://github.com/invider/procedural-november.pak/tree/main/planets).
 
 
 
@@ -262,7 +260,7 @@ function draw() {
 
 We've changed the background to totally black - to match the darkness of space.
 
-Then, we've called the image function to draw the planet's texture. Notice, that the image resource name must match
+Then, we've called the _image()_ function to draw the planet's texture. Notice, that the image resource name must match
 the file name without the extension.
 It is the way resources are mapped and loaded.
 
@@ -332,6 +330,8 @@ two .js files there - *mouseDown.js* and *mouseUp.js*.
 
 Put in *mouseDown.js*:
 ```js
+// circle.mod/trap/mouseDown.js
+
 function mouseDown(e) {
     lab.boost(e.clientX, e.clientY)
 }
@@ -339,6 +339,8 @@ function mouseDown(e) {
 
 And *mouseUp.js* is going to be:
 ```js
+// circle.mod/trap/mouseUp.js
+
 function mouseUp() {
     lab.booster = false
 }
