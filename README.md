@@ -58,7 +58,7 @@ Install
 </p>
 
 To start jamming, we need to install the collider.jam npm package.
-It provides a shell capable to bootstrap and run game projects.
+It provides a shell capable of bootstrapping and running game projects.
 
 Make sure you have the latest Node.js installed
 by running in the console:
@@ -196,7 +196,7 @@ Find the working example on [GitHub](https://github.com/invider/bits.mix/tree/ma
 Prototyping in Development Mode
 -------------------------------
 
-The most rudimental *Collider.JAM* command is *jam*:
+The most basic *Collider.JAM* command is *jam*:
 
 ```
 jam
@@ -361,7 +361,7 @@ the game for you.
 Explore
 -------
 
-Check our following links:
+Check our the following links:
 
 * [collider.land](http://collider.land)
 * [start](http://collider.land/start.html)
@@ -377,7 +377,7 @@ Check our following links:
 Examples
 --------
 
-Check out the following examples:
+There are a number of useful examples available on github:
 
 * [Bits Mix](https://github.com/invider/bits.mix) - various code snippets.
 * [Hello Planet Impact](https://github.com/invider/hello-collider-impact.mod) - asteroid impact simulation.
@@ -393,7 +393,7 @@ Jam Games with Sources
     <i><b>Follow the jamming way</b></i>
 </p>
 
-Check out the following games. All created during various game jams and powered by *_collider.jam_*.
+Explore the following games. All created during various game jams and powered by *_collider.jam_*.
 
 *Note, that older games could use old-style or deprecated features.
 But mostly they are OK and show various different ways you can organize
