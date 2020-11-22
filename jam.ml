@@ -71,6 +71,7 @@
 > refactor HUD layout model
 > refactor Emitter
 
+V fix double onSpawn() problem
 V fix Frame.kill() and kill logic in general
 V animation node
 V web-pack like functionality to pak non-mixed packages as libraries

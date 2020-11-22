@@ -2,3 +2,10 @@ jam new <object> [name] [params] - create a new entity of specified type
 
 aliases: n, create
 
+Run with [ls] key to list all objects available for creation:
+
+    jam new ls
+
+Entities are created relative to the current directory,
+so results may vary when run from different folders.
+

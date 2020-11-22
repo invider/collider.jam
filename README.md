@@ -28,7 +28,7 @@ And we believe it deserves a dedicated tool, capable to address the specific nee
 Visit [collider.land](http://collider.land)
 and check out [online docs](http://collider.land/help/).
 
-Look at the sources from [examples](#examples) and [jam games](#jam-games-with-sources).
+Look at the sources in [examples](#examples) and [jam games](#jam-games-with-sources).
 
 _Follow the jamming way and pixelate reality!_
 
@@ -60,17 +60,16 @@ Install
 To start jamming, we need to install the collider.jam npm package.
 It provides a shell capable of bootstrapping and running game projects.
 
-Make sure you have the latest Node.js installed
+Make sure you have a relatively modern Node.js installed
 by running in the console:
 
 ```bash
 node --version
 > v12.16.1
 ```
-If it is something like 12+, you are OK.
+You are OK if it is something like 12+.
 
-If not, visit [Node.js](https://nodejs.org) for installation
-instructions and package.
+If not, visit [Node.js](https://nodejs.org) for the package and installation instructions.
 
 ---
 Now, to install collider.jam, run:
@@ -81,10 +80,10 @@ npm install -g collider.jam
 
 Or you can get the latest development version directly from GitHub:
 ```
-npm install -g https://github.com/invider/collider.jam.git#develop
+npm install -g https://github.com/invider/collider.jam.git
 ```
 
-When installed, check the version and try help:
+When installed, check out the version and help:
 ```
 jam version
 jam help
@@ -92,8 +91,8 @@ jam help
 
 
 
-Drawing Shape
--------------
+Draw Shape
+---------
 <p align="right">
     <i><b>The Fun of the Game Jamming.</b></i>
 </p>
@@ -125,7 +124,7 @@ function draw() {
 }
 ```
 
-Now, run 'jam play' command while inside *circle.mod* folder:
+Now, run 'jam play' command while inside the *circle.mod* folder:
 ```
 jam play
 ```
@@ -136,8 +135,8 @@ You should see the circle.
 
 
 
-Moving Shape
-------------
+Move Shape
+----------
 
 Let's make some movement by introducing
 variables for the circle position and direction.
@@ -193,7 +192,7 @@ Find the working example on [GitHub](https://github.com/invider/bits.mix/tree/ma
 
 
 
-Prototyping in Development Mode
+Prototype in Development Mode
 -------------------------------
 
 The most basic *Collider.JAM* command is *jam*:
@@ -205,15 +204,15 @@ jam
 It just runs the jam server without opening a web browser,
 as *jam play* does.
 
-But it is more convenient to run in development mode
-while developing:
+But when it comes to development, it's much better
+to run in the _debug mode_:
 
 ```
 jam -d
 ```
 
-That enables hot reload and help metadata
-among other things.
+That enables hot reload of changes
+and help metadata among other things.
 
 Run *Collider.JAM* with -d option,
 then open the browser at http://localhost:9999
@@ -237,7 +236,6 @@ just like
 [this one](https://opengameart.org/sites/default/files/mars_type_planet.png)
 from [OpenGameArt](https://opengameart.org).
 Or pick any planet from [this procedurally generated collection](https://github.com/invider/procedural-november.pak/tree/main/planets).
-
 
 
 Download and drop it into the *circle.mod/res/* folder.
@@ -367,7 +365,7 @@ Check our the following links:
 * [start](http://collider.land/start.html)
 * [design](http://collider.land/help/#design)
 * [reason](http://colliderlabs.com/jam)
-* [man](http://collider.land/help/)
+* [online help](http://collider.land/help/)
 * [blog](http://ikhotin.com/posts/)
 * [map](man/Map.md) 
 * [glossary](man/Glossary.md) 
@@ -393,11 +391,10 @@ Jam Games with Sources
     <i><b>Follow the jamming way</b></i>
 </p>
 
-Explore the following games. All created during various game jams and powered by *_collider.jam_*.
+Explore the following games. All created during various game jams and powered by *[_Collider.Jam_](http://collider.land)*.
 
 *Note, that older games could use old-style or deprecated features.
-But mostly they are OK and show various different ways you can organize
-a project in Collider.JAM.*
+But mostly they are OK and show many different ways you can organize a project in Collider.JAM.*
 
 * [Enceladus Dockyards](https://github.com/invider/enceladus-dockyards.mix) - *[Play](https://invadium.itch.io/enceladus-dockyards)* - turn-based space ship battle simulation from GameBoy Jam 8.
 * [Jump 'N Loop](https://github.com/invider/jump-n-loop.mod) - *[Play](https://invadium.itch.io/jump-n-loop)* - rythm-based runner from Ludum Dare 47.
@@ -414,11 +411,12 @@ a project in Collider.JAM.*
 
 Jam Mixes
 ---------
-There are a number of projects **Collider.JAM** depends on:
+There are a number of sub-projects **Collider.JAM** depends on.
+These contain the actual framework core, utility functions and development features:
 
 * [collider.mix](https://github.com/invider/collider.mix) - the most essential mix that includes collider.jam system core (collider.js) and various library functions and data.
+* [collider-dev.mix](https://github.com/invider/collider-dev.mix) - development tools
 * [collider-boot.mix](https://github.com/invider/collider-boot.mix) - contains basic samples and patches to mix from.
-* [collider-debug.mix](https://github.com/invider/collider-debug.mix) - debug tools
 
 
 
@@ -427,7 +425,10 @@ How to Contribute
 
 Star this repo and join our [Discord server discussions](https://discord.gg/kxNnHc2).
 
-Create something and share it with #collider.jam tag.
+Create something and share it with *#collider.jam* tag.
 
-More details on [how to contribute](CONTRIBUTING.md).
+
+Find more details in **[How to Contribute](CONTRIBUTING.md)**.
+
+
 
