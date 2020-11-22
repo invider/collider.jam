@@ -37,9 +37,9 @@ _Follow the jamming way and pixelate reality!_
 Table of Contents
 -----------------
 * [Install](#install)
-* [Drawing Shape](#drawing-shape)
-* [Moving Shape](#moving-shape)
-* [Prototyping in Development Mode](#prototyping-in-development-mode)
+* [Draw Shape](#draw-shape)
+* [Move Shape](#move-shape)
+* [Prototype in Development Mode](#prototype-in-development-mode)
 * [Drop Resource](#drop-resource)
 * [Handle Mouse](#handle-mouse)
 * [Explore](#explore)
