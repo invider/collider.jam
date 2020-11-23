@@ -1,3 +1,17 @@
+0.0.10-DR9 2020-11-24
+[*] $ is redefined in the mod scope to shaddow the global one
+[+] rndo() 1/0 random value multiplicator
+[+] game time tracking in env.time
+[+] empty and sample mod prototypes
+[*] defer() is applied in kill() by default
+[+] included 'jam ca' shortcut to clean all
+[*] help and readme updated
+[+] pong tutorial
+[+] ``` code block support in markdown
+[-] onSpawn() double-call issue is fixed
+
+
+
 0.0.9-DR8 2020-10-08
 [+] jam new command with a bunch of prototypes ready for creation
 [*] local package.json/node_modules are used by default unless --global is specified
