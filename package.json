@@ -1,6 +1,6 @@
 {
   "name": "collider.jam",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "Hand-crafted and fun to use game framework for jamming, creative coding, and rapid game development",
   "keywords": [
     "game framework",
@@ -30,7 +30,7 @@
     "url": "https://github.com/invider/collider.jam.git"
   },
   "dependencies": {
-    "archiver": "^5.0.2",
+    "archiver": "^5.1.0",
     "collider-boot.mix": "git+https://github.com/invider/collider-boot.mix.git",
     "collider-dev.mix": "git+https://github.com/invider/collider-dev.mix.git",
     "express": "^4.17.1",
@@ -38,7 +38,7 @@
     "fs-extra": "^9.0.1",
     "open": "^7.3.0",
     "request": "latest",
-    "socket.io": "latest",
+    "socket.io": "^3.0.3",
     "underscore": "^1.11.0"
   },
   "author": "Igor Khotin & Co.",
