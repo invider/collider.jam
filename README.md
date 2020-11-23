@@ -392,7 +392,7 @@ Or you can generate mouse-tracking eyes as simple as:
 jam new eyes
 ```
 
-Use generated objects as a blueprint for your own.
+Use generated objects as blueprints for your own.
 They illustrate _Collider.JAM_ conventions and
 a canonical way to implement basic things.
 
