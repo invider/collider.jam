@@ -42,6 +42,7 @@ Table of Contents
 * [Prototype in Development Mode](#prototype-in-development-mode)
 * [Drop Resource](#drop-resource)
 * [Handle Mouse](#handle-mouse)
+* [Use _jam new_](#use-jam-new)
 * [Explore](#explore)
 * [How To](man/HowTo.md)
 * [Examples](#examples)
@@ -353,6 +354,47 @@ Just place the files in proper folders,
 follow naming conventions and
 Collider.JAM will assemble and run
 the game for you.
+
+
+
+Use _jam new_
+-------------
+The _new_  command creates various jam objects.
+Use it to bootstrap a new mod or create a trap
+or a new prototype in */dna*.
+
+Run ```new ls``` to list the possibilities:
+
+```
+jam new ls
+```
+
+To create a sample mod, just type:
+```
+jam new mod test
+```
+That generates the _test.mod_ folder with a bunch
+of test objects - a sample _/dna_ prototype,
+some entities in _/lab_, a _/lib_ function,
+a sample resource, and a couple of traps.
+These represent entities you can find in most _Collider.JAM_ games.
+
+The _new_ command shows affected files and generated content.
+
+To create a sample class prototype:
+
+```
+jam new class TestEntity
+```
+
+Or you can generate mouse-tracking eyes as simple as:
+```
+jam new eyes
+```
+
+Use generated objects as a blueprint for your own.
+They illustrate _Collider.JAM_ conventions and
+a canonical way to implement basic things.
 
 
 
