@@ -24,7 +24,7 @@
   "bin": {
     "jam": "./jam.js"
   },
-  "homepage": "http://colliderlabs.com/jam",
+  "homepage": "http://collider.land",
   "repository": {
     "type": "git",
     "url": "https://github.com/invider/collider.jam.git"
