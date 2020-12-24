@@ -1,3 +1,10 @@
+> pie
+> donut
+> viewport node
+> z-order node
+> jam new .gitignore
+> shiftLight
+> shiftSaturation
 >>> interactive tutorial (netdrifter)
 >> pong
 >> life
@@ -71,6 +78,9 @@
 > refactor HUD layout model
 > refactor Emitter
 
+V lighten
+V saturate
+V shiftHue
 V fix double onSpawn() problem
 V fix Frame.kill() and kill logic in general
 V animation node
