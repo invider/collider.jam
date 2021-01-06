@@ -1,7 +1,7 @@
 > pie
 > donut
 > viewport node
-> z-order node
+> name-order node
 > jam new .gitignore
 > shiftLight
 > shiftSaturation
@@ -78,6 +78,7 @@
 > refactor HUD layout model
 > refactor Emitter
 
+V z-order node
 V lighten
 V saturate
 V shiftHue
