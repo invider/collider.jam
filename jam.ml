@@ -1,3 +1,4 @@
+> optimize and enrich metadata parsing
 > pie
 > donut
 > viewport node
@@ -78,6 +79,7 @@
 > refactor HUD layout model
 > refactor Emitter
 
+V fix missing Frame metadata
 V z-order node
 V lighten
 V saturate
