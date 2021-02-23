@@ -153,6 +153,7 @@ const UnitMap = function() {
     this.map = {}
     this.mix = {}
     this.sample = {}
+    this.sampleList = []
     this.patch = {}
 }
 
@@ -194,8 +195,11 @@ UnitMap.prototype.register = function(unit) {
 
 UnitMap.prototype.registerSample = function(sample) {
     // TODO what to do with possible name collisions?
+    const info = lib.readOptionalJson( lib.addPath(sample.path, 'info.json') )
+    lib.augment(sample, info)
     this.sample[sample.name] = sample
     this.sample[sample.id] = sample
+    this.sampleList.push(sample)
 }
 
 UnitMap.prototype.registerPatch = function(patch) {
@@ -449,7 +453,7 @@ function dumpScanMap() {
 }
 
 function scanUnits() {
-    lib.verifyBaseDir()
+    if (!env.headless) lib.verifyBaseDir()
     const base = env.baseDir
 
     const scanMap = determineScanMap()

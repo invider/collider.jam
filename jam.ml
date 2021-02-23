@@ -1,3 +1,7 @@
+> image node inspector zoom, movement and switch to the next/previous image
+> sound node inspector
+> fix node inspector mouse navigation
+> fix node inspector loosing focus problem
 > optimize and enrich metadata parsing
 > pie
 > donut

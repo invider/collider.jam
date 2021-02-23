@@ -3,7 +3,8 @@ Usage: jam <command> [jam options] [custom options]
 Following commands are available [shortcuts are in brackets]:
     [r] run             - start collider.jam server (default command)
     [o] play, open      - start the project in default web browser
-    [i] init <name>     - init and bootstrap a project from template
+    [i] init <name|id>  - init a package project from a sample,
+                          run [jam init list] to list available samples
     [n] new | create    - create a new entity, run "new ls" to list posibilities
     bootstrap <name>    - bootstrap from a sample
     patch <patch-name>  - fix the project with a patch
