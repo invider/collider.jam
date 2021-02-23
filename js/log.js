@@ -27,19 +27,43 @@ let fun = {
         process.stdout.write('# ' + (new Date()).toISOString() + ': ')
         console.dir(obj)
     },
+
+    col(spec) {
+        const parts = []
+        for (let i = 0; i < spec.length; i++) {
+            const minlen = spec[i]
+            const val = arguments[i + 1]
+
+            let len = 0
+            if (val !== undefined) {
+                const sval = '' + val
+                parts.push(sval)
+
+                // pad column to minlen
+                len = sval.length
+                while (len < minlen) {
+                    len ++
+                    parts.push(' ')
+                }
+            }
+        }
+        const str = parts.join('')
+        this.raw(str)
+    },
 }
 
 module.exports = {
     fun: fun,
     off: fun.off,
 
-    raw: fun.raw,
-    trace: fun.trace,
-    debug: fun.debug,
-    out: fun.out,
-    err: fun.err,
-    error: fun.error,
-    warn: fun.warn,
-    fatal: fun.error,
-    dump: fun.dump,
+    raw:    fun.raw,
+    trace:  fun.trace,
+    debug:  fun.debug,
+    out:    fun.out,
+    err:    fun.err,
+    error:  fun.error,
+    warn:   fun.warn,
+    fatal:  fun.error,
+    dump:   fun.dump,
+    col:    fun.col,
 }
