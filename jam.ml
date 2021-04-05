@@ -3,6 +3,7 @@
 > fix node inspector mouse navigation
 > fix node inspector loosing focus problem
 > optimize and enrich metadata parsing
+> refactor tron sample into patch & sample
 > pie
 > donut
 > viewport node

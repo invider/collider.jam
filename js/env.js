@@ -11,7 +11,7 @@ const ignorePaths = [
 ]
 
 module.exports = {
-    version: '0.0.10 DR9',
+    version: '0.0.11 DR10',
     PACKAGE_MODE: 0,
     MOD_MODE: 1,
     MIX_MODE: 2,

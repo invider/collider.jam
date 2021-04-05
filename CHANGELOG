@@ -1,3 +1,38 @@
+0.0.11-DR10 2020-04-05
+[+] included log.list() and log.trace()
+[+] disableOthers() and enableOthers() in mods
+[+] obj.toData() utility to simplify serialization
+[+] local/global coordinate transformations for tiles
+[+] color manipulation with lighten(), saturate(), shiftHue()
+[+] translate colors with color2rgba(), color2RGBA(), rgb2hsl(), RGB2HSL()
+[+] array utils with next() and prev()
+[+] trap debug console command
+[+] help content download on F2
+[+] planets.sample
+[*] info.json data for samples
+[*] disable other mods while debug console or node inspector is active
+[*] unify event handling for mixin function - augment()/extend()/supplement()/mix()
+[*] optional delay in seconds in defer()
+[*] matched RNG interface with scope rnd/RND functions
+[*] proper aspect rate in image inspector
+[*] tags support in help metadata
+[*] isClass() classifier and parsing of class metadata
+[*] keep Z-order for all Frames by default
+[*] the plot() call renders a centered dot now
+[*] _dna is no longer just a name, but links to an actual DNA object now
+[*] spawned objects include _DNA name now
+[*] iv2 vector functions are renamed to v2
+[*] _sizable flag renamed to _rectangular
+[*] proper object names in help metadata
+[-] fixed infinite loop in malformatted markdown
+[-] fixed SlideCamera viewport test
+[-] fixed isNumber() implementation
+[-] fixed local/global coordinates mapping for containers
+[-] fixed sfx multichannel upgrade problem
+[-] fixed Hud trap injection to target local (instead of global) mod
+
+
+
 0.0.10-DR9 2020-11-24
 [*] $ is redefined in the mod scope to shaddow the global one
 [+] rndo() 1/0 random value multiplicator
