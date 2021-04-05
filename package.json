@@ -31,8 +31,8 @@
   },
   "dependencies": {
     "archiver": "^5.1.0",
-    "collider-boot.mix": "git+https://github.com/invider/collider-boot.mix.git",
-    "collider-dev.mix": "git+https://github.com/invider/collider-dev.mix.git",
+    "collider-boot.mix": "git+https://github.com/invider/collider-boot.mix.git#v0.0.11",
+    "collider-dev.mix": "git+https://github.com/invider/collider-dev.mix.git#v0.0.11",
     "express": "^4.17.1",
     "express-ws": "latest",
     "fs-extra": "^9.0.1",
