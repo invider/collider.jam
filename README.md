@@ -461,6 +461,23 @@ These contain the actual framework core, utility functions and development featu
 * [collider-boot.mix](https://github.com/invider/collider-boot.mix) - contains basic samples and patches to mix from.
 
 
+How to Develop
+--------------
+The best approach I've found is to clone all _Collider.JAM_ projects into a single folder
+and then use ```npm link``` feature to link them together.
+
+Create a global link for each _Collider.JAM_ project by running in the project root:
+```
+npm link
+```
+
+Then install all dependencies between them by specifying package names, e.g. for collider.jam:
+
+```
+npm link collider.mix collider-dev.mix collider-boot.mix
+```
+Note, that all 3 links have to be installed at onces and will be replaced with the next ```npm update```.
+
 
 How to Contribute
 -----------------
@@ -471,6 +488,5 @@ Create something and share it with *#collider.jam* tag.
 
 
 Find more details in **[How to Contribute](CONTRIBUTING.md)**.
-
 
 

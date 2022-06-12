@@ -11,6 +11,8 @@ node_modules
 
 # collider.jam
 remap.json
+link
 
 # ml
 *.ml.bak
+
