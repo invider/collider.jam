@@ -208,7 +208,9 @@ function start() {
     })
 
     app.listen(env.port, () => {
-        log.out('---Listening at http://localhost:' + env.port + ' ---', TAG);
+        log.out('===========================================')
+        log.out('--- Play at http://localhost:' + env.port + ' ---', TAG)
+        log.out('===========================================')
     })
 
     if (env.flow) {
