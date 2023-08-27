@@ -38,7 +38,7 @@
     "fs-extra": "latest",
     "open": "^7.3.0",
     "request": "latest",
-    "socket.io": "^3.0.3",
+    "socket.io": "^4.7.2",
     "underscore": "^1.11.0"
   },
   "author": "Igor Khotin & Co.",
