@@ -1,19 +1,30 @@
+> always create 2 canvases (2d & 3d) and select context on the mod level?
+> pie
+> donut?
+> pacman?
+> quad?
+> smart event bindings (plumbing?)
+> move hue/saturate out of the root context
+> collider version must be present in help (and maybe other places?)
+
 > image node inspector zoom, movement and switch to the next/previous image
 > sound node inspector
 > fix node inspector mouse navigation
 > fix node inspector loosing focus problem
 > optimize and enrich metadata parsing
 > refactor tron sample into patch & sample
-> pie
-> donut
 > viewport node
 > name-order node
 > jam new .gitignore
 > shiftLight
 > shiftSaturation
+
+>>> mission control
+    > opinion.mixer
+    > masterlist
+    > team chat
+
 >>> interactive tutorial (netdrifter)
->> pong
->> life
 >> pinball
 >> breakout
 >> snake
@@ -29,10 +40,6 @@
 >>> network space shooter
 >>> gulf and artificial life forms
 >>> ghost bot
->>> mission control
-    > opinion.mixer
-    > masterlist
-    > team chat
 > jam s/start/getting-started/help start command
 > CONTRIBUTE.md for the project
 > run test by a tag
@@ -73,7 +80,6 @@
 > meta actions (like in lua metatables) - do custom stuff on particular fs event (attach, detach etc)
 > object pool node
 > universal sprite node
-> smart event bindings (plumbing?)
 > code completion on vim
 > properties inspector
 > global search in inspector
@@ -84,6 +90,8 @@
 > refactor HUD layout model
 > refactor Emitter
 
+V life
+V pong
 V fix missing Frame metadata
 V z-order node
 V lighten
