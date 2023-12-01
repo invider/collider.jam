@@ -4,6 +4,8 @@
 > pacman?
 > quad?
 > smart event bindings (plumbing?)
+> move hue/saturate out of the root context
+> collider version must be present in help (and maybe other places?)
 
 > image node inspector zoom, movement and switch to the next/previous image
 > sound node inspector
