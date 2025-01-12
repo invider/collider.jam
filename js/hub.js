@@ -1,6 +1,8 @@
 'use strict'
 
 const express = require('express')
+const url = require('url')
+
 const env = require('./env')
 const log = require('./log')
 const scanner = require('./scanner')
@@ -9,7 +11,7 @@ const flow = require('./flow')
 const lib = require('./lib')
 const meta = require('./meta')
 const control = require('./mc/control')
-const url = require('url');
+const war = require('./war')
 
 const TAG = 'hub'
 
@@ -159,6 +161,12 @@ function start() {
             }
         })
 
+        if (env.config.war) {
+            app.get(env.base + env.warPath, function(req, res) {
+                res.json(env.war || {})
+            })
+        }
+
         // try to load cached meta
         meta.load()
 
@@ -228,6 +236,7 @@ function startSyncMonitor() {
 
     setInterval(() => {
         scanner.sync()
+        if (env.config.war) war.checkAlerts()
     }, syncTime)
 }
 

@@ -1,3 +1,5 @@
+> show error message on the boot screen
+> include an error sfx in the default package
 > fix erroneous main description detection in help (e.g. ghoster.mix/lab/controller)
 > fix @depends for root paths /...
 > always create 2 canvases (2d & 3d) and select context on the mod level?

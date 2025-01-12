@@ -58,8 +58,9 @@ module.exports = {
     },
 
     base: '/',
-    unitsPath: 'units.map',
+    unitsPath:  'units.map',
     configPath: 'jam.config',
+    warPath:    'war',
 
     cache: {},
 }
