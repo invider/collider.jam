@@ -1,4 +1,13 @@
-> show error message on the boot screen
+### WR1
+> update jam init, patch & new commands
+> new ref card
+> option to ignore boot up errors
+> clear attach event handling
+> include Release Checklist
+
+> refresh collider.land style
+> multiple moods (styles) for the help system
+> show error message on the boot screen?
 > include an error sfx in the default package
 > fix erroneous main description detection in help (e.g. ghoster.mix/lab/controller)
 > fix @depends for root paths /...
