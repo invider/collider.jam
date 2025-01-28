@@ -6,7 +6,13 @@ module.exports = {
 
     checkAlerts: function() {
         fetch(ALERT_URL)
-            .then((response) => response.json())
+            .then((response) => {
+                if (response.ok) {
+                    return response.json()
+                } else {
+                    throw new Error(`Error #${response.status}:\n` + response.text())
+                }
+            })
             .then((body) => {
                 body.regions = {}
                 Object.keys(body.states).forEach(name => {
@@ -17,6 +23,9 @@ module.exports = {
                 env.war = body.regions
                 //console.dir(body.regions)
             })
+            .catch(
+                error => console.error('Failed to check air raid alerts! ' + error)
+            )
     }
 
 }

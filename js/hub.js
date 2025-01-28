@@ -230,14 +230,23 @@ function start() {
 function startSyncMonitor() {
     if (!env.config.dynamic && !env.config.debug && !env.config.flow) return
 
+    // TODO should be configurable (?)
     const syncTime = 2000
     const syncTimeS = Math.round(syncTime/1000)
     log.debug(`running file sync every ${syncTimeS}s...`, TAG)
 
     setInterval(() => {
         scanner.sync()
-        if (env.config.war) war.checkAlerts()
     }, syncTime)
+
+    if (env.config.war) {
+        const checkAlertPeriod = 5000,
+              checkAlertPeriodS = Math.round(checkAlertPeriod/1000)
+        log.debug(`checking for air raid alerts every ${checkAlertPeriodS}s...`, TAG)
+        setInterval(() => {
+            war.checkAlerts()
+        }, checkAlertPeriod)
+    }
 }
 
 

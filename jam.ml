@@ -1,12 +1,18 @@
 ### WR1
+> multiple moods (styles) for the help system
 > update jam init, patch & new commands
 > new ref card
 > option to ignore boot up errors
 > clear attach event handling
 > include Release Checklist
+> restructure Readme
+> move hue/saturate out of the root context
+> rename rndfi() -> rnda()
 
+> fix !DOCTYPE problem in help.html
+> fix layout switch problem in help.html
+> investigate why are we trying to patch help.js on update? Is is an intended behavior?
 > refresh collider.land style
-> multiple moods (styles) for the help system
 > show error message on the boot screen?
 > include an error sfx in the default package
 > fix erroneous main description detection in help (e.g. ghoster.mix/lab/controller)
@@ -17,7 +23,6 @@
 > pacman?
 > quad?
 > smart event bindings (plumbing?)
-> move hue/saturate out of the root context
 > collider version must be present in help (and maybe other places?)
 
 > image node inspector zoom, movement and switch to the next/previous image
@@ -49,6 +54,7 @@
 >> lander
 >> qix
 >> dino jump (endless runner)
+>> flappy bird
 >> missile command
 >>> platformer
 >>> dune/warcraft-like

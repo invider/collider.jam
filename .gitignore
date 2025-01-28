@@ -16,3 +16,7 @@ link
 # ml
 *.ml.bak
 
+# jeddy
+.jeddy
+.stat
+
