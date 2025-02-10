@@ -1,5 +1,6 @@
 ### WR1
 > multiple moods (styles) for the help system
+> numbered file prefixes for Z-ordering and load-ordering (e.g. something like 00_first.js, 01_second.js), skip prefixes in actual names!
 > update jam init, patch & new commands
 > new ref card
 > option to ignore boot up errors
@@ -9,6 +10,8 @@
 > move hue/saturate out of the root context
 > rename rndfi() -> rnda()
 
+> fix ambiguous function arguments parsing in help meta (e.g. /lab/control/state include() function)
+> fix help parsing of included class methods (e.g. /lab/control/state/GroupState methods description is missing)
 > fix !DOCTYPE problem in help.html
 > fix layout switch problem in help.html
 > investigate why are we trying to patch help.js on update? Is is an intended behavior?

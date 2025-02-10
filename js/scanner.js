@@ -320,7 +320,7 @@ function tryToReadScanMap(path, defaultScanMap) {
     const scanMap = lib.readOptionalJson(path, undefined,
             () => debug(`found ${env.mapConfig} at: ${path}`))
     if (scanMap) {
-        scanMap.origin= path
+        scanMap.origin = path
         return scanMap
     } else {
         return defaultScanMap
