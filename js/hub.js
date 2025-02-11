@@ -225,10 +225,11 @@ function start() {
         flow.start(app, ws)
         startSyncMonitor()
     }
+    if (env.config.war) startAirRaidAlertMonitor()
 }
 
 function startSyncMonitor() {
-    if (!env.config.dynamic && !env.config.debug && !env.config.flow) return
+    //if (!env.config.dynamic && !env.config.debug && !env.config.flow) return
 
     // TODO should be configurable (?)
     const syncTime = 2000
@@ -238,15 +239,17 @@ function startSyncMonitor() {
     setInterval(() => {
         scanner.sync()
     }, syncTime)
+}
 
-    if (env.config.war) {
-        const checkAlertPeriod = 5000,
-              checkAlertPeriodS = Math.round(checkAlertPeriod/1000)
-        log.debug(`checking for air raid alerts every ${checkAlertPeriodS}s...`, TAG)
-        setInterval(() => {
-            war.checkAlerts()
-        }, checkAlertPeriod)
-    }
+function startAirRaidAlertMonitor() {
+    //if (!env.config.dynamic && !env.config.debug && !env.config.flow) return
+    const checkAlertPeriod = 5000,
+          checkAlertPeriodS = Math.round(checkAlertPeriod/1000)
+    log.debug(`checking for air raid alerts every ${checkAlertPeriodS}s...`, TAG)
+
+    setInterval(() => {
+        war.checkAlerts()
+    }, checkAlertPeriod)
 }
 
 
