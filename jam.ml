@@ -1,33 +1,35 @@
 ### WR1
+> new ref card
+> update jam init, patch & new commands
 > multiple moods (styles) for the help system
 > numbered file prefixes for Z-ordering and load-ordering (e.g. something like 00_first.js, 01_second.js), skip prefixes in actual names!
-> update jam init, patch & new commands
-> new ref card
-> option to ignore boot up errors
-> clear attach event handling
-> include Release Checklist
+> option to ignore boot up errors (?)
+> clear attach event handling (split onAttach())
+> move hue/saturate out of the root context, introduce "color" util for color manipulation
 > restructure Readme
-> move hue/saturate out of the root context
-> rename rndfi() -> rnda()
+> include Release Checklist
+> shiftLight
+> shiftSaturation
+> always create 2 canvases (2d & 3d) and select context on the mod level?
+V rename rndfi() -> rnda()
 
 > fix ambiguous function arguments parsing in help meta (e.g. /lab/control/state include() function)
 > fix help parsing of included class methods (e.g. /lab/control/state/GroupState methods description is missing)
 > fix !DOCTYPE problem in help.html
 > fix layout switch problem in help.html
-> investigate why are we trying to patch help.js on update? Is is an intended behavior?
-> refresh collider.land style
-> show error message on the boot screen?
-> include an error sfx in the default package
 > fix erroneous main description detection in help (e.g. ghoster.mix/lab/controller)
 > fix @depends for root paths /...
-> always create 2 canvases (2d & 3d) and select context on the mod level?
+> investigate why are we trying to patch help.js on update? Is is an intended behavior?
+> refresh collider.land style
+> show error message on the boot screen (?)
+> include an error sfx in the default package
+
 > pie
 > donut?
 > pacman?
 > quad?
 > smart event bindings (plumbing?)
 > collider version must be present in help (and maybe other places?)
-
 > image node inspector zoom, movement and switch to the next/previous image
 > sound node inspector
 > fix node inspector mouse navigation
@@ -37,8 +39,6 @@
 > viewport node
 > name-order node
 > jam new .gitignore
-> shiftLight
-> shiftSaturation
 
 >>> mission control
     > opinion.mixer
@@ -48,17 +48,17 @@
     > hyperframe
 
 >>> interactive tutorial (netdrifter)
+>> snake
+>> blocks (tetris)
+>> lander
+>> missile command
 >> pinball
 >> breakout
->> snake
 >> pacman
->> blocks (tetris)
 >> tempest
->> lander
 >> qix
 >> dino jump (endless runner)
 >> flappy bird
->> missile command
 >>> platformer
 >>> dune/warcraft-like
 >>> network space shooter
@@ -72,7 +72,7 @@
 > autotag metadata with mod, make it searchable
 > metadata for folders as a simple local md file with a special name
 > test subfolders in any place, scan mix for all test nodes
-> code completion for vim
+> code completion for vim/neovim (?)
 > inspector panel
 > node global search
 > local life-cycle scripts for mods - to clean, build etc...
