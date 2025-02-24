@@ -4,7 +4,7 @@
 > multiple moods (styles) for the help system
 > numbered file prefixes for Z-ordering and load-ordering (e.g. something like 00_first.js, 01_second.js), skip prefixes in actual names!
 > option to ignore boot up errors (?)
-> clear attach event handling (split onAttach())
+> clear attach event handling (split onAttach() function to multiple dedicated ones)
 > move hue/saturate out of the root context, introduce "color" util for color manipulation
 > restructure Readme
 > include Release Checklist
@@ -13,6 +13,9 @@
 > always create 2 canvases (2d & 3d) and select context on the mod level?
 V rename rndfi() -> rnda()
 
+> render loaded fonts on a hidden canvas to initiate font buffering
+> extend the .js parser to accept a multi-line constant declaration lists
+> onKill() is called 2 times for some reason! (LabFrame calls kill() on itself, should not be happening, redesign kill-path)
 > fix ambiguous function arguments parsing in help meta (e.g. /lab/control/state include() function)
 > fix help parsing of included class methods (e.g. /lab/control/state/GroupState methods description is missing)
 > fix !DOCTYPE problem in help.html
