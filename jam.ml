@@ -1,7 +1,7 @@
 ### WR1
+> multiple moods (styles) for the help system
 > new ref card
 > update jam init, patch & new commands
-> multiple moods (styles) for the help system
 > numbered file prefixes for Z-ordering and load-ordering (e.g. something like 00_first.js, 01_second.js), skip prefixes in actual names!
 > option to ignore boot up errors (?)
 > clear attach event handling (split onAttach() function to multiple dedicated ones)
@@ -13,9 +13,11 @@
 > always create 2 canvases (2d & 3d) and select context on the mod level?
 V rename rndfi() -> rnda()
 
+> rename Frame.selectInstanceOf() -> Frame.selectInstancesOf()
 > render loaded fonts on a hidden canvas to initiate font buffering
 > extend the .js parser to accept a multi-line constant declaration lists
 > onKill() is called 2 times for some reason! (LabFrame calls kill() on itself, should not be happening, redesign kill-path)
+> split help for length & hypot
 > fix ambiguous function arguments parsing in help meta (e.g. /lab/control/state include() function)
 > fix help parsing of included class methods (e.g. /lab/control/state/GroupState methods description is missing)
 > fix !DOCTYPE problem in help.html
@@ -26,6 +28,7 @@ V rename rndfi() -> rnda()
 > refresh collider.land style
 > show error message on the boot screen (?)
 > include an error sfx in the default package
+> poke() recursively with arguments, so we can drag-n-drop from the /dna inspector to the scene and maybe spawn an instance
 
 > pie
 > donut?
@@ -42,32 +45,36 @@ V rename rndfi() -> rnda()
 > viewport node
 > name-order node
 > jam new .gitignore
+> jam man [optional search string]
+> jam s/start/getting-started/help start command
 
 >>> mission control
+    > hyperframe
     > opinion.mixer
     > masterlist
     > team chat
     > filesharing
-    > hyperframe
 
 >>> interactive tutorial (netdrifter)
+>> starfield
+>> parallax starfield
 >> snake
->> blocks (tetris)
+>> breakout
+>> tetris-clone
 >> lander
 >> missile command
 >> pinball
->> breakout
 >> pacman
 >> tempest
 >> qix
 >> dino jump (endless runner)
 >> flappy bird
+>> lines
 >>> platformer
 >>> dune/warcraft-like
 >>> network space shooter
 >>> gulf and artificial life forms
 >>> ghost bot
-> jam s/start/getting-started/help start command
 > CONTRIBUTE.md for the project
 > run test by a tag
 > show red boot error on 404 resource
