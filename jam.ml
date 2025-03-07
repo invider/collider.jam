@@ -11,9 +11,7 @@
 > shiftLight
 > shiftSaturation
 > always create 2 canvases (2d & 3d) and select context on the mod level?
-V rename rndfi() -> rnda()
 
-> rename Frame.selectInstanceOf() -> Frame.selectInstancesOf()
 > render loaded fonts on a hidden canvas to initiate font buffering
 > extend the .js parser to accept a multi-line constant declaration lists
 > onKill() is called 2 times for some reason! (LabFrame calls kill() on itself, should not be happening, redesign kill-path)
@@ -124,6 +122,8 @@ V rename rndfi() -> rnda()
 > refactor HUD layout model
 > refactor Emitter
 
+V rename rndfi() -> rnda()
+V rename Frame.selectInstanceOf() -> Frame.selectInstancesOf()
 V life
 V pong
 V fix missing Frame metadata
