@@ -1,5 +1,4 @@
 ### WR1
-> include Release Checklist
 > new ref card
 > jam quickstart patch/boot
 
@@ -30,7 +29,6 @@
 > pacman?
 > quad?
 > smart event bindings (plumbing?)
-> collider version must be present in help (and maybe other places?)
 > image node inspector zoom, movement and switch to the next/previous image
 > sound node inspector
 > fix node inspector mouse navigation
@@ -119,6 +117,8 @@
 > refactor HUD layout model
 > refactor Emitter
 
+V include Release Checklist
+V collider version must be present in help (and maybe other places?)
 V include an error sfx in the default package
 V multiple moods (styles) for the help system
 X render loaded fonts on a hidden canvas to initiate font buffering
