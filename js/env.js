@@ -11,7 +11,10 @@ const ignorePaths = [
 ]
 
 module.exports = {
+    poweredBy: 'Collider.JAM',
     version: '0.0.12 WR0',
+    release: 'War Release 1',
+    releaseDate: '2025-03-21',
     PACKAGE_MODE: 0,
     MOD_MODE: 1,
     MIX_MODE: 2,

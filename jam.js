@@ -137,7 +137,13 @@ if (env.jamPath) {
 env.jamModules = module.paths[0]
 
 switch(cmd) {
-    case 'version': case 'v': log.raw(env.version); break;
+    case 'version': case 'v':
+        if (env.verbose) {
+            log.raw(`${env.poweredBy} - ${env.version} - ${env.release} - ${env.releaseDate}`)
+        } else {
+            log.raw(env.version)
+        }
+        break
     case 'run': case 'r': hub.start(); break;
     case 'play': case 'open': case 'o': player.play(); break;
     case 'init': case 'i': init(); break;
