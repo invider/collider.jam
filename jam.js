@@ -123,6 +123,17 @@ if (!env.debug && !env.verbose) {
     log.dump = log.off
 }
 
+// short commands - execute and exit, no need to setup environment for these
+switch(cmd) {
+    case 'version': case 'v':
+        if (env.verbose) {
+            log.raw(`${env.poweredBy} - ${env.version} - ${env.releaseName} - ${env.releaseDate}`)
+        } else {
+            log.raw(env.version)
+        }
+        return
+}
+
 // determine collider.jam node modules base
 const hubPath = require.resolve('./js/hub.js')
 const jamPath = hubPath.substring(0, hubPath.length - 10)
@@ -136,16 +147,11 @@ if (env.jamPath) {
 // TODO the right way is to scan all available paths
 env.jamModules = module.paths[0]
 
+// core commands
 switch(cmd) {
-    case 'version': case 'v':
-        if (env.verbose) {
-            log.raw(`${env.poweredBy} - ${env.version} - ${env.releaseName} - ${env.releaseDate}`)
-        } else {
-            log.raw(env.version)
-        }
-        break
     case 'run': case 'r': hub.start(); break;
     case 'play': case 'open': case 'o': player.play(); break;
+    case 'man': case 'm': player.man(env.params[0]); break;
     case 'init': case 'i': init(); break;
     case 'bootstrap': bootstrap(); break;
     case 'patch': patch(); break;

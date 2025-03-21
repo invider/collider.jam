@@ -54,4 +54,14 @@ module.exports = {
             this.open('http://localhost:' + env.port)
         }
     },
+
+    man: function(topic) {
+        env.debug = true
+        env.config.debug = true
+        env.flow = true
+        env.config.flow = true
+        env.config.man = topic || true
+
+        this.play()
+    },
 }
