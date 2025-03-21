@@ -2,7 +2,7 @@
 // nodes defined in /lab are created automatically during the mod boot up
 
 const speed = ry(.3)        // define the speed as 30% of screen height
-const fi = lib.math.rndfi() // pick a random direction
+const fi = math.rnda() // pick a random direction
 
 // x and y track the square center coordinates
 let x = rx(.5)

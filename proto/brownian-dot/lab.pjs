@@ -12,7 +12,7 @@ function evo(dt) {
     timer -= dt
     if (timer < 0) {
         // pick a new random direction, speed
-        const fi = lib.math.rndfi()
+        const fi = math.rnda()
         const speed = MIN_SPEED + RND(MAX_SPEED - MIN_SPEED)
         dx = cos(fi) * speed
         dy = sin(fi) * speed

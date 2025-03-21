@@ -146,7 +146,7 @@ const generators = {
             const macro = {
                 'name': name,
             }
-            patch('mod', macro)
+            patch('empty-mod', macro)
         },
     },
 

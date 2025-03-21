@@ -1,18 +1,17 @@
 ### WR1
-> multiple moods (styles) for the help system
+> include Release Checklist
 > new ref card
+> jam quickstart patch/boot
+
+> refresh collider.land style
 > update jam init, patch & new commands
 > numbered file prefixes for Z-ordering and load-ordering (e.g. something like 00_first.js, 01_second.js), skip prefixes in actual names!
 > option to ignore boot up errors (?)
 > clear attach event handling (split onAttach() function to multiple dedicated ones)
-> move hue/saturate out of the root context, introduce "color" util for color manipulation
 > restructure Readme
-> include Release Checklist
 > shiftLight
 > shiftSaturation
 > always create 2 canvases (2d & 3d) and select context on the mod level?
-
-> render loaded fonts on a hidden canvas to initiate font buffering
 > extend the .js parser to accept a multi-line constant declaration lists
 > onKill() is called 2 times for some reason! (LabFrame calls kill() on itself, should not be happening, redesign kill-path)
 > split help for length & hypot
@@ -23,9 +22,7 @@
 > fix erroneous main description detection in help (e.g. ghoster.mix/lab/controller)
 > fix @depends for root paths /...
 > investigate why are we trying to patch help.js on update? Is is an intended behavior?
-> refresh collider.land style
 > show error message on the boot screen (?)
-> include an error sfx in the default package
 > poke() recursively with arguments, so we can drag-n-drop from the /dna inspector to the scene and maybe spawn an instance
 
 > pie
@@ -122,6 +119,11 @@
 > refactor HUD layout model
 > refactor Emitter
 
+V include an error sfx in the default package
+V multiple moods (styles) for the help system
+X render loaded fonts on a hidden canvas to initiate font buffering
+V preload fonts
+V move hue/saturate out of the root context, introduce "color" util for color manipulation
 V rename rndfi() -> rnda()
 V rename Frame.selectInstanceOf() -> Frame.selectInstancesOf()
 V life

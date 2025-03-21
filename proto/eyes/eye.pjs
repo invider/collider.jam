@@ -33,7 +33,7 @@ function draw() {
     
     // calculate direction on the mouse
     const dir = bearing(x, y, mouse.x, mouse.y)
-    const d = dist(x, y, mouse.x, mouse.y)
+    const d = distance(x, y, mouse.x, mouse.y)
 
     // iris
     fill(iris.color)
