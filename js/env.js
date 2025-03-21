@@ -10,10 +10,10 @@ const ignorePaths = [
     ".*\\.DS_Store",
 ]
 
-module.exports = {
+const env = {
     poweredBy: 'Collider.JAM',
     version: '0.0.12 WR0',
-    release: 'War Release 1',
+    releaseName: 'War Release 1',
     releaseDate: '2025-03-21',
     PACKAGE_MODE: 0,
     MOD_MODE: 1,
@@ -67,3 +67,10 @@ module.exports = {
 
     cache: {},
 }
+
+env.config.poweredBy   = env.poweredBy
+env.config.version     = env.version
+env.config.releaseName = env.releaseName
+env.config.releaseDate = env.releaseDate
+
+module.exports = env

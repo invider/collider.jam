@@ -139,7 +139,7 @@ env.jamModules = module.paths[0]
 switch(cmd) {
     case 'version': case 'v':
         if (env.verbose) {
-            log.raw(`${env.poweredBy} - ${env.version} - ${env.release} - ${env.releaseDate}`)
+            log.raw(`${env.poweredBy} - ${env.version} - ${env.releaseName} - ${env.releaseDate}`)
         } else {
             log.raw(env.version)
         }
