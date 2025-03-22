@@ -1,3 +1,71 @@
+0.1.0-WR1 2020-03-22
+[+] air raid alert monitoring and notification while in the debug mode
+[+] webgl layer canvas and gl in the mod context
+[+] expect test framework
+[+] included math and color in scope
+[+] introduced clamp(), fract(), trunc(), exp(), length(), sign(), step(), smoothstep() in the context
+[+] otf, woff and woff2 font support
+[+] blob file loading - raw/bin/dat/blob
+[+] multiple switchable styles in the online help
+[+] pixelated()
+[+] renamed len -> hypot to match JS conventions
+[*] renamed dist() -> distance(), vmap() -> remap(), limit() -> clamp() to be shader-compliant
+[*] fixed and renamed rndfi() -> rnda()
+[+] NativeRNGSourceFactory in math
+[+] QUARTER_PI in the context
+[+] EPSILON precision factor in the context
+[+] TileSet.clone()
+[+] blur and focus traps
+[+] implicit trap chaining and subtraps
+[+] Frame.xlink() for exclusive linking
+[+] toDataURL(), downloadDataURL() and toPlainTextURL() in lib/obj
+[+] /pin global frame
+[+] _evoSpeed factor
+[+] kinetix oscilators, 'exclusive' and 'follow' key options
+[+] ability to set a custom DNA in Frame.touch()
+[+] sys.mv()
+[+] man/m jam command
+[+] boot error sfx
+[*] "Developing with Collider.JAM" message now in the --debug mode
+[*] verbose version
+[*] release and version information in the online help
+[*] moved color shifting routines out of global scope to color object
+[*] updated extend/augment/supplement logic, additional assert tests
+[*] Frame.selectInstanceOf -> selectInstancesOf
+[*] normalized type probe functions, math.fract()
+[*] added LabFrame activate/deactivate, enable/disable and removed *All() functions
+[*] externalized meta parser into the pre-eval handler to reduce total batched eval time
+[*] units loading order pretty print
+[*] config pretty print in the console
+[*] refactored wormhole bootloader configuration structure
+[*] introduced env._touched flag to hold sound effects
+[*] function shadowing for meta info
+[*] optimized degToRad and radToDeg
+[*] upgraded test output
+[*] eval rescheduling on missing requirement
+[*] resetable boot loader
+[*] Emitter ability to reignite
+[*] refactor obj utils to fix name collision problem
+[*] dead flag in kill()
+[-] removed mix()
+[-] fixed lerp() logic to be shader-compliant
+[-] fixed the shape flag bug
+[-] fiked Emitter with particle spread = 0
+[-] fix color mix-up bug in the alt/fill() function
+[-] removed deprecated coord methods in SlideCamera
+[-] fixed SlideCamera event injection by moving sys.after() -> trap.on()
+[-] fixed Hud event handling by moving from sys.after() -> trap.on()
+[-] fix a memory leak in worms segments of the wormhole bootloader
+[-] fixed slide camera target zoom
+[-] fix custom extension locator
+[-] a hack to remedy the tile gap
+[-] fixed Container onMouseMove and onMouseWheel
+[-] fixed object patching
+[-] fixed unable to find dependency handling
+[-] fixed evalJS error handling
+
+
+
 0.0.11-DR10 2020-04-05
 [+] included log.list() and log.trace()
 [+] disableOthers() and enableOthers() in mods
