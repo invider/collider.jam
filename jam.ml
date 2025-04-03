@@ -2,6 +2,8 @@
 > new ref card
 > jam quickstart patch/boot
 
+> spawn in orphan node (for constructor!)
+> recent commands in the debug console for fast access even after reboot
 > refresh collider.land style
 > update jam init, patch & new commands
 > numbered file prefixes for Z-ordering and load-ordering (e.g. something like 00_first.js, 01_second.js), skip prefixes in actual names!
@@ -14,6 +16,7 @@
 > extend the .js parser to accept a multi-line constant declaration lists
 > onKill() is called 2 times for some reason! (LabFrame calls kill() on itself, should not be happening, redesign kill-path)
 > split help for length & hypot
+> fix failed patching of /lab/background node with /lab/background/_background
 > fix ambiguous function arguments parsing in help meta (e.g. /lab/control/state include() function)
 > fix help parsing of included class methods (e.g. /lab/control/state/GroupState methods description is missing)
 > fix !DOCTYPE problem in help.html
