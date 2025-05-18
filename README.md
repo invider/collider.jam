@@ -1,5 +1,5 @@
 <p align="center">
-<a href="https://github.com/invider/collider.jam">
+<a href="https://github.com/invadium/collider.jam">
 <img src="res/logo.jpg">
 </a></p>
 
@@ -81,7 +81,7 @@ npm install -g collider.jam
 
 Or you can get the latest development version directly from GitHub:
 ```
-npm install -g https://github.com/invider/collider.jam.git
+npm install -g https://github.com/invadium/collider.jam.git
 ```
 
 When installed, check out the version and help:
@@ -189,7 +189,7 @@ function evo(dt) {
 ```
 
 
-Find the working example on [GitHub](https://github.com/invider/bits.mix/tree/master/circle.mod).
+Find the working example on [GitHub](https://github.com/invadium/bits.mix/tree/master/circle.mod).
 
 
 
@@ -236,7 +236,7 @@ Find a suitable image of a planet with a transparent background,
 just like
 [this one](https://opengameart.org/sites/default/files/mars_type_planet.png)
 from [OpenGameArt](https://opengameart.org).
-Or pick any planet from [this procedurally generated collection](https://github.com/invider/procedural-november.pak/tree/main/planets).
+Or pick any planet from [this procedurally generated collection](https://github.com/invadium/procedural-november.pak/tree/main/planets).
 
 
 Download and drop it into the *circle.mod/res/* folder.
@@ -266,7 +266,7 @@ It is the way resources are mapped and loaded.
 We've preserved the circle and tuned its width and color to resemble
 the planet's atmosphere.
 
-Check out the final version on [GitHub](https://github.com/invider/bits.mix/tree/master/planet.mod).
+Check out the final version on [GitHub](https://github.com/invadium/bits.mix/tree/master/planet.mod).
 
 
 
@@ -419,11 +419,11 @@ Examples
 
 There are a number of useful examples available on github:
 
-* [Bits Mix](https://github.com/invider/bits.mix) - various code snippets.
-* [Hello Planet Impact](https://github.com/invider/hello-collider-impact.mod) - asteroid impact simulation.
-* [Pong](https://github.com/invider/pong-ce.mod) - classic arcade reimplementation.
-* [Vector Zone](https://github.com/invider/vector-zone.mod) - local multiplayer arcade shooter.
-* [Game of Life](https://github.com/invider/game-of-life.mod) - Conway's Game of Life.
+* [Bits Mix](https://github.com/invadium/bits.mix) - various code snippets.
+* [Hello Planet Impact](https://github.com/invadium/hello-collider-impact.mod) - asteroid impact simulation.
+* [Pong](https://github.com/invadium/pong-ce.mod) - classic arcade reimplementation.
+* [Vector Zone](https://github.com/invadium/vector-zone.mod) - local multiplayer arcade shooter.
+* [Game of Life](https://github.com/invadium/game-of-life.mod) - Conway's Game of Life.
 
 
 
@@ -438,16 +438,16 @@ Explore the following games. All created during various game jams and powered by
 *Note, that older games could use old-style or deprecated features.
 But mostly they are OK and show many different ways you can organize a project in Collider.JAM.*
 
-* [Enceladus Dockyards](https://github.com/invider/enceladus-dockyards.mix) - *[Play](https://invadium.itch.io/enceladus-dockyards)* - turn-based space ship battle simulation from GameBoy Jam 8.
-* [Jump 'N Loop](https://github.com/invider/jump-n-loop.mod) - *[Play](https://invadium.itch.io/jump-n-loop)* - rythm-based runner from Ludum Dare 47.
-* [Station Keeping](https://github.com/invider/station-keeping.mod) - *[Play](https://invadium.itch.io/station-keeping)* - space survival trading simulation from Ludum Dare 46.
-* [300 Hearts for Escape](https://github.com/invider/300-hearts-for-escape) - *[Play](https://ingwar.itch.io/300-hearts-for-escape)* - a survival trading game placed on an isolated island created during Ludum Dare 44.
-* [Cosmic Rays 'n DNAs](https://github.com/invider/cosmic-rays-n-dnas.mod) - *[Play](https://ingwar.itch.io/rays)* - fix DNA in this arcade Global Game Jam 2020 Entry.
-* [Infected Island](https://github.com/invider/roguelike-pak.mod) - 7-Day Roguelike Challenge Entry
-* [Xeno Relay Day](https://github.com/invider/xeno-relay-day) - *[Play](https://ingwar.itch.io/xeno-relay-day)* - cosmic relay network puzzler created during Global Game Jam 2018.
-* [Dream Rocket Boy](https://github.com/invider/dream-rocket-boy) - *[Play](https://ingwar.itch.io/dream-rocket-boy)* - a single screen platformer created for Global Game Jam 2019.
-* [Metro Gang](https://github.com/invider/metro-gang.mix) - *[Play](https://ingwar.itch.io/metro-gang)* - fight against rival gangs for control of the city in this Ludum Dare 45 Entry.
-* [Master of Ritual](https://github.com/invider/master-of-ritual) - *[Play](https://ingwar.itch.io/master-or-ritual)* - dungeon crawler from Ludum Dare 43.
+* [Enceladus Dockyards](https://github.com/invadium/enceladus-dockyards.mix) - *[Play](https://invadium.itch.io/enceladus-dockyards)* - turn-based space ship battle simulation from GameBoy Jam 8.
+* [Jump 'N Loop](https://github.com/invadium/jump-n-loop.mod) - *[Play](https://invadium.itch.io/jump-n-loop)* - rythm-based runner from Ludum Dare 47.
+* [Station Keeping](https://github.com/invadium/station-keeping.mod) - *[Play](https://invadium.itch.io/station-keeping)* - space survival trading simulation from Ludum Dare 46.
+* [300 Hearts for Escape](https://github.com/invadium/300-hearts-for-escape) - *[Play](https://ingwar.itch.io/300-hearts-for-escape)* - a survival trading game placed on an isolated island created during Ludum Dare 44.
+* [Cosmic Rays 'n DNAs](https://github.com/invadium/cosmic-rays-n-dnas.mod) - *[Play](https://ingwar.itch.io/rays)* - fix DNA in this arcade Global Game Jam 2020 Entry.
+* [Infected Island](https://github.com/invadium/roguelike-pak.mod) - 7-Day Roguelike Challenge Entry
+* [Xeno Relay Day](https://github.com/invadium/xeno-relay-day) - *[Play](https://ingwar.itch.io/xeno-relay-day)* - cosmic relay network puzzler created during Global Game Jam 2018.
+* [Dream Rocket Boy](https://github.com/invadium/dream-rocket-boy) - *[Play](https://ingwar.itch.io/dream-rocket-boy)* - a single screen platformer created for Global Game Jam 2019.
+* [Metro Gang](https://github.com/invadium/metro-gang.mix) - *[Play](https://ingwar.itch.io/metro-gang)* - fight against rival gangs for control of the city in this Ludum Dare 45 Entry.
+* [Master of Ritual](https://github.com/invadium/master-of-ritual) - *[Play](https://ingwar.itch.io/master-or-ritual)* - dungeon crawler from Ludum Dare 43.
 
 
 
@@ -456,9 +456,9 @@ Jam Mixes
 There are a number of sub-projects **Collider.JAM** depends on.
 These contain the actual framework core, utility functions and development features:
 
-* [collider.mix](https://github.com/invider/collider.mix) - the most essential mix that includes collider.jam system core (collider.js) and various library functions and data.
-* [collider-dev.mix](https://github.com/invider/collider-dev.mix) - development tools
-* [collider-boot.mix](https://github.com/invider/collider-boot.mix) - contains basic samples and patches to mix from.
+* [collider.mix](https://github.com/invadium/collider.mix) - the most essential mix that includes collider.jam system core (collider.js) and various library functions and data.
+* [collider-dev.mix](https://github.com/invadium/collider-dev.mix) - development tools
+* [collider-boot.mix](https://github.com/invadium/collider-boot.mix) - contains basic samples and patches to mix from.
 
 
 How to Develop Collider.JAM

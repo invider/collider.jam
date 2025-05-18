@@ -10,7 +10,7 @@ to participate in the discussion and find out what is going on.
 
 To keep up with the project and related activities you can also
 follow Igor Khotin [on Twitter](https://twitter.com/chaostarter)
-or [GitHub](https://github.com/invider)
+or [GitHub](https://github.com/invadium)
 
 Release details, framework design, usage tips and tricks
 are covered in the [blog](http://ikhotin.com/posts/)

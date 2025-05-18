@@ -16,6 +16,9 @@
 > extend the .js parser to accept a multi-line constant declaration lists
 > onKill() is called 2 times for some reason! (LabFrame calls kill() on itself, should not be happening, redesign kill-path)
 > split help for length & hypot
+> if main .mod doesn't have trap(), the event still has to chain to the submods
+> scale should accept one parameter and just duplicate it for simplicity
+> resize() should be chained (?)
 > fix failed patching of /lab/background node with /lab/background/_background
 > fix ambiguous function arguments parsing in help meta (e.g. /lab/control/state include() function)
 > fix help parsing of included class methods (e.g. /lab/control/state/GroupState methods description is missing)
@@ -23,9 +26,14 @@
 > fix layout switch problem in help.html
 > fix erroneous main description detection in help (e.g. ghoster.mix/lab/controller)
 > fix @depends for root paths /...
+> fix require() for local path (with no /) and for subMods
+> fix spawn DNA for subMods
+> fix missing sys.construct() function while spawning a DNA
+> make slide camera and translation Nodes subMode independent - currently they all are evaluated in the root context and work just there
 > investigate why are we trying to patch help.js on update? Is is an intended behavior?
 > show error message on the boot screen (?)
 > poke() recursively with arguments, so we can drag-n-drop from the /dna inspector to the scene and maybe spawn an instance
+> drop() function to drag-n-drop and spawn/create entitites (like a visual spawn())
 
 > pie
 > donut?

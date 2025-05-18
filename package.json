@@ -27,12 +27,12 @@
   "homepage": "http://collider.land",
   "repository": {
     "type": "git",
-    "url": "https://github.com/invider/collider.jam.git"
+    "url": "https://github.com/invadium/collider.jam.git"
   },
   "dependencies": {
     "archiver": "^5.1.0",
-    "collider-boot.mix": "git+https://github.com/invider/collider-boot.mix.git",
-    "collider-dev.mix": "git+https://github.com/invider/collider-dev.mix.git",
+    "collider-boot.mix": "git+https://github.com/invadium/collider-boot.mix.git",
+    "collider-dev.mix": "git+https://github.com/invadium/collider-dev.mix.git",
     "express": "latest",
     "express-ws": "latest",
     "fs-extra": "latest",

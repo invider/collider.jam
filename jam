@@ -114,10 +114,10 @@ init() {
           \"start\": \"node ./node_modules/$JAM_MODULE/jam.js\"
       },
       \"dependencies\": {
-          \"$JAM_MODULE\": \"https://github.com/invider/collider.jam.git\",
-          \"collider.mix\": \"https://github.com/invider/collider.mix.git\",
-          \"collider-boot.mix\": \"https://github.com/invider/collider-boot.mix.git\",
-          \"collider-dev.mix\": \"https://github.com/invider/collider-dev.mix.git\"
+          \"$JAM_MODULE\": \"https://github.com/invadium/collider.jam.git\",
+          \"collider.mix\": \"https://github.com/invadium/collider.mix.git\",
+          \"collider-boot.mix\": \"https://github.com/invadium/collider-boot.mix.git\",
+          \"collider-dev.mix\": \"https://github.com/invadium/collider-dev.mix.git\"
       },
       \"author\": \"\",
       \"license\": \"MIT\"\n}" > package.json

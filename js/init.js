@@ -64,10 +64,10 @@ module.exports = function() {
                 start: 'node ./node_modules/collider.jam/jam.js',
             },
             dependencies: {
-              "collider.jam": "https://github.com/invider/collider.jam.git",
-              "collider.mix": "https://github.com/invider/collider.mix.git",
-              "collider-boot.mix": "https://github.com/invider/collider-boot.mix.git",
-              "collider-dev.mix": "https://github.com/invider/collider-dev.mix.git",
+              "collider.jam": "https://github.com/invadium/collider.jam.git",
+              "collider.mix": "https://github.com/invadium/collider.mix.git",
+              "collider-boot.mix": "https://github.com/invadium/collider-boot.mix.git",
+              "collider-dev.mix": "https://github.com/invadium/collider-dev.mix.git",
             },
         }
         fs.writeJsonSync('./package.json', packageJson, { spaces: '    ' })
