@@ -1,22 +1,31 @@
-### WR1
-> new ref card
-> jam quickstart patch/boot
+### WR2
+V always create 2 canvases (2d & 3d)
+V spawn in orphan node (for constructor!)
+V clear attach event handling (rename onAttached() function to onAttach())
+V if main .mod doesn't have trap(), the event still has to chain to the submods
+> subtrap
 
-> spawn in orphan node (for constructor!)
-> recent commands in the debug console for fast access even after reboot
 > refresh collider.land style
+> animated landing vaporwave grid
+> animated project showcase grid
+> itch.io showcase page
+> follow on itch button instead of "maillist subscribe"
+
+> restructure Readme
+> jamming quick start guide
+> new ref card
+
+> jam quickstart patch/boot
+> recent commands in the debug console for fast access even after reboot
+
 > update jam init, patch & new commands
 > numbered file prefixes for Z-ordering and load-ordering (e.g. something like 00_first.js, 01_second.js), skip prefixes in actual names!
 > option to ignore boot up errors (?)
-> clear attach event handling (split onAttach() function to multiple dedicated ones)
-> restructure Readme
 > shiftLight
 > shiftSaturation
-> always create 2 canvases (2d & 3d) and select context on the mod level?
 > extend the .js parser to accept a multi-line constant declaration lists
 > onKill() is called 2 times for some reason! (LabFrame calls kill() on itself, should not be happening, redesign kill-path)
 > split help for length & hypot
-> if main .mod doesn't have trap(), the event still has to chain to the submods
 > scale should accept one parameter and just duplicate it for simplicity
 > resize() should be chained (?)
 > fix failed patching of /lab/background node with /lab/background/_background
@@ -27,7 +36,7 @@
 > fix erroneous main description detection in help (e.g. ghoster.mix/lab/controller)
 > fix @depends for root paths /...
 > fix require() for local path (with no /) and for subMods
-> fix spawn DNA for subMods
+> fix .spawn DNA for subMods
 > fix missing sys.construct() function while spawning a DNA
 > make slide camera and translation Nodes subMode independent - currently they all are evaluated in the root context and work just there
 > investigate why are we trying to patch help.js on update? Is is an intended behavior?
