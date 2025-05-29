@@ -3,22 +3,44 @@ V always create 2 canvases (2d & 3d)
 V spawn in orphan node (for constructor!)
 V clear attach event handling (rename onAttached() function to onAttach())
 V if main .mod doesn't have trap(), the event still has to chain to the submods
-> subtrap
+V fix node inspector mouse navigation
+V subtrap
+V resize() should be chained
+V quad
+V jam man [optional search string]
 
+> refactor node coordinate transformation functions
+> fix/patch? mode - run a specified lab.js file or a specified list of /lab nodes (maybe also /trap, /res etc if possible)
+
+# landing
 > refresh collider.land style
 > animated landing vaporwave grid
 > animated project showcase grid
 > itch.io showcase page
 > follow on itch button instead of "maillist subscribe"
 
+# docs 
 > restructure Readme
 > jamming quick start guide
 > new ref card
+> CONTRIBUTE.md for the project
 
+# bootstrap
 > jam quickstart patch/boot
-> recent commands in the debug console for fast access even after reboot
-
 > update jam init, patch & new commands
+
+# dev-tools
+> test subfolders in any place, scan mix for all test nodes
+> recent commands in the debug console for fast access even after reboot
+> more sophisticated console parsing and processing/expect/matching utilities
+> node preview render in the inspector.mod
+> poke() recursively with arguments, so we can drag-n-drop from the /dna inspector to the scene and maybe spawn an instance
+> drop() function to drag-n-drop and spawn/create entitites (like a visual spawn())
+> object picking to inspect
+> pin topic in help
+> make help url to contain both search predicates and locator - would be more consistent #man
+
+> core testing
 > numbered file prefixes for Z-ordering and load-ordering (e.g. something like 00_first.js, 01_second.js), skip prefixes in actual names!
 > option to ignore boot up errors (?)
 > shiftLight
@@ -27,7 +49,9 @@ V if main .mod doesn't have trap(), the event still has to chain to the submods
 > onKill() is called 2 times for some reason! (LabFrame calls kill() on itself, should not be happening, redesign kill-path)
 > split help for length & hypot
 > scale should accept one parameter and just duplicate it for simplicity
-> resize() should be chained (?)
+
+> make slide camera and translation Nodes subMode independent - currently they all are evaluated in the root context and work just there
+> fix node inspector loosing focus problem
 > fix failed patching of /lab/background node with /lab/background/_background
 > fix ambiguous function arguments parsing in help meta (e.g. /lab/control/state include() function)
 > fix help parsing of included class methods (e.g. /lab/control/state/GroupState methods description is missing)
@@ -38,27 +62,20 @@ V if main .mod doesn't have trap(), the event still has to chain to the submods
 > fix require() for local path (with no /) and for subMods
 > fix .spawn DNA for subMods
 > fix missing sys.construct() function while spawning a DNA
-> make slide camera and translation Nodes subMode independent - currently they all are evaluated in the root context and work just there
-> investigate why are we trying to patch help.js on update? Is is an intended behavior?
+> investigate why are we trying to patch help.js on update? Is it an intended behavior?
 > show error message on the boot screen (?)
-> poke() recursively with arguments, so we can drag-n-drop from the /dna inspector to the scene and maybe spawn an instance
-> drop() function to drag-n-drop and spawn/create entitites (like a visual spawn())
 
-> pie
 > donut?
+> pie
 > pacman?
-> quad?
 > smart event bindings (plumbing?)
 > image node inspector zoom, movement and switch to the next/previous image
 > sound node inspector
-> fix node inspector mouse navigation
-> fix node inspector loosing focus problem
 > optimize and enrich metadata parsing
 > refactor tron sample into patch & sample
 > viewport node
 > name-order node
 > jam new .gitignore
-> jam man [optional search string]
 > jam s/start/getting-started/help start command
 
 >>> mission control
@@ -88,30 +105,23 @@ V if main .mod doesn't have trap(), the event still has to chain to the submods
 >>> network space shooter
 >>> gulf and artificial life forms
 >>> ghost bot
-> CONTRIBUTE.md for the project
 > run test by a tag
 > show red boot error on 404 resource
 > fix first file comment parsing - exclude deep comments as first
 > autotag metadata with mod, make it searchable
 > metadata for folders as a simple local md file with a special name
-> test subfolders in any place, scan mix for all test nodes
-> code completion for vim/neovim (?)
+> code completion for vim/neovim (?) LSP?
 > inspector panel
 > node global search
 > local life-cycle scripts for mods - to clean, build etc...
-> core testing
 > menu.mod
 > platform physics
 > assert guards
 > object pool node
-> object picking to inspect
-> object dragging to spawn
 > move metadata parser out of loader and schedule it for latter?
 > automatic help #tags propagation for all child nodes (e.g. for /cmd or /trap)
-> pin topic in help
 > store in local storage help usage info to show the most popular topics section (or on top?)
 > path in man should be divided to multiple hyperlinks on different nodes in the hierarchy
-> make help url to contain both search predicates and locator - would be more consistent #man
 > man metadata to include page sorting priorities as a list of page names (just like a menu)
 ? move functions like select out of Frame, so there is less chance of name collisions
 > mutate function or other object into a frame
@@ -127,7 +137,6 @@ V if main .mod doesn't have trap(), the event still has to chain to the submods
 > meta actions (like in lua metatables) - do custom stuff on particular fs event (attach, detach etc)
 > object pool node
 > universal sprite node
-> code completion on vim
 > properties inspector
 > global search in inspector
 > switch between frame view and object view in inspector
