@@ -8,8 +8,9 @@ V subtrap
 V resize() should be chained
 V quad
 V jam man [optional search string]
+V refactor node coordinate transformation functions
+V recent commands in the debug console for fast access even after reboot
 
-> refactor node coordinate transformation functions
 > fix/patch? mode - run a specified lab.js file or a specified list of /lab nodes (maybe also /trap, /res etc if possible)
 
 # landing
@@ -31,13 +32,15 @@ V jam man [optional search string]
 
 # dev-tools
 > test subfolders in any place, scan mix for all test nodes
-> recent commands in the debug console for fast access even after reboot
+> run and visualize test on boot, show error when failed
+> option to halt or continue on failed tests
+> include test results as a help page
 > more sophisticated console parsing and processing/expect/matching utilities
 > node preview render in the inspector.mod
 > poke() recursively with arguments, so we can drag-n-drop from the /dna inspector to the scene and maybe spawn an instance
 > drop() function to drag-n-drop and spawn/create entitites (like a visual spawn())
 > object picking to inspect
-> pin topic in help
+> pin topic in help #man
 > make help url to contain both search predicates and locator - would be more consistent #man
 
 > core testing
@@ -49,6 +52,7 @@ V jam man [optional search string]
 > onKill() is called 2 times for some reason! (LabFrame calls kill() on itself, should not be happening, redesign kill-path)
 > split help for length & hypot
 > scale should accept one parameter and just duplicate it for simplicity
+> run test by a tag
 
 > make slide camera and translation Nodes subMode independent - currently they all are evaluated in the root context and work just there
 > fix node inspector loosing focus problem
@@ -105,7 +109,6 @@ V jam man [optional search string]
 >>> network space shooter
 >>> gulf and artificial life forms
 >>> ghost bot
-> run test by a tag
 > show red boot error on 404 resource
 > fix first file comment parsing - exclude deep comments as first
 > autotag metadata with mod, make it searchable
