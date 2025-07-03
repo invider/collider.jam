@@ -37,6 +37,12 @@ module.exports = function() {
             env.test = true
             env.config.test = true
 
+        } else if (arg === '-l' || arg === '--lab') {
+            if (++i === args.length) throw 'a lab .js file is expected after the [' + arg + '] option'
+            env.monoLab = args[i]
+            parsedOption = false
+            lastOption = 'lab'
+
         } else if (arg === '-b' || arg === '--hub') {
             env.hub = true
             env.config.hub = true
@@ -47,9 +53,9 @@ module.exports = function() {
             parsedOption = false
 
         } else if (arg === '-p' || arg === '--port') {
-            if (++i === args.length) throw 'number is expected after the [' + arg + ']'
+            if (++i === args.length) throw 'number is expected after the [' + arg + '] option'
             let p = parseInt(args[i])
-            if (isNaN(p)) throw 'number is expected after the [' + arg + ']'
+            if (isNaN(p)) throw 'number is expected after the [' + arg + '] option'
             env.port = p
             parsedOption = false
 

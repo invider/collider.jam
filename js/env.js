@@ -34,6 +34,7 @@ const env = {
     port: 9999,
 
     baseDir: './',
+    monoLab: '',
     outDir: 'out',
 	distDir: 'dist',
     typesMeta: 'types.ts',

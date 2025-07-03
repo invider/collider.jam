@@ -83,7 +83,7 @@ module.exports = {
         return defaultJson
     },
 
-    checkBaseDir: function(path) {
+    probeBaseDir: function(path) {
         let packageMarker = false
         let modMarker = false
         let mixMarker = false
@@ -94,15 +94,15 @@ module.exports = {
 
             // figure out if we are inside a mod or a mix
             if (realpath.endsWith('mod')) {
-                modMarker = true
+                modMarker = env.modMarker = true
             } else if (realpath.endsWith('mix')) {
-                mixMarker = true
+                mixMarker = env.mixMarker = true
             }
 
             // figure out if we are inside a package
             fs.readdirSync(path).forEach(entry => {
                 if (entry === env.unitsJson || entry === 'package.json') {
-                   packageMarker = true 
+                   packageMarker = env.packageMarker = true 
                 }
             })
         }
@@ -135,15 +135,15 @@ module.exports = {
         let cwd = process.cwd()
         if (cwd === '/') {
             throw 'Unable to locate the collider.jam project base directory!\n'
-                + 'Try "jam init" to create a project in current directory.\n'
-                + 'Run "jam help" for additional information'
+                + '  Try "jam init" to create a project in current directory.\n'
+                + '  Run "jam help" for additional information'
         }
 
         process.chdir('../')
         cwd = process.cwd()
         log.trace('chdir up to: ' + cwd)
 
-        let base = this.checkBaseDir(env.baseDir)
+        let base = this.probeBaseDir(env.baseDir)
         if (base) {
             log.debug('found base: ' + cwd)
             return base
@@ -154,7 +154,17 @@ module.exports = {
     },
 
     verifyBaseDir: function() {
-        let base = this.checkBaseDir(env.baseDir)
+        let base = this.probeBaseDir(env.baseDir)
+
+        if (env.monoLab) {
+            env.sketch = true
+            env.mode = base.mode
+            if (env.mode === env.PACKAGE_MODE) {
+                this.verifyModules()
+            }
+            return
+        }
+
         if (!base) {
             log.debug('not a base - trying to locate the project base directory...')
             base = this.lookupBaseDir()

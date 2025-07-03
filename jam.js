@@ -48,20 +48,27 @@ if (env.jamPath) {
 // TODO the right way is to scan all available paths
 env.jamModules = module.paths[0]
 
-// core commands
-switch(cmd) {
-    case 'run': case 'r': hub.start(); break;
-    case 'play': case 'open': case 'o': player.play(); break;
-    case 'man': case 'm': player.man(env.params[0]); break;
-    case 'init': case 'i': init(); break;
-    case 'bootstrap': bootstrap(); break;
-    case 'patch': patch(); break;
-    case 'create': case 'new':  case 'n': create(env.params); break;
-    case 'pack': case 'p': generate(env.params[0]); break;
-    case 'clean': case 'c': clean(env.params[0]); break;
-    case 'ca': clean('all'); break;
-    case 'units': case 'u': printUnits(); break;
-    case 'files': case 'f': printFiles(); break;
-    case 'help': case 'h': help(env.params[0]); break;
-    default: log.fatal('unknown command: ' + cmd, TAG)
+try {
+    // core commands
+    switch(cmd) {
+        case 'run': case 'r': hub.start(); break;
+        case 'play': case 'open': case 'o': player.play(); break;
+        case 'man': case 'm': player.man(env.params[0]); break;
+        case 'init': case 'i': init(); break;
+        case 'bootstrap': bootstrap(); break;
+        case 'patch': patch(); break;
+        case 'create': case 'new':  case 'n': create(env.params); break;
+        case 'pack': case 'p': generate(env.params[0]); break;
+        case 'clean': case 'c': clean(env.params[0]); break;
+        case 'ca': clean('all'); break;
+        case 'units': case 'u': printUnits(); break;
+        case 'files': case 'f': printFiles(); break;
+        case 'help': case 'h': help(env.params[0]); break;
+        default: log.fatal('unknown command: ' + cmd, TAG)
+    }
+} catch(e) {
+    if (env.verbose) {
+        console.dir(env)
+    }
+    console.log(e)
 }

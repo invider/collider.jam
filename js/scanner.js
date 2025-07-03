@@ -116,7 +116,7 @@ function scanPackageDependencies(mix, packageJson) {
     return ls.length > 0? ls : undefined
 }
 
-const Unit = function(id, mix, type, path, requireMix) {
+const Unit = function(id, mix, type, path, requireMix, opt) {
     trace('================================================')
     trace(`found ${type} [${id}]: ${path}`)
     this.id = id
@@ -124,6 +124,7 @@ const Unit = function(id, mix, type, path, requireMix) {
     this.type = type
     this.path = path
     this.requireMix = requireMix
+    this.opt = opt
     this.pak = loadOptionalJson(lib.addPath(path, env.pakConfig))
     loadOptionalUnitConfig(lib.addPath(path, 'config.json'))
     this.ignore = loadOptionalList(lib.addPath(path, 'unit.ignore'))
@@ -131,11 +132,20 @@ const Unit = function(id, mix, type, path, requireMix) {
     this.ls = []
     this.diff = []
     this.mtime = {}
-    listFiles(path, '', this, (localPath, fullPath, lstat, unit) => {
-        unit.ls.push(localPath) 
-        unit.mtime[localPath] = lstat.mtimeMs
-        trace('          * ' + localPath)
-    })
+
+    if (!opt || !opt.skipScan) {
+        listFiles(path, '', this, (localPath, fullPath, lstat, unit) => {
+            unit.ls.push(localPath) 
+            unit.mtime[localPath] = lstat.mtimeMs
+            trace('          * ' + localPath)
+        })
+    }
+
+    this.addFile = function(localPath) {
+        this.ls.push(localPath) 
+        this.mtime[localPath] = 1 // TODO probe the file first!
+        trace('          + ' + localPath)
+    }
 
     this.toString = function() {
         let s = 'unit/' + this.type + ' [' + this.id + ']\n'
@@ -420,9 +430,9 @@ function determineScanMap() {
 
 function dumpScanMap() {
     const map = env.scanMap
-    debug('=======================')
-    debug('|         MAP         |')
-    debug('=======================')
+    debug('==============================')
+    debug('|          SCAN MAP          |')
+    debug('==============================')
     if (map.modules && map.modules.length > 0) {
         debug('=== module paths ===')
         map.modules.forEach(path => debug(`* [${path}]`))
@@ -503,11 +513,24 @@ function scanUnits() {
     })
 
     if (env.sketch && env.mode === env.MOD_MODE && !env.freezeScanMap) {
-        // need to include manually,
+        // need to include ./ manually,
         // since ./ is remapped to /mod
         trace('================================================')
         debug(`map patch: including sketch mod at [./]`)
         includePath(units, '', './', 'mod')
+    }
+
+    if (env.monoLab) {
+        //includePath(units, '', './', 'mod')
+        const modUnit = new Unit('monoLib', '', 'fix', './', null, { skipScan: true })
+        modUnit.addFile(env.monoLab)
+        modUnit.pak = {
+            load:    'auto',
+            mount:   '/lab',
+            fixMode: 'augment',
+        }
+
+        units.register(modUnit)
     }
 
     debug('units found: ' + units.length)
@@ -520,6 +543,7 @@ function scanUnits() {
 }
 
 function syncUnit(unit) {
+    if (unit.opt && unit.opt.skipScan) return
     listFiles(unit.path, '', unit,
         function (path, fullPath, lstat, unit) {
             // TODO replace with actual ignore config
@@ -536,7 +560,9 @@ function syncUnit(unit) {
             }
             if (!lastTime) {
                 // got a new file! register and notify
-                unit.ls.push(path) 
+                //if (!unit.opt || !unit.opt.skipScan) {
+                    unit.ls.push(path) 
+                //}
             }
             // TODO add actual ignore config
         }
