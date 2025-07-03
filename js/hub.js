@@ -65,7 +65,7 @@ function start() {
             res.json(env.config)
         })
 
-        app.get('*/' + env.unitsPath, function(req, res) {
+        app.get('/' + env.unitsPath, function(req, res) {
             let unitId = req.path.substring(0, req.path.length - env.unitsPath.length - 1)
             unitId = unitId.substring(env.base.length)
             log.debug('building map for unit [' + unitId + ']', TAG)
