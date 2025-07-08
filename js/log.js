@@ -53,6 +53,8 @@ let fun = {
 }
 
 module.exports = {
+    level: 2,
+
     fun: fun,
     off: fun.off,
 

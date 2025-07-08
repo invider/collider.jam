@@ -6,104 +6,32 @@ const env = require('./env')
 const log = require('./log')
 const lib = require('./lib')
 const flow = require('./flow')
+const { loadOptionalJson, listFiles } = require('./loader')
+
+const Unit = require('./dna/Unit')
 
 const TAG = 'scanner'
-
-let logLevel = 2
 
 let scans = 0
 let lastUnits
 
 function trace(msg) {
-    if (logLevel < 2) return
+    if (log.level < 2) return
     log.trace(msg, TAG)
 }
 
 function debug(msg) {
-    if (logLevel === 0) return
+    if (log.level === 0) return
     log.debug(msg, TAG)
 }
 
 function warn(msg) {
-    if (logLevel < 2) return
+    if (log.level < 2) return
     log.warn(msg, TAG)
 }
 
-function isIgnored(path) {
-    if (lib.getResourceName(path).startsWith('.')) return true
-    if (!env.scanMap.ignorePaths) return false
 
-    for (let i = 0; i < env.scanMap.ignorePaths.length; i++) {
-        const ipath = env.scanMap.ignorePaths[i]
-        const irex = new RegExp(ipath)
-        if (irex.test(path)) return true
-    }
-    return false
-    /*
-    return (path.endsWith('.DS_Store')
-        || path.includes('.git')
-        || path.endsWith('.out'))
-    */
-}
 
-function listFiles(unitPath, path, unit, onFile) {
-    if (isIgnored(path)) {
-        trace('ignoring X ' + lib.addPath(unitPath, path), TAG)
-        return
-    } else {
-        trace('scanning ' + lib.addPath(unitPath, path), TAG)
-    }
-
-    fs.readdirSync(lib.addPath(unitPath, path)).forEach(entry => {
-        const localPath = lib.addPath(path, entry)
-        const fullPath = lib.addPath(unitPath, localPath)
-        const lstat = fs.lstatSync(fullPath)
-
-        // check on directory
-        if (lstat.isDirectory()) {
-            listFiles(unitPath, localPath, unit, onFile)
-        } else {
-            if (isIgnored(localPath)) {
-                trace('          X ' + localPath + ' (ignored)')
-            } else {
-                if (onFile) {
-                    onFile(localPath, fullPath, lstat, unit)
-                } else {
-                    trace('          ? ' + localPath)
-                }
-            }
-        }
-    })
-}
-
-function loadOptionalJson(path) {
-    if (fs.existsSync(path)) {
-        trace('loading json: ' + path)
-        return fs.readJsonSync(path)
-    }
-}
-
-function loadOptionalList(path) {
-    if (fs.existsSync(path)) {
-        trace('loading list: ' + path)
-        const data = fs.readFileSync(path, 'utf8')
-        const list = data.split(/\r?\n/g)
-                .map(e => e.trim())
-                .filter(e => e.length > 0)
-                .filter(e => !e.startsWith('#'))
-        return list
-    } else {
-        return []
-    }
-}
-
-function loadOptionalUnitConfig(path) {
-    const config = loadOptionalJson(path)
-    if (config) {
-        debug('extending global config with: ' + path, TAG)
-        _.extendOwn(env.config, config)
-    }
-}
 
 function scanPackageDependencies(mix, packageJson) {
     if (!packageJson || !_.isObject(packageJson.dependencies)) return
@@ -114,46 +42,6 @@ function scanPackageDependencies(mix, packageJson) {
         }
     })
     return ls.length > 0? ls : undefined
-}
-
-const Unit = function(id, mix, type, path, requireMix, opt) {
-    trace('================================================')
-    trace(`found ${type} [${id}]: ${path}`)
-    this.id = id
-    this.mix = mix
-    this.type = type
-    this.path = path
-    this.requireMix = requireMix
-    this.opt = opt
-    this.pak = loadOptionalJson(lib.addPath(path, env.pakConfig))
-    loadOptionalUnitConfig(lib.addPath(path, 'config.json'))
-    this.ignore = loadOptionalList(lib.addPath(path, 'unit.ignore'))
-
-    this.ls = []
-    this.diff = []
-    this.mtime = {}
-
-    if (!opt || !opt.skipScan) {
-        listFiles(path, '', this, (localPath, fullPath, lstat, unit) => {
-            unit.ls.push(localPath) 
-            unit.mtime[localPath] = lstat.mtimeMs
-            trace('          * ' + localPath)
-        })
-    }
-
-    this.addFile = function(localPath) {
-        this.ls.push(localPath) 
-        this.mtime[localPath] = 1 // TODO probe the file first!
-        trace('          + ' + localPath)
-    }
-
-    this.toString = function() {
-        let s = 'unit/' + this.type + ' [' + this.id + ']\n'
-        s += 'path: ' + this.path + '\n'
-        s += this.ls.map(f => '* ' + f).join('\n')
-        s += this.ignore.map(f => '- ' + f).join('\n')
-        return s
-    }
 }
 
 const UnitMap = function() {
@@ -537,7 +425,7 @@ function scanUnits() {
     lastUnits = units
 
     scans ++
-    if (scans === 1) logLevel = 0
+    if (scans === 1) log.level = 0
 
     return units
 }

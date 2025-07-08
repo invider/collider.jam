@@ -1,0 +1,94 @@
+const fs = require('fs-extra')
+const env = require('./env')
+const lib = require('./lib')
+const log = require('./log')
+
+const TAG = 'loader'
+
+function trace(msg) {
+    if (log.level < 2) return
+    log.trace(msg, TAG)
+}
+
+function loadOptionalJson(path) {
+    if (fs.existsSync(path)) {
+        trace('loading json: ' + path)
+        return fs.readJsonSync(path)
+    }
+}
+
+function loadOptionalList(path) {
+    if (fs.existsSync(path)) {
+        trace('loading list: ' + path)
+        const data = fs.readFileSync(path, 'utf8')
+        const list = data.split(/\r?\n/g)
+                .map(e => e.trim())
+                .filter(e => e.length > 0)
+                .filter(e => !e.startsWith('#'))
+        return list
+    } else {
+        return []
+    }
+}
+
+function loadOptionalUnitConfig(path) {
+    const config = loadOptionalJson(path)
+    if (config) {
+        debug('extending global config with: ' + path, TAG)
+        _.extendOwn(env.config, config)
+    }
+}
+
+function isIgnored(path) {
+    if (lib.getResourceName(path).startsWith('.')) return true
+    if (!env.scanMap.ignorePaths) return false
+
+    for (let i = 0; i < env.scanMap.ignorePaths.length; i++) {
+        const ipath = env.scanMap.ignorePaths[i]
+        const irex = new RegExp(ipath)
+        if (irex.test(path)) return true
+    }
+    return false
+    /*
+    return (path.endsWith('.DS_Store')
+        || path.includes('.git')
+        || path.endsWith('.out'))
+    */
+}
+
+function listFiles(unitPath, path, unit, onFile) {
+    if (isIgnored(path)) {
+        trace('ignoring X ' + lib.addPath(unitPath, path), TAG)
+        return
+    } else {
+        trace('scanning ' + lib.addPath(unitPath, path), TAG)
+    }
+
+    fs.readdirSync(lib.addPath(unitPath, path)).forEach(entry => {
+        const localPath = lib.addPath(path, entry)
+        const fullPath = lib.addPath(unitPath, localPath)
+        const lstat = fs.lstatSync(fullPath)
+
+        // check on directory
+        if (lstat.isDirectory()) {
+            listFiles(unitPath, localPath, unit, onFile)
+        } else {
+            if (isIgnored(localPath)) {
+                trace('          X ' + localPath + ' (ignored)')
+            } else {
+                if (onFile) {
+                    onFile(localPath, fullPath, lstat, unit)
+                } else {
+                    trace('          ? ' + localPath)
+                }
+            }
+        }
+    })
+}
+
+module.exports = {
+    loadOptionalJson,
+    loadOptionalList,
+    loadOptionalUnitConfig,
+    listFiles,
+}

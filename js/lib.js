@@ -8,22 +8,75 @@ const { execSync } = require('child_process')
 const TAG = 'lib'
 
 const isObj = function(o) {
-    return !!(o && typeof o === 'object')
+    return (o && typeof o === 'object' && !Array.isArray(o))
+}
+const isObject = function(o) {
+    return (o && typeof o === 'object' && !Array.isArray(o))
 }
 const isFun = function(f) {
     return !!(f && f.constructor && f.call && f.apply)
 }
+const isFunction = function(f) {
+    return !!(f && f.constructor && f.call && f.apply)
+}
+const isClass = function(f) {
+    return (f && typeof f === 'function' && /^\s*class\s+/.test(f.toString()))
+}
+const isStr = function(s) {
+    return toString.call(s) == "[object String]"
+}
 const isString = function(s) {
     return toString.call(s) == "[object String]"
 }
-const isNumber = function(s) {
+const isNum = function(s) {
     return toString.call(s) == "[object Number]"
 }
+const isNumber = function(s) {
+    return (toString.call(s) == "[object Number]" && !Number.isNaN(s))
+}
+const isTypedArr = function(a) {
+    const TypedArray = Object.getPrototypeOf(Uint8Array)
+    return (a instanceof TypedArray)
+}
+const isArr = function(a) {
+    return (Array.isArray(a) || isTypedArr(a))
+}
 const isArray = function(a) {
-    return Array.isArray(a)
+    return (Array.isArray(a) || isTypedArr(a))
+}
+const isContainer = function(o) {
+    return isObj(o) || isArr(o) || isFun(o)
+}
+const isEmpty = function(o) {
+    if (!o) return true
+    if (isObj(o)) {
+        for (let prop in o) {
+            if (o.hasOwnProperty(prop)) return false
+        }
+        return true
+
+    } else if (isArr(o)) {
+        return o.length === 0
+    }
+    return false
 }
 
 module.exports = {
+
+    isObj,
+    isObject,
+    isFun,
+    isFunction,
+    isClass,
+    isStr,
+    isString,
+    isNum,
+    isNumber,
+    isTypedArr,
+    isArr,
+    isArray,
+    isContainer,
+    isEmpty,
 
     addPath: function(base, path) {
         if (!base) return path
@@ -238,26 +291,36 @@ module.exports = {
         }
     },
 
-    augment: function() {
-        let mixin = arguments[0]
-        if (!isObj(mixin) && !isFun(mixin)) mixin = {}
+    augment: function(mixin) {
+       if (!mixin) mixin = {}
+       if (!isContainer(mixin)) throw new Error('a target container is expected!')
 
-        for (let arg = 1; arg < arguments.length; arg++) {
-            const source = arguments[arg]
-            if (source && source !== mixin) for (let prop in source) {
-                if (prop !== '_' && prop !== '__' && prop !== '___' && prop !== '_$') {
-                    if (isObj(mixin[prop]) && isObj(source[prop])) {
-                        // property is already assigned - augment it
-                        if (mixin !== source[prop]) this.augment(mixin[prop], source[prop])
-                    } else if (isArray(source[prop])) {
-                        mixin[prop] = source[prop].slice()
-                    } else if (isObj(source[prop])) {
-                        mixin[prop] = augment({}, source[prop])
-                    } else {
-                        mixin[prop] = source[prop];
-                    }
-                }
-            }
+       for (let arg = 1; arg < arguments.length; arg++) {
+           const source = arguments[arg]
+           if (source && source !== mixin) {
+               if (isFun(mixin.augment) && mixin.augment !== augment) {
+                   mixin.augment(source)
+               } else {
+                   for (let prop in source) {
+                       if (prop !== '_' && prop !== '__' && prop !== '___' && prop !== '_$') {
+                           if (isObj(mixin[prop]) && isObj(source[prop])) {
+                               // property is already assigned - augment it
+                               if (mixin !== source[prop]) augment(mixin[prop], source[prop])
+                           } else {
+                               const val = source[prop]
+                               if (isArr(val)) {
+                                   mixin[prop] = val.slice() // shallow array copy
+                               } else {
+                                   mixin[prop] = val
+                               }
+                           }
+                       }
+                   }
+               }
+               if (isFun(source.onAugment)) {
+                   source.onAugment.call(mixin)
+               }
+           }
        }
        return mixin
     }

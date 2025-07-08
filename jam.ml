@@ -10,8 +10,11 @@ V quad
 V jam man [optional search string]
 V refactor node coordinate transformation functions
 V recent commands in the debug console for fast access even after reboot
+V onKill() is called 2 times for some reason! (LabFrame calls kill() on itself, should not be happening, redesign kill-path)
+V fix @depends for root paths /...
 
-> fix/patch? mode - run a specified lab.js file or a specified list of /lab nodes (maybe also /trap, /res etc if possible)
+> labNode.on('event') -> recursively apply node.onEvent() for all nodes with handlers
+> uniLab mode - run a specified lab.js file or a specified list of /lab nodes (maybe also /trap, /res etc if possible)
 
 # landing
 > refresh collider.land style
@@ -42,14 +45,14 @@ V recent commands in the debug console for fast access even after reboot
 > object picking to inspect
 > pin topic in help #man
 > make help url to contain both search predicates and locator - would be more consistent #man
+> image node inspector zoom, movement and switch to the next/previous image
+> sound node inspector
 
 > core testing
-> numbered file prefixes for Z-ordering and load-ordering (e.g. something like 00_first.js, 01_second.js), skip prefixes in actual names!
 > option to ignore boot up errors (?)
 > shiftLight
 > shiftSaturation
 > extend the .js parser to accept a multi-line constant declaration lists
-> onKill() is called 2 times for some reason! (LabFrame calls kill() on itself, should not be happening, redesign kill-path)
 > split help for length & hypot
 > scale should accept one parameter and just duplicate it for simplicity
 > run test by a tag
@@ -62,19 +65,20 @@ V recent commands in the debug console for fast access even after reboot
 > fix !DOCTYPE problem in help.html
 > fix layout switch problem in help.html
 > fix erroneous main description detection in help (e.g. ghoster.mix/lab/controller)
-> fix @depends for root paths /...
 > fix require() for local path (with no /) and for subMods
 > fix .spawn DNA for subMods
 > fix missing sys.construct() function while spawning a DNA
 > investigate why are we trying to patch help.js on update? Is it an intended behavior?
 > show error message on the boot screen (?)
 
-> donut?
+# advanced features
+> smart event bindings (plumbing?)
+> numbered file prefixes for Z-ordering and load-ordering (e.g. something like 00_first.js, 01_second.js), skip prefixes in actual names!
+> refactor samples into a bunch of patches
+
 > pie
 > pacman?
-> smart event bindings (plumbing?)
-> image node inspector zoom, movement and switch to the next/previous image
-> sound node inspector
+> donut?
 > optimize and enrich metadata parsing
 > refactor tron sample into patch & sample
 > viewport node
@@ -136,7 +140,6 @@ V recent commands in the debug console for fast access even after reboot
 > tribal nodes that automatically spawns particular dna when data is attached to the node
 > augment nodes to automatically extend/augment objects as they are attached to a node
 > assert guards - make sure we are attaching proper nodes
-> routing to place nodes in proper place on spawn with lab.spawn()
 > meta actions (like in lua metatables) - do custom stuff on particular fs event (attach, detach etc)
 > object pool node
 > universal sprite node
