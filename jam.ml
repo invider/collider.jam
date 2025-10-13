@@ -1,3 +1,4 @@
+> handle mod-level activate/deactivate, hide/show etc... in traps
 > MAML config language (JSON superset) support
 > labNode.on('event') -> recursively apply node.onEvent() for all nodes with handlers
 > include the parent node __ in context for spawned/local nodes
