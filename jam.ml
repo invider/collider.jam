@@ -12,8 +12,21 @@ V refactor node coordinate transformation functions
 V recent commands in the debug console for fast access even after reboot
 V onKill() is called 2 times for some reason! (LabFrame calls kill() on itself, should not be happening, redesign kill-path)
 V fix @depends for root paths /...
+V highlight currently selected node in help
+V sync env.time for all mods
 
+> automatically propagate resize signal
+
+> MAML config language (JSON superset) support
 > labNode.on('event') -> recursively apply node.onEvent() for all nodes with handlers
+> include the parent node __ in context for spawned/local nodes
+> remap current mod from _ -> _$ to free _ for local usage (???)
+> refactor mod context out of the slide cam
+> refactor file caching subsystem, skip parsing/ext-parsing until later
+> easy way to replace the root mod canvas to another one and switch the root canvas into a buffering mode (to do shader effects over it)
+> notify about unsupported font name in Firefox (starting with numbers?)
+> global async support
+> PWA support
 > uniLab mode - run a specified lab.js file or a specified list of /lab nodes (maybe also /trap, /res etc if possible)
 
 # landing
