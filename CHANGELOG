@@ -1,4 +1,30 @@
-0.1.0-WR1 2020-03-22
+0.2.0-WR2 2025-10-14
+[+] gadget/Console command history
+[+] new LabFrame coordinate translation interface
+[+] ability to set a custom evoParticle() in Emitter
+[+] signal() and improved propagation logic
+[+] /trap/start signal when starting the mix
+[+] predicate in extend()
+[+] new functions in expect - notToBe(), notToBeNear(), isNot(), notNull() -> isNotNull()
+[+] added dir() to the global scope
+[+] pointer lock change and pointer lock error events handling
+[*] dist() => distance() in hud.Container
+[*] renamed onAttached() -> onAttach()
+[*] test for a typed array in isArr()/isArray()
+[*] ability to spawn inside an orphan node 
+[*] moved sfx() implementation to sys.sfx() with alt.sfx() just dispatching to it or lab/sfx()
+[*] optimized Frame.collide()
+[*] test for a container parameter in mixin()
+[*] refactored Frame.detach logic and introduce Frame.detachSelf()
+[-] removed pervasive _ current mod pointer in each node
+[-] loaded resource tracking and fix font naming for Firefox
+[-] fixed MonoContainer onClick() processing
+[-] fixed @depends and early _keyActions access
+[-] fixed array exports
+
+
+
+0.1.0-WR1 2025-03-22
 [+] air raid alert monitoring and notification while in the debug mode
 [+] webgl layer canvas and gl in the mod context
 [+] expect test framework

@@ -1,25 +1,8 @@
-### WR2
-V always create 2 canvases (2d & 3d)
-V spawn in orphan node (for constructor!)
-V clear attach event handling (rename onAttached() function to onAttach())
-V if main .mod doesn't have trap(), the event still has to chain to the submods
-V fix node inspector mouse navigation
-V subtrap
-V resize() should be chained
-V quad
-V jam man [optional search string]
-V refactor node coordinate transformation functions
-V recent commands in the debug console for fast access even after reboot
-V onKill() is called 2 times for some reason! (LabFrame calls kill() on itself, should not be happening, redesign kill-path)
-V fix @depends for root paths /...
-V highlight currently selected node in help
-V sync env.time for all mods
-
-> automatically propagate resize signal
-
 > MAML config language (JSON superset) support
 > labNode.on('event') -> recursively apply node.onEvent() for all nodes with handlers
 > include the parent node __ in context for spawned/local nodes
+> expose section grandparent as ___ (e.g. lab === ___ for every single lab node etc...)
+> spawn node from compile sources with inclusion of _$ and __ and ___
 > remap current mod from _ -> _$ to free _ for local usage (???)
 > refactor mod context out of the slide cam
 > refactor file caching subsystem, skip parsing/ext-parsing until later
@@ -165,6 +148,26 @@ V sync env.time for all mods
 > refactor HUD layout model
 > refactor Emitter
 
+
+### WR2
+V always create 2 canvases (2d & 3d)
+V spawn in orphan node (for constructor!)
+V clear attach event handling (rename onAttached() function to onAttach())
+V if main .mod doesn't have trap(), the event still has to chain to the submods
+V fix node inspector mouse navigation
+V subtrap
+V resize() should be chained
+V quad
+V jam man [optional search string]
+V refactor node coordinate transformation functions
+V recent commands in the debug console for fast access even after reboot
+V onKill() is called 2 times for some reason! (LabFrame calls kill() on itself, should not be happening, redesign kill-path)
+V fix @depends for root paths /...
+V highlight currently selected node in help
+V sync env.time for all mods
+V automatically propagate resize signal
+
+### WR1
 V include Release Checklist
 V collider version must be present in help (and maybe other places?)
 V include an error sfx in the default package
