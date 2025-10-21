@@ -74,12 +74,12 @@ function listFiles(unitPath, path, unit, onFile) {
             listFiles(unitPath, localPath, unit, onFile)
         } else {
             if (isIgnored(localPath)) {
-                trace('          X ' + localPath + ' (ignored)')
+                trace('           X ' + localPath + ' (ignored)')
             } else {
                 if (onFile) {
                     onFile(localPath, fullPath, lstat, unit)
                 } else {
-                    trace('          ? ' + localPath)
+                    trace('           ? ' + localPath)
                 }
             }
         }
