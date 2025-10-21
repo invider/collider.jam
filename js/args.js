@@ -39,7 +39,8 @@ module.exports = function() {
 
         } else if (arg === '-l' || arg === '--lab') {
             if (++i === args.length) throw 'a lab .js file is expected after the [' + arg + '] option'
-            env.monoLab = args[i]
+            if (env.monoLab) env.monoLab += ',' + args[i]
+            else env.monoLab = args[i]
             parsedOption = false
             lastOption = 'lab'
 

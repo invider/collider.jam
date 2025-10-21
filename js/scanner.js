@@ -31,8 +31,6 @@ function warn(msg) {
 }
 
 
-
-
 function scanPackageDependencies(mix, packageJson) {
     if (!packageJson || !_.isObject(packageJson.dependencies)) return
     let ls = []
@@ -409,16 +407,27 @@ function scanUnits() {
     }
 
     if (env.monoLab) {
-        //includePath(units, '', './', 'mod')
-        const modUnit = new Unit('monoLib', '', 'fix', './', null, { skipScan: true })
-        modUnit.addFile(env.monoLab)
-        modUnit.pak = {
-            load:    'auto',
-            mount:   '/lab',
-            fixMode: 'augment',
-        }
+        try {
+            //includePath(units, '', './', 'mod')
+            const modUnit = new Unit('monoLib', '', 'fix', './', null, { skipScan: true })
+            const files = env.monoLab.split(',')
+            files.forEach(f => {
+                if (!fs.existsSync(f)) throw `can't find the file [${f}]`
+                const stat = fs.statSync(f)
+                if (!stat.isFile()) throw `[${f}] is expected to be a file`
 
-        units.register(modUnit)
+                modUnit.addFile(f)
+            })
+            modUnit.pak = {
+                load:    'auto',
+                mount:   '/lab',
+                fixMode: 'augment',
+            }
+
+            units.register(modUnit)
+        } catch (e) {
+            log.error(e, TAG)
+        }
     }
 
     debug('units found: ' + units.length)

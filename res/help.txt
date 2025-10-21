@@ -21,6 +21,7 @@ Available [jam options]:
     -d, --debug  - debug mode
     -g, --global - use global modules in package mode
     -t, --test [test-name] - run all the tests, or a test specified by name
+    -l, --lab    - run a comma-separated list of files as nodes in the /lab (monoLab mode)
     -y, --types  - generate types.ts meta info
     --box <box-name> - select a box to run
     -f, --flow   - flow mode to autoload updates (automatically enabled on debug)
