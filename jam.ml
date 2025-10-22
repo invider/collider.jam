@@ -1,17 +1,24 @@
+V remap current mod from _ -> __$ to free _ for local usage
+V include the eval parent __ in context
+V redefine math.noramlizeAngle() and introduce math.biNormalizeAngle()
+
+> LabFrame.on('event') -> recursively apply node.onEvent() for all nodes with handlers
+
+> fix the js parser detecting a commented 'class' as an actual class definition (create a proper JS parser!)
+
+> monoLab patch target with [] or () in the --lab file list
+> skip local mix/mod when in the monoLab mode (???)
 > handle mod-level activate/deactivate, hide/show etc... in traps
-> MAML config language (JSON superset) support
-> labNode.on('event') -> recursively apply node.onEvent() for all nodes with handlers
-> include the parent node __ in context for spawned/local nodes
-> expose section grandparent as ___ (e.g. lab === ___ for every single lab node etc...)
-> spawn node from compile sources with inclusion of _$ and __ and ___
-> remap current mod from _ -> _$ to free _ for local usage (???)
 > refactor mod context out of the slide cam
 > refactor file caching subsystem, skip parsing/ext-parsing until later
 > easy way to replace the root mod canvas to another one and switch the root canvas into a buffering mode (to do shader effects over it)
+> ability to redefine the graphical context for a lab subNode
 > notify about unsupported font name in Firefox (starting with numbers?)
+
 > global async support
 > PWA support
-> uniLab mode - run a specified lab.js file or a specified list of /lab nodes (maybe also /trap, /res etc if possible)
+> MAML config language (JSON superset) support
+> expose section grandparent as ___ (e.g. lab === ___ for every single lab node etc...)?
 
 # landing
 > refresh collider.land style
@@ -151,6 +158,7 @@
 
 
 ### WR2
+V monoLab mode - run a specified lab.js file or a specified list of /lab nodes
 V always create 2 canvases (2d & 3d)
 V spawn in orphan node (for constructor!)
 V clear attach event handling (rename onAttached() function to onAttach())
