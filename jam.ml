@@ -1,34 +1,54 @@
 V remap current mod from _ -> __$ to free _ for local usage
 V include the eval parent __ in context
 V redefine math.noramlizeAngle() and introduce math.biNormalizeAngle()
+V LabFrame.on('event') -> recursively apply node.onEvent() for all nodes with handlers
+V remove npm link #landing
+V big [Get Started] call for action #landing
+V refactor out Start page -> link directly to the manual #landing
+V Learn should link to filtered tutorials #landing
 
-> LabFrame.on('event') -> recursively apply node.onEvent() for all nodes with handlers
+### WR3
 
-> fix the js parser detecting a commented 'class' as an actual class definition (create a proper JS parser!)
+# landing
+> galaxy procedural logo #landing
+> update and restructure Readme #github
+
+# help
+> README.md and other .md files should be included in help topics
+> mood switch button #help
+
+> sprite() scope function to place an image in the middle (? is that a reasonable name?)
+> crect() or another function to place rect in the center (instead of left-top)
+> fix env.realTime accessibility in submods
+> flow like lab.touch('....').spawn([...list of pods]) and lab.spawn([...list of entity dnas...])
+> handle mod-level activate/deactivate, hide/show etc... in traps
+> track structure depth in JS meta-parser to avoid comment mega-propagation to the deeper levels
 
 > monoLab patch target with [] or () in the --lab file list
 > skip local mix/mod when in the monoLab mode (???)
-> handle mod-level activate/deactivate, hide/show etc... in traps
 > refactor mod context out of the slide cam
 > refactor file caching subsystem, skip parsing/ext-parsing until later
 > easy way to replace the root mod canvas to another one and switch the root canvas into a buffering mode (to do shader effects over it)
+> support devicePixelRatio and scale when autoresizing
 > ability to redefine the graphical context for a lab subNode
 > notify about unsupported font name in Firefox (starting with numbers?)
+> fix the js parser detecting a commented 'class' as an actual class definition (create a proper JS parser!)
 
+> introduce COLLIDER_HOME env variable to specify lookup paths (e.g. like $PATH or $JAVA_HOME or $GO_PATH)
 > global async support
 > PWA support
 > MAML config language (JSON superset) support
 > expose section grandparent as ___ (e.g. lab === ___ for every single lab node etc...)?
 
 # landing
-> refresh collider.land style
+V refresh collider.land style
+> optimize onboarding flow - jump right to documentation, there is no reason to keep another page/step
 > animated landing vaporwave grid
 > animated project showcase grid
 > itch.io showcase page
 > follow on itch button instead of "maillist subscribe"
 
 # docs 
-> restructure Readme
 > jamming quick start guide
 > new ref card
 > CONTRIBUTE.md for the project
