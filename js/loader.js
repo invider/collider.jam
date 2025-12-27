@@ -1,4 +1,5 @@
-const fs = require('fs-extra')
+const _   = require('underscore')
+const fs  = require('fs-extra')
 const env = require('./env')
 const lib = require('./lib')
 const log = require('./log')
@@ -8,6 +9,11 @@ const TAG = 'loader'
 function trace(msg) {
     if (log.level < 2) return
     log.trace(msg, TAG)
+}
+
+function debug(msg) {
+    if (log.level === 0) return
+    log.debug(msg, TAG)
 }
 
 function loadOptionalJson(path) {
@@ -31,10 +37,19 @@ function loadOptionalList(path) {
     }
 }
 
-function loadOptionalUnitConfig(path) {
+function loadOptionalUnitConfig(unit, path) {
     const config = loadOptionalJson(path)
     if (config) {
-        debug('extending global config with: ' + path, TAG)
+        const id = unit.id
+        debug('extending unit [${id}] config with: ' + path, TAG)
+        env.config[id] = config
+    }
+}
+
+function loadOptionalRootConfig(path) {
+    const config = loadOptionalJson(path)
+    if (config) {
+        debug('extending root config with: ' + path, TAG)
         _.extendOwn(env.config, config)
     }
 }
@@ -90,5 +105,6 @@ module.exports = {
     loadOptionalJson,
     loadOptionalList,
     loadOptionalUnitConfig,
+    loadOptionalRootConfig,
     listFiles,
 }

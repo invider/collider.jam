@@ -1,7 +1,13 @@
 const log = require('./../log')
 const lib = require('./../lib')
 const env = require('./../env')
-const { loadOptionalJson, loadOptionalUnitConfig, loadOptionalList, listFiles } = require('./../loader')
+const {
+    loadOptionalJson,
+    loadOptionalUnitConfig,
+    loadOptionalRootConfig,
+    loadOptionalList,
+    listFiles
+} = require('./../loader')
 
 const TAG = 'scanner'
 
@@ -20,7 +26,8 @@ const Unit = function(id, mix, type, path, requireMix, opt) {
     this.requireMix = requireMix
     this.opt = opt
     this.pak = loadOptionalJson(lib.addPath(path, env.pakConfig))
-    loadOptionalUnitConfig(lib.addPath(path, 'config.json'))
+    loadOptionalUnitConfig(this, lib.addPath(path, 'config.json'))
+    loadOptionalRootConfig(this, lib.addPath(path, 'rootConfig.json'))
     this.ignore = loadOptionalList(lib.addPath(path, 'unit.ignore'))
 
     this.ls = []
