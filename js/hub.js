@@ -1,5 +1,7 @@
 'use strict'
 
+// TODO rename from 'hub' to avoid confusion with the actual mix hub
+
 const express = require('express')
 const url = require('url')
 
@@ -199,7 +201,7 @@ function start() {
     if (env.hub) {
         const boost = require('hub/boost')
         log.debug('boosting the app', TAG)
-        boost(app, env)
+        boost(app, ws, env)
     }
 
     process.on('uncaughtException', (err) => {
