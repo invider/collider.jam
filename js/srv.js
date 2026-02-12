@@ -21,9 +21,6 @@ function start() {
     const ws = require('express-ws')(app);
     app.use(express.json({ limit: '4mb' }))
 
-    log.out('=== COLLIDER.JAM ===')
-    log.out('version: ' + env.version) 
-    log.out('====================')
     log.debug('starting collider.jam http server...', TAG)
 
     // fix module paths

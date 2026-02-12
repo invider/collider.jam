@@ -46,7 +46,7 @@ function loadOptionalUnitConfig(unit, path) {
     }
 }
 
-function loadOptionalRootConfig(path) {
+function loadOptionalRootConfig(unit, path) {
     const config = loadOptionalJson(path)
     if (config) {
         debug('extending root config with: ' + path, TAG)

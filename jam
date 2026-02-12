@@ -134,7 +134,7 @@ bootstrap() {
     # trim 'init' command from params
     CMD_LINE=${CMD_LINE:4}
 
-    node ./node_modules/$JAM_MODULE/jam.js bootstrap $CMD_LINE
+    $NODE ./node_modules/$JAM_MODULE/jam.js bootstrap $CMD_LINE
     check_status
 
     echo ''
@@ -148,7 +148,7 @@ bootstrap() {
 cmd() {
     update_flags
     if [[ ! $JAM_SHELL_FLAG ]]; then
-        echo 'No collider.jam shell installed!'
+        echo 'No Collider.JAM shell installed!'
         exit $ERROR_NO_SHELL
     fi
 
@@ -157,7 +157,7 @@ cmd() {
         exit $ERROR_ALREADY_GENERATED
 
     else
-        node ./node_modules/$JAM_MODULE/jam.js $CMD_LINE
+        $NODE --trace-deprecation ./node_modules/$JAM_MODULE/jam.js $CMD_LINE
 
     fi
 }

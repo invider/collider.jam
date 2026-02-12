@@ -10,10 +10,13 @@ const { bootstrap, patch } = require('./js/bootstrap')
 const { generate, clean } = require('./js/packager')
 const { printUnits, printFiles } = require('./js/scanner')
 const help = require('./js/help')
+const banner = require('./js/banner')
 const player = require('./js/player')
 
 const TAG = 'jam'
 
+
+// parse commands and options
 let cmd = args()
 
 // apply flags
@@ -24,7 +27,7 @@ if (!env.debug && !env.verbose) {
     log.dump = log.off
 }
 
-// short commands - execute and exit, no need to setup environment for these
+// instant commands - execute and exit, no need to setup environment for these
 switch(cmd) {
     case 'version': case 'v':
         if (env.verbose) {
@@ -33,6 +36,10 @@ switch(cmd) {
             log.raw(env.version)
         }
         return
+}
+
+if (cmd === 'run' || cmd === 'play') {
+    banner.show()
 }
 
 // determine collider.jam node modules base
