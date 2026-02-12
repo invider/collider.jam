@@ -33,15 +33,18 @@ const env = {
 
     port: 9999,
 
-    baseDir: './',
-    monoLab: '',
-    outDir: 'out',
-	distDir: 'dist',
-    typesMeta: 'types.ts',
-    mapConfig: 'map.json',
-    remapConfig: 'remap.json',
-    pakConfig: 'pak.json',
-    metaCache: '.meta.cache',
+    baseDir:         './',
+    monoLab:         '',
+    outDir:          'out',
+	distDir:         'dist',
+    typesMeta:       'types.ts',
+    mapConfig:       'map.json',
+    remapConfig:     'remap.json',
+    pakConfig:       'pak.json',
+    metaCache:       '.meta.cache',
+    rootConfig:      'rootConfig.json',
+    unitIgnore:      'unit.ignore',
+    unitConfig:      'config.json',
     colliderPackage: 'collider.jam',
 
     defaultScanMap: {

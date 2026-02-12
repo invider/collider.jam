@@ -3,7 +3,7 @@
 const args = require('./js/args')
 const env = require('./js/env')
 const log = require('./js/log')
-const hub = require('./js/hub')
+const srv = require('./js/srv')
 const init  = require('./js/init')
 const create = require('./js/create')
 const { bootstrap, patch } = require('./js/bootstrap')
@@ -36,14 +36,14 @@ switch(cmd) {
 }
 
 // determine collider.jam node modules base
-const hubPath = require.resolve('./js/hub.js')
-const jamPath = hubPath.substring(0, hubPath.length - 10)
+const srvPath = require.resolve('./js/srv.js')
+env.jamPath = process.env.JAM_HOME ?? srvPath.substring(0, srvPath.length - 10)
 
-env.jamPath = jamPath
+// TODO the following messages must be after the Collider.JAM title screen
 if (env.jamPath) {
     log.debug('collider.jam path: ' + env.jamPath)
 } else {
-    log.warn("can't determine collider.jam module path!")
+    log.warn("can't determine collider.jam module path! Define JAM_HOME path in environment")
 }
 // TODO the right way is to scan all available paths
 env.jamModules = module.paths[0]
@@ -51,7 +51,7 @@ env.jamModules = module.paths[0]
 try {
     // core commands
     switch(cmd) {
-        case 'run': case 'r': hub.start(); break;
+        case 'run': case 'r': srv.start(); break;
         case 'play': case 'open': case 'o': player.play(); break;
         case 'man': case 'm': player.man(env.params[0]); break;
         case 'init': case 'i': init(); break;

@@ -4,7 +4,7 @@ const open = require('open')
 const request = require('request')
 const env = require('./env')
 const log = require('./log')
-const hub = require('./hub')
+const srv = require('./srv')
 
 module.exports = {
 
@@ -22,12 +22,12 @@ module.exports = {
         })
     },
 
-    isHubStarted: async function() {
+    isServerStarted: async function() {
         const url = 'http://localhost:' + env.port + env.base
-        log.debug('checking hub server at ' + url + '...')
+        log.debug('checking collider.jam server at ' + url + '...')
         const res = await this.testUrl('http://localhost:' + env.port + env.base)
 
-        log.debug('hub server status: [' + res + ']')
+        log.debug('collider.jam server status: [' + res + ']')
         return res === 'online'
     },
 
@@ -37,9 +37,9 @@ module.exports = {
 
     play: async function() {
         // check the server
-        let hubOnline = await this.isHubStarted()
-        if (!hubOnline) {
-            log.out('collider.jam hub server seems to be offline - starting...')
+        let serverOnline = await this.isServerStarted()
+        if (!serverOnline) {
+            log.out('collider.jam server seems to be offline - starting...')
 
             let open = this.open
             setTimeout(function() {
@@ -47,7 +47,7 @@ module.exports = {
                 open('http://localhost:' + env.port)
             }, 3000)
 
-            hub.start()
+            srv.start()
 
         } else {
             log.out('opening browser at http://localhost:' + env.port)

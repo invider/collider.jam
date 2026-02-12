@@ -26,9 +26,9 @@ const Unit = function(id, mix, type, path, requireMix, opt) {
     this.requireMix = requireMix
     this.opt = opt
     this.pak = loadOptionalJson(lib.addPath(path, env.pakConfig))
-    loadOptionalUnitConfig(this, lib.addPath(path, 'config.json'))
-    loadOptionalRootConfig(this, lib.addPath(path, 'rootConfig.json'))
-    this.ignore = loadOptionalList(lib.addPath(path, 'unit.ignore'))
+    loadOptionalUnitConfig(this, lib.addPath(path, env.unitConfig))
+    loadOptionalRootConfig(this, lib.addPath(path, env.rootConfig))
+    this.ignore = loadOptionalList(lib.addPath(path, env.unitIgnore))
 
     this.ls = []
     this.diff = []

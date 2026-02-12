@@ -25,6 +25,13 @@ V config.json and rootConfig.json
 > new emitter
 > kinnetix
 > hub
+> debug probes - grids, origins, axes, coordinates, orientation, status, prop explorer, context commands and other useful probes
+> a simple way to instrument alive entity or frame from the console with any probe
+> option to run any folder or group of folders as mods or mixes
+> env variable to define collider home, collider path and collider options
+
+# juice
+> multiple mood hints to autoconfig UI dark/light/pastel - futuristic/pixelated/gothic/cartoon/handwritten
 
 
 ### WR4
