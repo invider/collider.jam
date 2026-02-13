@@ -12,7 +12,7 @@ function expect(val, errorMessage) {
 }
 
 function read(path) {
-    const protoPath = env.jamPath + '/proto'
+    const protoPath = env.jamHome + '/proto'
     const content = fs.readFileSync(`${protoPath}/${path}`)
     const source = content.toString('utf-8')
     return source
@@ -96,7 +96,7 @@ function verifyPaths(paths) {
 
 function patch(path, macro) {
     const rules = readRules(path, macro)
-    const protoPath = env.jamPath + '/proto'
+    const protoPath = env.jamHome + '/proto'
 
     verifyPaths(rules.paths)
     rules.forEach(rule => {

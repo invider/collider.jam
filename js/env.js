@@ -13,6 +13,7 @@ const ignorePaths = [
 const env = {
     poweredBy: 'Collider.JAM',
     version: '0.2.0 WR2',
+    fullVersion: '0.2.0 War Release 2',
     releaseName: 'War Release 2',
     releaseDate: '2025-10-14',
     PACKAGE_MODE: 0,
@@ -76,5 +77,11 @@ env.config.poweredBy   = env.poweredBy
 env.config.version     = env.version
 env.config.releaseName = env.releaseName
 env.config.releaseDate = env.releaseDate
+
+// map collider.jam environment variables
+env.JAM_HOME    = process.env.JAM_HOME
+env.JAM_MODULES = process.env.JAM_MODULES
+env.JAM_MIXES   = process.env.JAM_MIXES
+env.JAM_UNITS   = process.env.JAM_UNITS
 
 module.exports = env

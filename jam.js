@@ -8,7 +8,7 @@ const init  = require('./js/init')
 const create = require('./js/create')
 const { bootstrap, patch } = require('./js/bootstrap')
 const { generate, clean } = require('./js/packager')
-const { printUnits, printFiles } = require('./js/scanner')
+const { printUnits, printFiles, printEnv } = require('./js/scanner')
 const help = require('./js/help')
 const banner = require('./js/banner')
 const player = require('./js/player')
@@ -27,7 +27,7 @@ if (!env.debug && !env.verbose) {
     log.dump = log.off
 }
 
-// instant commands - execute and exit, no need to setup environment for these
+// instant commands - execute and exit, no need to setup the environment for these
 switch(cmd) {
     case 'version': case 'v':
         if (env.verbose) {
@@ -44,11 +44,11 @@ if (cmd === 'run' || cmd === 'play') {
 
 // determine collider.jam node modules base
 const srvPath = require.resolve('./js/srv.js')
-env.jamPath = process.env.JAM_HOME ?? srvPath.substring(0, srvPath.length - 10)
+env.jamHome = env.JAM_HOME ?? srvPath.substring(0, srvPath.length - 10)
 
 // TODO the following messages must be after the Collider.JAM title screen
-if (env.jamPath) {
-    log.debug('collider.jam path: ' + env.jamPath)
+if (env.jamHome) {
+    log.debug('Collider.JAM HOME: ' + env.jamHome)
 } else {
     log.warn("can't determine collider.jam module path! Define JAM_HOME path in environment")
 }
@@ -70,6 +70,7 @@ try {
         case 'ca': clean('all'); break;
         case 'units': case 'u': printUnits(); break;
         case 'files': case 'f': printFiles(); break;
+        case 'env': case 'e': printEnv(); break;
         case 'help': case 'h': help(env.params[0]); break;
         default: log.fatal('unknown command: ' + cmd, TAG)
     }

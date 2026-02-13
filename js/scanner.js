@@ -191,7 +191,7 @@ let scanModules = function(units, path) {
             if (lstat.isDirectory() || lstat.isSymbolicLink()) {
                 if (entry.endsWith('.mix')) {
                     trace('================================================')
-                    trace('found a mix: ' + fullPath)
+                    trace(`found a mix [${fullPath}]`)
 
                     // TODO dev/release includes should be configurable
                     if (env.config.release
@@ -214,7 +214,7 @@ let scanModules = function(units, path) {
 
 function tryToReadScanMap(path, defaultScanMap) {
     const scanMap = lib.readOptionalJson(path, undefined,
-            () => debug(`found ${env.mapConfig} at: ${path}`))
+            () => debug(`found [${env.mapConfig}] at: ${path}`))
     if (scanMap) {
         scanMap.origin = path
         return scanMap
@@ -238,7 +238,7 @@ function replaceArray(target, source, name) {
 
 function remap(path, scanMap) {
     const remap = lib.readOptionalJson(path, undefined,
-            () => debug(`found ${env.remapConfig} at: ${path}`))
+            () => debug(`found [${env.remapConfig}] at: ${path}`))
     if (remap) {
         //lib.augment(scanMap, remap)
         replaceArray(scanMap, remap, 'units')
@@ -256,35 +256,38 @@ function determineScanMap() {
     if (env.sketch) {
 
         if (env.mode === env.MOD_MODE) {
-            debug('running in sketch mod mode')
+            debug('running as a sketch mod')
         } else {
-            debug('running in sketch mix mode')
+            debug('running as a sketch mix')
         }
 
         // set sketch mod defaults
         // can be redefined later
         env.scanMap = lib.augment({}, env.sketchScanMap)
 
-        debug('MODULES: ' + env.jamModules)
-        if (env.jamModules) {
+        if (env.JAM_MODULES != undefined) {
+            const paths = env.JAM_MODULES.split(':').filter(path => path)
+            env.scanMap.modules.concat(paths)
+        } else if (env.jamModules) {
             env.scanMap.modules.push(env.jamModules)
         } else {
             warn("Can't determine collider.jam module path.")
-            warn(`Set the path manually in modules: [] section by creating ./${env.mapConfig}.`)
+            warn(`Define colon-separated paths to collider modules in the JAM_MODULES environment variable,`)
+            warn(`or set the path manually in modules: [] section by creating ./${env.mapConfig}.`)
         }
 
     } else {
-        debug('running in package mode')
+        debug('running as a package mode')
         env.scanMap = lib.augment({}, env.defaultScanMap)
 
         if (!env.globalMode) {
-            env.jamPath = './node_modules/' + env.colliderPackage
-            debug('switching to local modules: ' + env.jamPath)
+            env.jamHome = './node_modules/' + env.colliderPackage
+            debug('switching to local modules: ' + env.jamHome)
         }
     }
 
     // try to read default unit structure from jam
-    const jpath = lib.addPath(env.jamPath, env.mapConfig)
+    const jpath = lib.addPath(env.jamHome, env.mapConfig)
     env.scanMap = tryToReadScanMap(jpath, env.scanMap)
     /*
     env.scanMap = lib.readOptionalJson(jpath, env.scanMap,
@@ -293,14 +296,14 @@ function determineScanMap() {
 
     // try to read unit structure from local project
     env.scanMap = tryToReadScanMap(env.mapConfig, env.scanMap)
-    remap(env.jamPath + '/' + env.remapConfig, env.scanMap)
+    remap(env.jamHome + '/' + env.remapConfig, env.scanMap)
     remap(env.remapConfig, env.scanMap)
     //env.scanMap = lib.readOptionalJson(env.mapConfig, env.scanMap,
     //        () => debug(`using local ./${env.mapConfig}`))
 
     if (env.sketch) {
         if (!env.scanMap.mixes) env.scanMap.mixes = []
-        env.scanMap.mixes.push(env.jamPath)
+        env.scanMap.mixes.push(env.jamHome)
 
         if (env.mode === env.MIX_MODE) {
             env.scanMap.mixes.push('./')
@@ -355,7 +358,7 @@ function scanUnits() {
     const scanMap = determineScanMap()
     debug(`using ${env.mapConfig} from: [${scanMap.origin}]`)
 
-    trace('scanning environment for collider.jam units...')
+    trace('scanning the environment for collider.jam units...')
     dumpScanMap()
     const units = new UnitMap()
 
@@ -515,17 +518,14 @@ module.exports = {
         const unitMap = scanUnits()
 
         Object.values(unitMap.units).forEach(unit => {
-            log.raw("[" + unit.type + "] - '"
-                + unit.id + "': "
-                + unit.path
-                + ` [${unit.ls.length} files]`)
+            log.raw( `${unit.type}:[${unit.id}] -- `
+                + `${unit.path} [${unit.ls.length} files]`
+            )
         })
 
         Object.values(unitMap.opt).forEach(unit => {
-            log.raw(" X [" + unit.type + "] - '"
-                + unit.id + "': "
-                + unit.path
-                + ` [${unit.ls.length} files] (skipped)`)
+            log.raw(`X ${unit.type}:[${unit.id}] -- `
+                + `${unit.path} [${unit.ls.length} files] (skipped)`)
         })
     },
 
@@ -533,10 +533,15 @@ module.exports = {
         const unitMap = scanUnits()
 
         Object.values(unitMap.units).forEach(unit => {
-            log.raw("[" + unit.type + "] - '" + unit.id + "': " + unit.path)
+            log.raw(`= ${unit.type}:[${unit.id}] -- ${unit.path}`)
 
             unit.ls.forEach(f => log.raw('* ' + f))
             unit.ignore.forEach(f => log.raw('- ' + f))
         })
     }, 
+
+    printEnv: function() {
+        const unitMap = scanUnits()
+        console.dir(env)
+    },
 }

@@ -4,11 +4,17 @@ const env = require('./env')
 const lib = require('./lib')
 const log = require('./log')
 
-const TAG = 'loader'
+const TAG  = 'loader'
+const STAG = 'scanner'
 
 function trace(msg) {
     if (log.level < 2) return
     log.trace(msg, TAG)
+}
+
+function strace(msg) {
+    if (log.level < 2) return
+    log.trace(msg, STAG)
 }
 
 function debug(msg) {
@@ -73,10 +79,10 @@ function isIgnored(path) {
 
 function listFiles(unitPath, path, unit, onFile) {
     if (isIgnored(path)) {
-        trace('ignoring X ' + lib.addPath(unitPath, path), TAG)
+        strace(`==X ${lib.addPath(unitPath, path)} (ignored)`)
         return
     } else {
-        trace('scanning ' + lib.addPath(unitPath, path), TAG)
+        strace(`==> ${lib.addPath(unitPath, path)}`)
     }
 
     fs.readdirSync(lib.addPath(unitPath, path)).forEach(entry => {

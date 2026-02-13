@@ -8,7 +8,7 @@ module.exports = function(topic) {
     topic = topic || 'help'
 
     try {
-        const content = fs.readFileSync(`${env.jamPath}/res/${topic}.txt`)
+        const content = fs.readFileSync(`${env.jamHome}/res/${topic}.txt`)
         const text = content.toString('utf-8')
         log.raw(text.trim())
     } catch (e) {

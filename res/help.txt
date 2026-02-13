@@ -13,6 +13,7 @@ Following commands are available [shortcuts are in brackets]:
     [ca] clean all      - remove all generated content and locally installed modules
     [u] units           - list units
     [f] files           - list indexed files for each unit
+    [e] env             - show the environment
     [v] version         - show framework version, run with -v for more details
     [h] help            - this message
     [m] man <topic>     - start in the browser and open the online help system

@@ -18,7 +18,7 @@ function trace(msg) {
 
 const Unit = function(id, mix, type, path, requireMix, opt) {
     trace('================================================')
-    trace(`found ${type} [${id}]: ${path}`)
+    trace(`found a ${type} [${id}]: ${path}`)
     this.id = id
     this.mix = mix
     this.type = type

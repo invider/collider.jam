@@ -14,7 +14,7 @@ function show() {
     log.raw(B1)
 
     log.out('=== Powered by Collider.JAM ===')
-    log.out('version: ' + env.version) 
+    log.out('version: ' + env.fullVersion) 
     log.out('===============================')
 }
 
