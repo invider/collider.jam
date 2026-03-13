@@ -10,7 +10,6 @@ const { bootstrap, patch } = require('./js/bootstrap')
 const { generate, clean } = require('./js/packager')
 const { printUnits, printFiles, printEnv } = require('./js/scanner')
 const help = require('./js/help')
-const banner = require('./js/banner')
 const player = require('./js/player')
 
 const TAG = 'jam'
@@ -36,10 +35,6 @@ switch(cmd) {
             log.raw(env.version)
         }
         return
-}
-
-if (cmd === 'run' || cmd === 'play') {
-    banner.show()
 }
 
 // determine collider.jam node modules base

@@ -5,6 +5,7 @@ const url = require('url')
 
 const env = require('./env')
 const log = require('./log')
+const banner = require('./banner')
 const scanner = require('./scanner')
 const packager = require('./packager')
 const flow = require('./flow')
@@ -212,6 +213,7 @@ function start() {
         }
     })
 
+    banner.show()
     app.listen(env.port, () => {
         log.out('===========================================')
         log.out('--- Play at http://localhost:' + env.port + ' ---', TAG)
