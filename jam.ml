@@ -9,21 +9,32 @@ V Learn should link to filtered tutorials #landing
 V sprite() scope function to place an image in the middle (? is that a reasonable name?)
 V alternative way to define a mod as buffered through config.json
 V config.json and rootConfig.json
+V .aspect, .vaspect, .px (59*lab.px === rx(.59)), .py, .pb
+V lab x/y/w/h & width/heigh
+V rb(), px(), py(), pb()
+V ctx/lab .portrait (true/false), .landscape (true/false)
+V dump function
+V on() refactoring, introduce emit() on lab nodes
+V signal() default
+V fix env.realTime accessibility in submods
+V block() to place rect in the center (instead of being cornered at the top-left)
 
 ### WR3
 
 # landing
+> update the landing taglines
 > update and restructure Readme #github
 
 # core
-> easy way to replace the root mod canvas to another one and switch the root canvas into a buffering mode (to do shader effects over it)
-> ability to redefine the graphical context for a lab subNode?
-> fix env.realTime accessibility in submods
+> new spawn with respawn option
+> easy way to replace the root mod canvas to another one and switch the root canvas into a buffering mode (for post-processing)
+    > native shader support/loading - it is done with custom code at the moment
+> ability to redefine the graphical context for a lab subNode??? Just create a new mod
 
 # systems
-> webaudio
-> new emitter
 > kinnetix
+> new emitter
+> webaudio
 > hub
 > debug probes - grids, origins, axes, coordinates, orientation, status, prop explorer, context commands and other useful probes
 > a simple way to instrument alive entity or frame from the console with any probe
@@ -36,14 +47,13 @@ V config.json and rootConfig.json
 
 ### WR4
 > galaxy procedural logo #landing
+> HUD MUST handle it's own events with a subtrap[] entry
 
 # help
 > README.md and other .md files should be included in help topics
 > mood switch button #help
 > limit metadata for huge named lab sets (otherwise .meta.cache could be giant!)
 
-
-> crect() or another function to place rect in the center (instead of left-top)
 > flow like lab.touch('....').spawn([...list of pods]) and lab.spawn([...list of entity dnas...])
 > handle mod-level activate/deactivate, hide/show etc... in traps
 > track structure depth in JS meta-parser to avoid comment mega-propagation to the deeper levels
@@ -60,7 +70,7 @@ V config.json and rootConfig.json
 > global async support
 > PWA support
 > MAML config language (JSON superset) support
-> expose section grandparent as ___ (e.g. lab === ___ for every single lab node etc...)?
+> expose section grandparent as ___ (e.g. lab === ___ for every single lab node etc...)???
 
 # landing
 V refresh collider.land style
@@ -74,6 +84,7 @@ V optimize onboarding flow - jump right to documentation, there is no reason to 
 > jamming quick start guide
 > new ref card
 > CONTRIBUTE.md for the project
+> a help page on expect()
 
 # bootstrap
 > jam quickstart patch/boot
@@ -93,6 +104,10 @@ V optimize onboarding flow - jump right to documentation, there is no reason to 
 > make help url to contain both search predicates and locator - would be more consistent #man
 > image node inspector zoom, movement and switch to the next/previous image
 > sound node inspector
+> debug console PageUp/PageDown
+> debug console kill MUST work in local folder... Right now I need to specify the full path.
+> debug console rm MUST work in local folders as well
+> resize doesn't work in the debug console
 
 > core testing
 > option to ignore boot up errors (?)
@@ -118,7 +133,8 @@ V optimize onboarding flow - jump right to documentation, there is no reason to 
 > show error message on the boot screen (?)
 
 # advanced features
-> smart event bindings (plumbing?)
+> smart text link dispatch (plumbing?)
+> smart event bindings (plumbing/signals?)
 > numbered file prefixes for Z-ordering and load-ordering (e.g. something like 00_first.js, 01_second.js), skip prefixes in actual names!
 > refactor samples into a bunch of patches
 

@@ -1,7 +1,8 @@
 <p align="center">
 <a href="https://github.com/invadium/collider.jam">
-<img src="res/logo.jpg">
-</a></p>
+<img src="res/logo-big.png" width="160">
+</a>
+</p>
 
 
 Welcome to Collider.JAM!
