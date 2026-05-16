@@ -18,35 +18,75 @@ V on() refactoring, introduce emit() on lab nodes
 V signal() default
 V fix env.realTime accessibility in submods
 V block() to place rect in the center (instead of being cornered at the top-left)
+V refresh collider.land style
+V optimize onboarding flow - jump right to documentation, there is no reason to keep another page/step
+V make Frame and LabFrame iterable
+
 
 ### WR3
 
 # landing
 > update the landing taglines
 > update and restructure Readme #github
+> document existing Frame attach policies
+> scroll on text properties doesn't work in Inspector
 
 # core
-> new spawn with respawn option
+> redefine select() and locate()
 > easy way to replace the root mod canvas to another one and switch the root canvas into a buffering mode (for post-processing)
     > native shader support/loading - it is done with custom code at the moment
 > ability to redefine the graphical context for a lab subNode??? Just create a new mod
 
-# systems
-> kinnetix
-> new emitter
-> webaudio
-> hub
-> debug probes - grids, origins, axes, coordinates, orientation, status, prop explorer, context commands and other useful probes
-> a simple way to instrument alive entity or frame from the console with any probe
-> option to run any folder or group of folders as mods or mixes
-> env variable to define collider home, collider path and collider options
-
-# juice
-> multiple mood hints to autoconfig UI dark/light/pastel - futuristic/pixelated/gothic/cartoon/handwritten
+# spice
+> procedural logo #landing
 
 
 ### WR4
-> galaxy procedural logo #landing
+> scalable lab
+> probe(val).action() - probe availability
+> new spawn with respawn option
+
+# dev tools
+> dev time controller
+> dev drag and drop
+> click dumper/selector (save the last clicked in env?)
+> configurable hold-to-hint overlay with context help (inspector keys, basic console how-tos...)
+> a simple way to instrument alive entity or frame from the console with any probe
+> inspector fast search (on [/]?)
+> configurable info layer (with scrolls/tabs or multiple workspaces?) and state save and load
+    > current goals
+    > current tasks
+    > why
+> streaming info bar
+> development status bar
+> debug probes
+    V grids
+    > origins
+    > axes
+    > coordinates
+    > orientation
+    > status
+    > prop explorer
+    > context commands and other useful probes
+> explore pin layer possibilities and possible gadgets
+    > property levels
+    > flags/switches
+> debug context menu layer
+    > context commands
+    > context sub-menues
+    > switch items
+    > slider items
+    > scalable numeric value controller (a round one)?
+    > adjuster (increase/decrease)
+    > state indicator (condition etc...)
+    > level indicator (health, energy etc...)
+    > pin menu to keep open and follow the entity
+
+# systems
+> kinnetix
+> webaudio
+
+
 > HUD MUST handle it's own events with a subtrap[] entry
 
 # help
@@ -57,7 +97,6 @@ V block() to place rect in the center (instead of being cornered at the top-left
 > flow like lab.touch('....').spawn([...list of pods]) and lab.spawn([...list of entity dnas...])
 > handle mod-level activate/deactivate, hide/show etc... in traps
 > track structure depth in JS meta-parser to avoid comment mega-propagation to the deeper levels
-
 > monoLab patch target with [] or () in the --lab file list
 > skip local mix/mod when in the monoLab mode (???)
 > refactor mod context out of the slide cam
@@ -67,14 +106,19 @@ V block() to place rect in the center (instead of being cornered at the top-left
 > fix the js parser detecting a commented 'class' as an actual class definition (create a proper JS parser!)
 
 > introduce COLLIDER_HOME env variable to specify lookup paths (e.g. like $PATH or $JAVA_HOME or $GO_PATH)
+> env variable to define collider home, collider path and collider options
 > global async support
 > PWA support
 > MAML config language (JSON superset) support
+> YAML support
+> TOML support
 > expose section grandparent as ___ (e.g. lab === ___ for every single lab node etc...)???
+> new emitter
+> hub
+> option to run any folder or group of folders as mods or mixes
+
 
 # landing
-V refresh collider.land style
-V optimize onboarding flow - jump right to documentation, there is no reason to keep another page/step
 > animated landing vaporwave grid
 > animated project showcase grid
 > itch.io showcase page
@@ -108,6 +152,9 @@ V optimize onboarding flow - jump right to documentation, there is no reason to 
 > debug console kill MUST work in local folder... Right now I need to specify the full path.
 > debug console rm MUST work in local folders as well
 > resize doesn't work in the debug console
+
+# juice
+> multiple mood hints to autoconfig UI dark/light/pastel - futuristic/pixelated/gothic/cartoon/handwritten
 
 > core testing
 > option to ignore boot up errors (?)
