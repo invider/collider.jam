@@ -1,3 +1,88 @@
+0.3.0-WR3 2026-05-20
+
+=== core ===
+[+] new logo
+[+] next-generation tweening with KinetixNG
+[+] next-generation sliding camera model
+[+] made Frame iterable over Frame._ls
+[+] sprite() to draw a centered image
+[+] block() to draw a centered rectangle 
+[+] normal [0..1] coordinates in scope with nx(), ny(), nb()
+[+] cmap() in the root context
+[+] gammaCorrect(), bias(), gain() and boxstep() in math
+[*] redefined math.normalizeAngle() and included math.biNormalizeAngle()
+[+] included normal and bipolar distribution functions in random number generators - rndn(), rndg(), rndb()
+[*] LabFrame .on(), .off() and .emit() to simplify event processing
+[*] renamed Mod on()/off() -> activate()/deactivate() to avoid name clash with event processing
+[+] LabFrame.pickArea()
+[+] Frame.attachAll() and .detachAll()
+[*] normalized LabFrame pick flow, optimized .poke() and .pick()
+[+] introduced node unplug(), onTouchBy() and onShadowBy() handlers
+[*] moved z-ordering out of evo() to LabFrame.attach()
+[*] introduced negative Z in the Z-order
+[+] introduced Frame.locate() as the future replacement for Frame.selectOne()
+[+] introduced Frame._attachPolicy
+[*] included x/y/w/h & width/height properties in /lab
+[*] improved chain() function chaining with .list() and .dechain() submethods
+[*] extended the log.dump() format
+[+] pods list processing in spawn()
+[*] introduced the dna registry and .spawn() by the plain name
+[*] respawn-aware kill
+[+] sys.killAll()
+[+] trap/connect() to catch first user interaction
+[*] custom canvas in img.screenshot() and img.screenshotArea()
+[+] sys.attachCanvasToRenderingSurface
+[+] migrated sound system core to Web Audio
+[+] listed included fonts on the scenegraph
+[*] realTime value propagated to all submod environments
+[*] recursive touchParent() to properly patch nodes
+[*] ability to create a buffered mod with env.config instead of a "-buf" suffix
+[*] adapted scale() to receive a single argument
+[+] included /job nodes into evo() processing
+[+] included definition parent __ in the scope
+[*] released _ and _$, introduce __$ instead
+[*] renamed Mod.___ -> Mod.__$
+[+] introduce default traps for uncaught signals
+[*] include handling of __.disabled, ignore and mask sets in subtraps
+[*] extended input types for rgb/rgba/RGB/RGBA root scope functions
+
+=== hud ===
+[-] fixed Hud dynamic list rendering
+[+] Container.onMouseExit()
+[+] Hud onMouseRelease() handler
+[*] adjusted Hud and Container onMouseUp() handling
+[-] fixed onMouseDrag() and onMouseMove() for Hud
+
+=== expect test system ===
+[+] expect.hasLength() assert
+[+] expect .toMatch() and .toContain()
+[*] accept typed arrays in expect.isAnyObject()
+
+=== bugs ===
+[-] fixed math.rnde() array check
+[-] fixed null cases in Frame apply(), applyAll() and collide()
+[-] fixed LabFrame pick()
+[-] fixed fill/stroke sequence in /alt
+[-] fixed the scope problem in alt/on()
+[-] fixed dna._locate() parent mod access bug
+
+=== cli ===
+[+] added jam env command and JAM_MODULES env variable
+[+] introduced JAM_HOME env variable
+[*] defined rootConfig.json and redefined config.json
+[+] ability to list multiple files in --lab monoLab mode
+[*] provided web socket interface along with express app in hub/boost
+[*] improved scanner/loader output format
+
+=== docs ===
+[*] include Nunito as the main font
+[.] updated getting-started man page
+[.] canvases man page
+[.] multiple man updates to reflect the latest API changes
+
+
+
+
 0.2.0-WR2 2025-10-14
 [+] gadget/Console command history
 [+] new LabFrame coordinate translation interface
@@ -15,9 +100,9 @@
 [*] moved sfx() implementation to sys.sfx() with alt.sfx() just dispatching to it or lab/sfx()
 [*] optimized Frame.collide()
 [*] test for a container parameter in mixin()
-[*] refactored Frame.detach logic and introduce Frame.detachSelf()
+[*] refactored Frame.detach logic and introduced Frame.detachSelf()
 [-] removed pervasive _ current mod pointer in each node
-[-] loaded resource tracking and fix font naming for Firefox
+[-] loaded resource tracking and fixed font naming for Firefox
 [-] fixed MonoContainer onClick() processing
 [-] fixed @depends and early _keyActions access
 [-] fixed array exports
@@ -55,7 +140,7 @@
 [*] "Developing with Collider.JAM" message now in the --debug mode
 [*] verbose version
 [*] release and version information in the online help
-[*] moved color shifting routines out of global scope to color object
+[*] moved color shifting routines out of the global scope to the color object
 [*] updated extend/augment/supplement logic, additional assert tests
 [*] Frame.selectInstanceOf -> selectInstancesOf
 [*] normalized type probe functions, math.fract()
@@ -69,8 +154,8 @@
 [*] optimized degToRad and radToDeg
 [*] upgraded test output
 [*] eval rescheduling on missing requirement
-[*] resetable boot loader
-[*] Emitter ability to reignite
+[*] resettable boot loader
+[*] Emitter's ability to reignite
 [*] refactor obj utils to fix name collision problem
 [*] dead flag in kill()
 [-] removed mix()
@@ -81,7 +166,7 @@
 [-] removed deprecated coord methods in SlideCamera
 [-] fixed SlideCamera event injection by moving sys.after() -> trap.on()
 [-] fixed Hud event handling by moving from sys.after() -> trap.on()
-[-] fix a memory leak in worms segments of the wormhole bootloader
+[-] fix a memory leak in the wormhole bootloader's segments
 [-] fixed slide camera target zoom
 [-] fix custom extension locator
 [-] a hack to remedy the tile gap
@@ -104,7 +189,7 @@
 [+] help content download on F2
 [+] planets.sample
 [*] info.json data for samples
-[*] disable other mods while debug console or node inspector is active
+[*] disable other mods while the debug console or node inspector is active
 [*] unify event handling for mixin function - augment()/extend()/supplement()/mix()
 [*] optional delay in seconds in defer()
 [*] matched RNG interface with scope rnd/RND functions
@@ -118,7 +203,7 @@
 [*] iv2 vector functions are renamed to v2
 [*] _sizable flag renamed to _rectangular
 [*] proper object names in help metadata
-[-] fixed infinite loop in malformatted markdown
+[-] fixed infinite loop in malformed markdown
 [-] fixed SlideCamera viewport test
 [-] fixed isNumber() implementation
 [-] fixed local/global coordinates mapping for containers
@@ -128,7 +213,7 @@
 
 
 0.0.10-DR9 2020-11-24
-[*] $ is redefined in the mod scope to shaddow the global one
+[*] $ is redefined in the mod scope to shadow the global one
 [+] rndo() 1/0 random value multiplicator
 [+] game time tracking in env.time
 [+] empty and sample mod prototypes
@@ -166,7 +251,7 @@
 [+] support of randomly placed * patters in select/selectOne path
 [-] fixed mouse event button parameter
 [-] fixed bearing() function
-[-] isMutable() retired - no actual use for it anyways
+[-] isMutable() retired - no actual use for it anyway
 
 
 
@@ -184,7 +269,7 @@
 [*] /res, /lib and /dna supplements for boxes
 [+] onAugment() and onSupplement() handlers
 [-] fixed spacing in comments meta
-[-] fixed help metadata for autoexported constructors
+[-] fixed help metadata for auto-exported constructors
 [*] included mouse/touch event handling for non-sizable components
 [-] fixed LabFrame.pick() bug
 [-] fixed event data in mouseDown
@@ -194,7 +279,7 @@
 
 0.0.6-DR6 2020-07-04
 [+] jsDoc-style type metadata extraction
-[+] autocomplete end-points with help meta data on jam server
+[+] autocomplete end-points with help metadata on the jam server
 [+] kinetix animation subsystem
 [+] mono-file playground.mod editor on F7
 [+] Frame find(), filter(), reduce(), reduceRight(), applyAll() methods
@@ -211,7 +296,7 @@
 [-] fixed touch capturing and end traps
 [-] fixed hidden and disabled components handling on the HUD
 [*] automatic skip of .hidden files on unit scans
-[+] manual unit include to map an arbitrary folder as a unit
+[+] manual unit .include to map an arbitrary folder as a unit
 [+] ignored paths in mapping
 [+] new unit mapping scheme with map.json/remap.json
 [+] included default fav icons
@@ -226,7 +311,7 @@
 [+] gif files autoload support
 [*] upper-case extensions
 [+] map.json and remap.json configurations
-[+] optional units and include list in the scan man
+[+] optional units and include the list in the scan man
 [*] proper scan for mods and fixes in modules
 [*] run all functions in /setup and all setup* functions on startup
 [+] --pregen/-g option to run a pregenerated package
@@ -244,7 +329,7 @@
 [+] getMod() in frames
 [+] dynamic Z-sorting in lab frame
 [+] masked and ignored traps
-[+] get a custom random source with ability to set the seed
+[+] get a custom random source with the ability to set the seed
 [+] mod and lab control (pause, resume, hide, show etc)
 [+] run mixes in sketch mode
 [+] translate, scale and rotate nodes
@@ -295,4 +380,6 @@
 [+] debug tools - log, status info, console, explorer
 [+] web packaging
 [+] electron packaging
+
+
 

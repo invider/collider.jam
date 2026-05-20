@@ -21,10 +21,10 @@ V block() to place rect in the center (instead of being cornered at the top-left
 V refresh collider.land style
 V optimize onboarding flow - jump right to documentation, there is no reason to keep another page/step
 V make Frame and LabFrame iterable
+V define locate()
 
 
-### WR3
-
+### WR4
 # landing
 > update the landing taglines
 > update and restructure Readme #github
@@ -32,19 +32,21 @@ V make Frame and LabFrame iterable
 > scroll on text properties doesn't work in Inspector
 
 # core
-> redefine select() and locate()
 > easy way to replace the root mod canvas to another one and switch the root canvas into a buffering mode (for post-processing)
     > native shader support/loading - it is done with custom code at the moment
 > ability to redefine the graphical context for a lab subNode??? Just create a new mod
+> move flipY() under text() (e.g. text.flipY())
 
 # spice
 > procedural logo #landing
 
-
-### WR4
 > scalable lab
 > probe(val).action() - probe availability
 > new spawn with respawn option
+> spawn('landscape', {...}) should be customizable to replace lib/gen - like a plumb chain -> series of handlers with one taking the job
+> parsed and precached locators in select()/locate()
+> extra functional predicates in select()/locate()
+> once events support (as an alternative to on())
 
 # dev tools
 > dev time controller

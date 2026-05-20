@@ -12,10 +12,10 @@ const ignorePaths = [
 
 const env = {
     poweredBy: 'Collider.JAM',
-    version: '0.2.0 WR2',
-    fullVersion: '0.2.0 War Release 2',
-    releaseName: 'War Release 2',
-    releaseDate: '2025-10-14',
+    version: '0.3.0',
+    fullVersion: '0.3.0 War Release 3',
+    releaseName: 'War Release 3',
+    releaseDate: '2026-05-20',
     PACKAGE_MODE: 0,
     MOD_MODE: 1,
     MIX_MODE: 2,
