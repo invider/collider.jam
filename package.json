@@ -31,8 +31,8 @@
   },
   "dependencies": {
     "archiver": "5.3.2",
-    "collider-boot.mix": "git+https://github.com/invadium/collider-boot.mix.git",
-    "collider-dev.mix": "git+https://github.com/invadium/collider-dev.mix.git",
+    "collider-boot.mix": "git+https://github.com/invadium/collider-boot.mix.git#v0.3.0",
+    "collider-dev.mix": "git+https://github.com/invadium/collider-dev.mix.git#v0.3.0",
     "express": "5.2.1",
     "express-ws": "5.0.2",
     "fs-extra": "11.3.2",
