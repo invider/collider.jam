@@ -15,13 +15,6 @@ or [GitHub](https://github.com/invadium)
 Release details, framework design, usage tips and tricks
 are covered in the [blog](http://ikhotin.com/posts/)
 
-There is [an invasion mailing list](http://collider.land/subscribe.html)
-with news not only on Collider.JAM, but on the whole
-pixelation/gamification revolution.
-
-You can also Like [_Collider Labs_ page](https://www.facebook.com/colliderlabs)
-on Facebook.
-
 
 
 Create, Share, Feedback

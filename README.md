@@ -11,7 +11,7 @@ Welcome to Collider.JAM!
 | [start](http://collider.land/start.html)
 | [design](http://collider.land/help/#design)
 | [reason](http://colliderlabs.com/jam)
-| [man](http://collider.land/help/)
+| [docs](http://collider.land/help/)
 | [blog](http://ikhotin.com/posts/)
 | [discord](https://discord.gg/kxNnHc2)
 
@@ -20,16 +20,16 @@ Welcome to Collider.JAM!
 </p>
 
 Collider.JAM is a hand-crafted JavaScript framework
-for game jamming, creative coding, rapid game prototyping, and beyond.
+for game jamming, creative coding, rapid game prototyping, multi-platform indie game development, and beyond.
 It was crafted from the experience of multiple game jams we've participated in.
 
 Game prototyping is an art that mixes design, technology, creativity, and hyper-focused productivity.
-And we believe it deserves a dedicated tool, capable to address the specific needs of a rapidly evolving prototype.
+And we believe it deserves a dedicated tool, capable of addressing the specific needs of a rapidly evolving prototype.
 
 Visit [collider.land](http://collider.land)
 and check out [online docs](http://collider.land/help/).
 
-Look at the sources in [examples](#examples) and [jam games](#jam-games-with-sources).
+Check out the source code of [examples](#examples) and [jam games](#jam-games-with-sources).
 
 _Follow the jamming way and pixelate reality!_
 
@@ -38,17 +38,18 @@ _Follow the jamming way and pixelate reality!_
 Table of Contents
 -----------------
 * [Install](#install)
-* [Draw Shape](#draw-shape)
-* [Move Shape](#move-shape)
-* [Prototype in Development Mode](#prototype-in-development-mode)
-* [Drop Resource](#drop-resource)
-* [Handle Mouse](#handle-mouse)
+* [Bouncing Planet](#bouncing-planet)
+    * [Draw Shape](#draw-shape)
+    * [Move Shape](#move-shape)
+    * [Prototype in Development Mode](#prototype-in-development-mode)
+    * [Drop Resource](#drop-resource)
+    * [Handle Mouse](#handle-mouse)
+
 * [Use _jam new_](#use-jam-new)
 * [Explore](#explore)
 * [How To](man/HowTo.md)
 * [Examples](#examples)
 * [Jam Games with Sources](#jam-games-with-sources)
-* [Jam Mixes](#jam-mixes)
 * [How to Contribute](#how-to-contribute)
 
 
@@ -59,30 +60,24 @@ Install
     <i><b>Unlock your creativity.</b></i>
 </p>
 
-To start jamming, we need to install the collider.jam npm package.
-It provides a shell capable of bootstrapping and running game projects.
+To start jamming, we need to install the _collider.jam npm package._
+It provides a shell for bootstrapping, running, and packaging projects.
 
-Make sure you have a relatively modern Node.js installed
-by running in the console:
+Make sure you have a relatively modern
+[Node.js](https://nodejs.org) installed.
 
+Open your system terminal and check the Node.js version with:
 ```bash
 node --version
-> v12.16.1
+> v24.9.0
 ```
-You are OK if it is something like 12+.
-
-If not, visit [Node.js](https://nodejs.org) for the package and installation instructions.
+Everything from v22 and above should work just fine. Otherwise, follow [the installation instructions](https://nodejs.org/en/download) for your system.
 
 ---
-Now, to install collider.jam, run:
+To install collider.jam, run:
 
 ```
 npm install -g collider.jam
-```
-
-Or you can get the latest development version directly from GitHub:
-```
-npm install -g https://github.com/invadium/collider.jam.git
 ```
 
 When installed, check out the version and help:
@@ -92,15 +87,20 @@ jam help
 ```
 
 
+Bouncing Planet
+---------------
 
-Draw Shape
----------
+
+
+
+### Draw Shape
+
 <p align="right">
     <i><b>The Fun of the Game Jamming.</b></i>
 </p>
 
 
-Create a folder named 'cirlce.mod' in any convenient place
+Create a folder named 'planet.mod' in any convenient place
 ```
 mkdir circle.mod
 ```
@@ -111,7 +111,7 @@ the root of the project.
 **Collider.JAM** has particular conventions
 on how you name and organize files and directories.
 
-It could be unusual at first, but makes a lot of sense
+It could be unusual at first, but it makes a lot of sense
 once you get into the jamming mode.
 
 Create a file *circle.mod/lab.js* and fill in the following lines:
@@ -137,8 +137,7 @@ You should see the circle.
 
 
 
-Move Shape
-----------
+### Move Shape
 
 Let's make some movement by introducing
 variables for the circle position and direction.
@@ -158,7 +157,7 @@ let dy = 100
 
 function evo(dt) {
     // dt(delta time) holds the time in seconds passed since the last update
-    // make the movement factored by the delta time
+    //move factored by the delta time
     x += dx * dt
     y += dy * dt
 }
@@ -171,7 +170,7 @@ function draw() {
 ```
 
 The problem is that the circle disappears
-once it crossed the edge of the screen.
+once it crosses the edge of the screen.
 
 We can introduce some boundaries on x and y,
 so our evo(dt) would look like this:
@@ -194,8 +193,7 @@ Find the working example on [GitHub](https://github.com/invadium/bits.mix/tree/m
 
 
 
-Prototype in Development Mode
--------------------------------
+### Prototype in Development Mode
 
 The most basic *Collider.JAM* command is *jam*:
 
@@ -214,14 +212,14 @@ jam -d
 ```
 
 That enables hot reload of changes
-and help metadata among other things.
+and help metadata, among other things.
 
 Run *Collider.JAM* with -d option,
 then open the browser at http://localhost:9999
 and try to change circle color or radius.
 
 The changes will be visible in the browser
-soon after you saved lib.js.
+soon after you save lib.js.
 
 Also, you can hit F1 and get online help
 on everything in the mix, including
@@ -229,8 +227,8 @@ Collider.JAM utilities and your code!
 
 
 
-Drop Resource
--------------
+### Drop Resource
+
 Let's improve our bouncing circle.
 
 Find a suitable image of a planet with a transparent background,
@@ -260,7 +258,8 @@ function draw() {
 
 We've changed the background to totally black - to match the darkness of space.
 
-Then, we've called the _image()_ function to draw the planet's texture. Notice, that the image resource name must match
+Then, we called the _image()_ function to draw the planet's texture.
+Notice that the image resource name must match
 the file name without the extension.
 It is the way resources are mapped and loaded.
 
@@ -271,8 +270,8 @@ Check out the final version on [GitHub](https://github.com/invadium/bits.mix/tre
 
 
 
-Handle Mouse
-------------
+### Handle Mouse
+
 Suppose our planet is slowing down.
 
 Add the following function to reduce the speed:
@@ -358,9 +357,73 @@ the game for you.
 
 
 
+### Things to Try
+
+Open the mix inspector by pressing **F2**.
+Explore the existing structure and try to find your custom nodes there (keep in mind that the mix follows the directory structure, so things you placed in the /lab folder will be in the /lab node).
+
+Open the debug console with **F4** and type "help" to see commands available out of the box.
+
+
+
+
+Explore
+-------
+
+The following links could be useful:
+
+* [collider.land](http://collider.land)
+* [start](http://collider.land/start.html)
+* [design](http://collider.land/help/#design)
+* [online help](http://collider.land/help/)
+* [blog](http://ikhotin.com/posts/)
+* [map](man/Map.md) 
+* [glossary](man/Glossary.md) 
+
+
+
+Examples
+--------
+
+There are useful _Collider.JAM_ examples on GitHub:
+
+* [Bits Mix](https://github.com/invadium/bits.mix) - various code snippets.
+* [Hello Planet Impact](https://github.com/invadium/hello-collider-impact.mod) - asteroid impact simulation.
+* [Pong](https://github.com/invadium/pong-ce.mod) - classic arcade reimplementation.
+* [Vector Zone](https://github.com/invadium/vector-zone.mod) - local multiplayer arcade shooter.
+* [Game of Life](https://github.com/invadium/game-of-life.mod) - Conway's Game of Life.
+
+
+
+Full Games with Sources
+-----------------------
+<p align="right">
+    <i><b>Follow the jamming way</b></i>
+</p>
+
+Explore the following games. All created during various game jams and powered by *[_Collider.Jam_](http://collider.land)*.
+
+*Note that older games could use old-style or deprecated features.
+But mostly they are OK and show many different ways to organize a project in Collider.JAM.*
+
+* [Telemetry Troubles](https://github.com/invadium/telemetry-troubles.mix) - *[Play](https://invadium.itch.io/telemetry-troubles)* - programming puzzle game created for Noise Jam 3 (2026).
+* [Enceladus Dockyards Boy](https://github.com/invadium/enceladus-dockyards-boy.mix) - *[Play](https://invadium.itch.io/enceladus-dockyards-boy)* - turn-based space ship battle simulation from GameBoy Jam 8 (2020).
+* [Jump 'N Loop](https://github.com/invadium/jump-n-loop.mod) - *[Play](https://invadium.itch.io/jump-n-loop)* - rythm-based runner from Ludum Dare 47.
+* [300 Hearts for Escape](https://github.com/invadium/300-hearts-for-escape) - *[Play](https://ingwar.itch.io/300-hearts-for-escape)* - a survival trading game placed on an isolated island created during Ludum Dare 44.
+* [Plume Surfing Day](https://github.com/invadium/plume-surfing-day.mix) - *[Play](https://invadium.itch.io/plume-surfing-day)*
+* [Station Keeping](https://github.com/invadium/station-keeping.mod) - *[Play](https://invadium.itch.io/station-keeping)* - space survival trading simulation from Ludum Dare 46 (2020).
+* [Cosmic Rays 'n DNAs](https://github.com/invadium/cosmic-rays-n-dnas.mod) - *[Play](https://ingwar.itch.io/rays)* - fix DNA in this arcade Global Game Jam 2020 Entry.
+* [Mech Force Command](https://github.com/invadium/mech-force-command.mix) - *[Play](https://invadium.itch.io/mechanized-force-command)* - 7-Day Roguelike Challenge 2021 Entry
+* [Infected Island](https://github.com/invadium/roguelike-pak.mod) - 7-Day Roguelike Challenge 2020 Entry
+* [Xeno Relay Day](https://github.com/invadium/xeno-relay-day) - *[Play](https://ingwar.itch.io/xeno-relay-day)* - cosmic relay network puzzler created during Global Game Jam 2018.
+* [Metro Gang](https://github.com/invadium/metro-gang.mix) - *[Play](https://invadium.itch.io/metro-gang-plus)* - fight against rival gangs for control of the city in this Ludum Dare 45 Entry.
+* [Master of Ritual](https://github.com/invadium/master-of-ritual) - *[Play](https://ingwar.itch.io/master-or-ritual)* - dungeon crawler from Ludum Dare 43 (2018).
+
+
+
 Use _jam new_
 -------------
-The _new_  command creates various jam objects.
+The _new_ command creates various jam objects.
 Use it to bootstrap a new mod or create a trap
 or a new prototype in */dna*.
 
@@ -399,94 +462,17 @@ a canonical way to implement basic things.
 
 
 
-Explore
--------
-
-Check our the following links:
-
-* [collider.land](http://collider.land)
-* [start](http://collider.land/start.html)
-* [design](http://collider.land/help/#design)
-* [reason](http://colliderlabs.com/jam)
-* [online help](http://collider.land/help/)
-* [blog](http://ikhotin.com/posts/)
-* [map](man/Map.md) 
-* [glossary](man/Glossary.md) 
-
-
-
-Examples
---------
-
-There are a number of useful examples available on github:
-
-* [Bits Mix](https://github.com/invadium/bits.mix) - various code snippets.
-* [Hello Planet Impact](https://github.com/invadium/hello-collider-impact.mod) - asteroid impact simulation.
-* [Pong](https://github.com/invadium/pong-ce.mod) - classic arcade reimplementation.
-* [Vector Zone](https://github.com/invadium/vector-zone.mod) - local multiplayer arcade shooter.
-* [Game of Life](https://github.com/invadium/game-of-life.mod) - Conway's Game of Life.
-
-
-
-Jam Games with Sources
-----------------------
-<p align="right">
-    <i><b>Follow the jamming way</b></i>
-</p>
-
-Explore the following games. All created during various game jams and powered by *[_Collider.Jam_](http://collider.land)*.
-
-*Note, that older games could use old-style or deprecated features.
-But mostly they are OK and show many different ways you can organize a project in Collider.JAM.*
-
-* [Enceladus Dockyards](https://github.com/invadium/enceladus-dockyards.mix) - *[Play](https://invadium.itch.io/enceladus-dockyards)* - turn-based space ship battle simulation from GameBoy Jam 8.
-* [Jump 'N Loop](https://github.com/invadium/jump-n-loop.mod) - *[Play](https://invadium.itch.io/jump-n-loop)* - rythm-based runner from Ludum Dare 47.
-* [Station Keeping](https://github.com/invadium/station-keeping.mod) - *[Play](https://invadium.itch.io/station-keeping)* - space survival trading simulation from Ludum Dare 46.
-* [300 Hearts for Escape](https://github.com/invadium/300-hearts-for-escape) - *[Play](https://ingwar.itch.io/300-hearts-for-escape)* - a survival trading game placed on an isolated island created during Ludum Dare 44.
-* [Cosmic Rays 'n DNAs](https://github.com/invadium/cosmic-rays-n-dnas.mod) - *[Play](https://ingwar.itch.io/rays)* - fix DNA in this arcade Global Game Jam 2020 Entry.
-* [Infected Island](https://github.com/invadium/roguelike-pak.mod) - 7-Day Roguelike Challenge Entry
-* [Xeno Relay Day](https://github.com/invadium/xeno-relay-day) - *[Play](https://ingwar.itch.io/xeno-relay-day)* - cosmic relay network puzzler created during Global Game Jam 2018.
-* [Dream Rocket Boy](https://github.com/invadium/dream-rocket-boy) - *[Play](https://ingwar.itch.io/dream-rocket-boy)* - a single screen platformer created for Global Game Jam 2019.
-* [Metro Gang](https://github.com/invadium/metro-gang.mix) - *[Play](https://ingwar.itch.io/metro-gang)* - fight against rival gangs for control of the city in this Ludum Dare 45 Entry.
-* [Master of Ritual](https://github.com/invadium/master-of-ritual) - *[Play](https://ingwar.itch.io/master-or-ritual)* - dungeon crawler from Ludum Dare 43.
-
-
-
-Jam Mixes
----------
-There are a number of sub-projects **Collider.JAM** depends on.
-These contain the actual framework core, utility functions and development features:
-
-* [collider.mix](https://github.com/invadium/collider.mix) - the most essential mix that includes collider.jam system core (collider.js) and various library functions and data.
-* [collider-dev.mix](https://github.com/invadium/collider-dev.mix) - development tools
-* [collider-boot.mix](https://github.com/invadium/collider-boot.mix) - contains basic samples and patches to mix from.
-
-
-How to Develop Collider.JAM
----------------------------
-The best approach I've found is to clone all _Collider.JAM_ projects into a single folder
-and then use ```npm link``` feature to link them together.
-
-Create a global link for each _Collider.JAM_ project by running in the project root:
-```
-npm link
-```
-
-Then install all dependencies between them by specifying package names, e.g. for collider.jam:
-
-```
-npm link collider.mix collider-dev.mix collider-boot.mix
-```
-Note, that all 3 links have to be installed at onces and will be replaced with the next ```npm update```.
-
-
 How to Contribute
 -----------------
 
-Star this repo and join our [Discord server discussions](https://discord.gg/kxNnHc2).
+Star this repo, join our [Discord](https://discord.gg/kxNnHc2),
+create something and share it with *#collider.jam* tag.
 
-Create something and share it with *#collider.jam* tag.
+Check out [how to develop Collider.JAM](man/Development).
+
+More details in **[How to Contribute](CONTRIBUTING.md)**.
 
 
-Find more details in **[How to Contribute](CONTRIBUTING.md)**.
+
+
 

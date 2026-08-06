@@ -22,20 +22,47 @@ V refresh collider.land style
 V optimize onboarding flow - jump right to documentation, there is no reason to keep another page/step
 V make Frame and LabFrame iterable
 V define locate()
+V streaming info bar
+V aux sample volume control through main gain is wrong, fix so changes in gain would not affect other sounds!
+
 
 
 ### WR4
+
 # landing
-> update the landing taglines
-> update and restructure Readme #github
-> document existing Frame attach policies
-> scroll on text properties doesn't work in Inspector
+    V update the landing taglines
+    > update and restructure Readme #github
+    > document existing Frame attach policies
+    > scroll on text properties doesn't work in Inspector
+    > buffered postponed signals (e.g. sent while mod/trap was disabled, but still waiting to be processed)
+
+# dev
+> info node upgrades
+    > multiple multi-column adjustment options - top/bottom + left/center/right
+    > default adjustment
+    > install/remove custom probes
+    > paging capability when running out of space
+    > key filter capability
+    > sort the lists
+    > double-click to pin/unpin a key
+    > standard set of monitoring probes - properties, coordinates, colors, health/energy/speed bars etc...
+    > add/remove/pin probes from the console
+> console
+    > pageUp/pageDown
+    > ability to pin/replay commands on boot
+    > search the messages
+    > command language
+    > pipelines and grep-like tool
+> node explorer
+    > search the subtree
+    > filter nodes
 
 # core
 > easy way to replace the root mod canvas to another one and switch the root canvas into a buffering mode (for post-processing)
     > native shader support/loading - it is done with custom code at the moment
 > ability to redefine the graphical context for a lab subNode??? Just create a new mod
 > move flipY() under text() (e.g. text.flipY())
+> review pick() and poke routines to ensure the custom pick/poke execution first
 
 # spice
 > procedural logo #landing
@@ -59,7 +86,6 @@ V define locate()
     > current goals
     > current tasks
     > why
-> streaming info bar
 > development status bar
 > debug probes
     V grids
@@ -83,9 +109,11 @@ V define locate()
     > state indicator (condition etc...)
     > level indicator (health, energy etc...)
     > pin menu to keep open and follow the entity
+> console autocomplete (Ctrl+Space?)
+> command shortcuts/aliases (like k instead of kill) with autodisable when in conflict
 
 # systems
-> kinnetix
+> kinetix
 > webaudio
 
 
@@ -118,6 +146,7 @@ V define locate()
 > new emitter
 > hub
 > option to run any folder or group of folders as mods or mixes
+> tag/mark nodes with their mix/mod/fix origin (e.g. hud, gluten, kinetix etc...)
 
 
 # landing
