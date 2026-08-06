@@ -7,7 +7,7 @@
 
 Welcome to Collider.JAM!
 ========================
-<kbd>
+
 **
 [collider.land](http://collider.land)
 | [start](http://collider.land/start.html)
@@ -17,7 +17,7 @@ Welcome to Collider.JAM!
 | [blog](http://ikhotin.com/posts/)
 | [discord](https://discord.gg/kxNnHc2)
 **
-</kbd>
+---
 ```
 npm i -g collider.jam; jam man intro
 ```
@@ -35,7 +35,7 @@ _Game prototyping_ is an art that mixes design, technology, creativity, and hype
 It is a way of development that is radically different from a typical approach one might find in the industry.
 And we believe it deserves a dedicated tool, capable of addressing the specific needs of a rapidly evolving prototype and the creative flow that powers it. 
 
-
+---
 Install with ```npm i -g collider.jam```, visit [collider.land](http://collider.land)
 and check out [online docs](http://collider.land/help/).
 
@@ -481,6 +481,7 @@ create something and share it with *#collider.jam* tag.
 Check out [how to develop Collider.JAM](man/Development).
 
 More details in **[How to Contribute](CONTRIBUTING.md)**.
+
 
 
 
