@@ -420,11 +420,10 @@ But mostly they are OK and show many different ways to organize a project in Col
 * [Enceladus Dockyards Boy](https://github.com/invadium/enceladus-dockyards-boy.mix) - *[Play](https://invadium.itch.io/enceladus-dockyards-boy)* - turn-based space ship battle simulation from GameBoy Jam 8 (2020).
 * [Jump 'N Loop](https://github.com/invadium/jump-n-loop.mod) - *[Play](https://invadium.itch.io/jump-n-loop)* - rythm-based runner from Ludum Dare 47.
 * [300 Hearts for Escape](https://github.com/invadium/300-hearts-for-escape) - *[Play](https://ingwar.itch.io/300-hearts-for-escape)* - a survival trading game placed on an isolated island created during Ludum Dare 44.
-* [Plume Surfing Day](https://github.com/invadium/plume-surfing-day.mix) - *[Play](https://invadium.itch.io/plume-surfing-day)*
+* [Plume Surfing Day](https://github.com/invadium/plume-surfing-day.mix) - *[Play](https://invadium.itch.io/plume-surfing-day)* - a god-game about little creatures colonizing asteroids on volcanic plumes made for Brackeys Game Jam 2025/1.
 * [Station Keeping](https://github.com/invadium/station-keeping.mod) - *[Play](https://invadium.itch.io/station-keeping)* - space survival trading simulation from Ludum Dare 46 (2020).
 * [Cosmic Rays 'n DNAs](https://github.com/invadium/cosmic-rays-n-dnas.mod) - *[Play](https://ingwar.itch.io/rays)* - fix DNA in this arcade Global Game Jam 2020 Entry.
 * [Mech Force Command](https://github.com/invadium/mech-force-command.mix) - *[Play](https://invadium.itch.io/mechanized-force-command)* - 7-Day Roguelike Challenge 2021 Entry
-* [Infected Island](https://github.com/invadium/roguelike-pak.mod) - 7-Day Roguelike Challenge 2020 Entry
 * [Xeno Relay Day](https://github.com/invadium/xeno-relay-day) - *[Play](https://ingwar.itch.io/xeno-relay-day)* - cosmic relay network puzzler created during Global Game Jam 2018.
 * [Metro Gang](https://github.com/invadium/metro-gang.mix) - *[Play](https://invadium.itch.io/metro-gang-plus)* - fight against rival gangs for control of the city in this Ludum Dare 45 Entry.
 * [Master of Ritual](https://github.com/invadium/master-of-ritual) - *[Play](https://ingwar.itch.io/master-or-ritual)* - dungeon crawler from Ludum Dare 43 (2018).
