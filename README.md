@@ -7,19 +7,23 @@
 
 Welcome to Collider.JAM!
 ========================
-### [collider.land](http://collider.land)
+<kbd>
+**
+[collider.land](http://collider.land)
 | [start](http://collider.land/start.html)
 | [design](http://collider.land/help/#design)
 | [reason](http://colliderlabs.com/jam)
 | [docs](http://collider.land/help/)
 | [blog](http://ikhotin.com/posts/)
 | [discord](https://discord.gg/kxNnHc2)
+**
+</kbd>
 ```
 npm i -g collider.jam; jam man intro
 ```
 
 <p align="right">
-    <i><b>🎮 Crafting games with joy.</b></i>
+    <i><b>🎮 Crafting games with joy. 🎮</b></i>
 </p>
 
 Collider.JAM is a hand-crafted JavaScript framework
@@ -29,15 +33,15 @@ It originated from many years of game jamming and indie game development and bri
 
 _Game prototyping_ is an art that mixes design, technology, creativity, and hyper-focused productivity.
 It is a way of development that is radically different from a typical approach one might find in the industry.
-And we believe it deserves a dedicated tool, capable of addressing the specific needs of a rapidly evolving prototype and creative flow. 
+And we believe it deserves a dedicated tool, capable of addressing the specific needs of a rapidly evolving prototype and the creative flow that powers it. 
 
 
 Install with ```npm i -g collider.jam```, visit [collider.land](http://collider.land)
 and check out [online docs](http://collider.land/help/).
 
-Explore _Collider.JAM_ code [examples](#examples) and [🎮 jam games](#jam-games-with-sources).
+Explore _Collider.JAM_ code [examples](#examples) and [jam games 🎮](#full-games-with-sources).
 
-_Follow the jamming way and pixelate reality 👾!_
+👾 _Follow the jamming way and pixelate reality!_ 👾
 
 
 
@@ -69,6 +73,7 @@ Install
 To start jamming, we need to install the _collider.jam npm package._
 It provides a shell for bootstrapping, running, and packaging projects.
 
+---
 Make sure you have a relatively modern
 [Node.js](https://nodejs.org) installed.
 
@@ -95,16 +100,13 @@ jam help
 
 Bouncing Planet
 ---------------
-
-
-
-
-### Draw Shape
-
 <p align="right">
-    <i><b>The Fun of the Game Jamming.</b></i>
+    <i><b>🎮 The Fun of the Game Jamming. 🎮</b></i>
 </p>
 
+To feel the taste of _Collider.JAM_, let's create a simulation of a bouncing planet.
+
+### Draw Shape
 
 Create a folder named 'planet.mod' in any convenient place
 ```
@@ -120,6 +122,7 @@ on how you name and organize files and directories.
 It could be unusual at first, but it makes a lot of sense
 once you get into the jamming mode.
 
+---
 Create a file *circle.mod/lab.js* and fill in the following lines:
 
 ```js
@@ -132,6 +135,7 @@ function draw() {
 }
 ```
 
+---
 Now, run 'jam play' command while inside the *circle.mod* folder:
 ```
 jam play
@@ -194,7 +198,7 @@ function evo(dt) {
 }
 ```
 
-
+---
 Find the working example on [GitHub](https://github.com/invadium/bits.mix/tree/master/circle.mod).
 
 
@@ -477,6 +481,7 @@ create something and share it with *#collider.jam* tag.
 Check out [how to develop Collider.JAM](man/Development).
 
 More details in **[How to Contribute](CONTRIBUTING.md)**.
+
 
 
 
