@@ -7,31 +7,37 @@
 
 Welcome to Collider.JAM!
 ========================
-[collider.land](http://collider.land)
+### [collider.land](http://collider.land)
 | [start](http://collider.land/start.html)
 | [design](http://collider.land/help/#design)
 | [reason](http://colliderlabs.com/jam)
 | [docs](http://collider.land/help/)
 | [blog](http://ikhotin.com/posts/)
 | [discord](https://discord.gg/kxNnHc2)
+```
+npm i -g collider.jam; jam man intro
+```
 
 <p align="right">
-    <i><b>Crafting with joy.</b></i>
+    <i><b>🎮 Crafting games with joy.</b></i>
 </p>
 
 Collider.JAM is a hand-crafted JavaScript framework
-for game jamming, creative coding, rapid game prototyping, multi-platform indie game development, and beyond.
-It was crafted from the experience of multiple game jams we've participated in.
+for game jamming, creative coding, indie development, and beyond.
+It is _free_, _open-source_, and fun to create with.
+It originated from many years of game jamming and indie game development and brings a unique, flexible, and powerful way of game production. _The jamming way!_
 
-Game prototyping is an art that mixes design, technology, creativity, and hyper-focused productivity.
-And we believe it deserves a dedicated tool, capable of addressing the specific needs of a rapidly evolving prototype.
+_Game prototyping_ is an art that mixes design, technology, creativity, and hyper-focused productivity.
+It is a way of development that is radically different from a typical approach one might find in the industry.
+And we believe it deserves a dedicated tool, capable of addressing the specific needs of a rapidly evolving prototype and creative flow. 
 
-Visit [collider.land](http://collider.land)
+
+Install with ```npm i -g collider.jam```, visit [collider.land](http://collider.land)
 and check out [online docs](http://collider.land/help/).
 
-Check out the source code of [examples](#examples) and [jam games](#jam-games-with-sources).
+Explore _Collider.JAM_ code [examples](#examples) and [🎮 jam games](#jam-games-with-sources).
 
-_Follow the jamming way and pixelate reality!_
+_Follow the jamming way and pixelate reality 👾!_
 
 
 
@@ -471,6 +477,10 @@ create something and share it with *#collider.jam* tag.
 Check out [how to develop Collider.JAM](man/Development).
 
 More details in **[How to Contribute](CONTRIBUTING.md)**.
+
+
+
+
 
 
 

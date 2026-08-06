@@ -4,14 +4,10 @@
 # nodejs
 node_modules
 
-# build and package artifacts
-*.tar
-*.tgz
-*.tar.gz
-
 # collider.jam
 remap.json
 link
+.meta.cache
 
 # ml
 *.ml.bak
@@ -19,4 +15,10 @@ link
 # jeddy
 .jeddy
 .stat
+
+# build and package artifacts
+*.tar
+*.tgz
+*.zip
+*.tar.gz
 
