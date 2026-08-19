@@ -233,21 +233,63 @@ V aux sample volume control through main gain is wrong, fix so changes in gain w
     > team chat
     > filesharing
 
->>> interactive tutorial (netdrifter)
->> starfield
->> parallax starfield
->> snake
->> breakout
->> tetris-clone
->> lander
->> missile command
->> pinball
->> pacman
->> tempest
->> qix
->> dino jump (endless runner)
->> flappy bird
->> lines
+>>> challenges
+    >> bouncing planet
+    >> planet impact
+    >> planet bouling
+    >> fireworks
+    >> star sky
+    >> into the starfield
+    >> a burning star
+    >> galaxy evolution sim
+    >> tier rater
+    >> 2d space rater
+    >> ghost
+    >> procedural planet
+
+>>> interactive tutorial (netdrifter) inspired by:
+    >> starfield
+    >> brownian dots connect
+    >> particle repulse with connection
+    >> mouse watching eyes
+    >> dino jump
+    >> parallax starfield
+    >> snake
+    >> breakout
+    >> tetris-clone
+    >> lander
+    >> missile command
+    >> moon patrol
+    >> pinball
+    >> pacman
+    >> tempest
+    >> qix
+    >> dino jump (endless runner)
+    >> flappy bird
+    >> lines
+    >> scorched earth
+    >> top-down tank shootout
+    >> frog highway jump
+    >> frog eats fly sim
+    >> xenophobe
+    >> outlaw
+    >> defender
+    >> line racer
+    >> anticube
+    >> eufloria
+    >> flow
+    >> mineswapper
+    >> 2048 
+    >> bubble shooter
+    >> space invaders
+    >> galaga
+    >> tempest
+    >> commando raid
+    >> asteroids
+    >> sokoban
+    >> bomberman
+    >> digger
+    >> tron cycles
 >>> platformer
 >>> dune/warcraft-like
 >>> network space shooter

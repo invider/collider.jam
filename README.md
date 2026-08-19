@@ -8,12 +8,11 @@
 Welcome to Collider.JAM!
 ========================
 
-**[collider.land](http://collider.land)
-| [start](http://collider.land/start.html)
-| [design](http://collider.land/help/#design)
-| [reason](http://colliderlabs.com/jam)
-| [docs](http://collider.land/help/)
-| [blog](http://ikhotin.com/posts/)
+**[collider.land](https://collider.land)
+| [start](https://collider.land/help/#.getting-started)
+| [design](https://collider.land/help/#design)
+| [docs](https://collider.land/help/)
+| [blog](https://ikhotin.com/posts/)
 | [discord](https://discord.gg/kxNnHc2)**
 
 ---
@@ -35,8 +34,8 @@ It is a way of development that is radically different from a typical approach o
 And we believe it deserves a dedicated tool, capable of addressing the specific needs of a rapidly evolving prototype and the creative flow that powers it. 
 
 ---
-Install with ```npm i -g collider.jam```, visit [collider.land](http://collider.land)
-and check out [online docs](http://collider.land/help/).
+Install with ```npm i -g collider.jam```, visit [collider.land](https://collider.land)
+and check out [online docs](https://collider.land/help/).
 
 Explore _Collider.JAM_ code [examples](#examples) and [jam games 🎮](#full-games-with-sources).
 
@@ -426,11 +425,11 @@ Explore
 
 The following links could be useful:
 
-* [collider.land](http://collider.land)
+* [collider.land](https://collider.land
 * [start](http://collider.land/start.html)
-* [design](http://collider.land/help/#design)
-* [online help](http://collider.land/help/)
-* [blog](http://ikhotin.com/posts/)
+* [design](https://collider.land/help/#design)
+* [online help](https://collider.land/help/)
+* [blog](https://ikhotin.com/posts/)
 * [how to](man/HowTo.md) 
 * [map](man/Map.md) 
 * [glossary](man/Glossary.md) 
@@ -456,7 +455,7 @@ Full Games with Sources
     <i><b>Follow the jamming way</b></i>
 </p>
 
-Explore the following games. All created during various game jams and powered by *[_Collider.Jam_](http://collider.land)*.
+Explore the following games. All created during various game jams and powered by *[_Collider.Jam_](https://collider.land)*.
 
 *Note that older games could use old-style or deprecated features.
 But mostly they are OK and show many different ways to organize a project in Collider.JAM.*

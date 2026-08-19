@@ -37,14 +37,14 @@ function list(dir, partial) {
         if (partial) {
             if (k.includes(partial)) {
                 const v = dir[k]
-                const type = v === 'f'? 'f' : 'fi'
+                const type = v === 'f' ? 'f' : 'fi'
                 res += type + ' ' + k + '\n'
                 i++
             }
 
         } else {
             const v = dir[k]
-            const type = v === 'f'? 'f' : 'fi'
+            const type = v === 'f' ? 'f' : 'fi'
             res += type + ' ' + k + '\n'
             i++
         }
@@ -64,7 +64,7 @@ function lookup(dir, path) {
         const nextDot = path.indexOf('.')
         if (nextDot >= 0) {
             const next = path.substring(0, nextDot)
-            const nextPath = path.substring(nextDot+1, path.length)
+            const nextPath = path.substring(nextDot + 1, path.length)
 
             if (!dir[next]) return ''
             return lookup(dir[next], nextPath)
@@ -158,7 +158,7 @@ module.exports = {
 
     definition: function(context, file) {
         const res = [
-                    '/home/shock/dna/jam/collider.mix/pub/collider.js 11 4'
+            '/home/shock/dna/jam/collider.mix/pub/collider.js 11 4'
         ].join('\n')
 
         return res

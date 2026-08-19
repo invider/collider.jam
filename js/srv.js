@@ -138,7 +138,7 @@ function start() {
         */
         app.get('/help/autocomplete', function(req, res) {
             if (env.cache.help) {
-                const query = url.parse(req.url,true).query
+                const query = url.parse(req.url, true).query
                 res.send(meta.autocomplete(
                     query.context, query.file))
 
@@ -150,8 +150,8 @@ function start() {
         app.get('/help/definition', function(req, res) {
             if (env.cache.help) {
 
-                const query = url.parse(req.url,true).query
-                res.send( meta.definition(
+                const query = url.parse(req.url, true).query
+                res.send(meta.definition(
                     query.context, query.file))
 
             } else {
@@ -232,7 +232,7 @@ function startSyncMonitor() {
 
     // TODO should be configurable (?)
     const syncTime = 2000
-    const syncTimeS = Math.round(syncTime/1000)
+    const syncTimeS = Math.round(syncTime / 1000)
     log.debug(`running file sync every ${syncTimeS}s...`, TAG)
 
     setInterval(() => {
@@ -243,7 +243,7 @@ function startSyncMonitor() {
 function startAirRaidAlertMonitor() {
     //if (!env.config.dynamic && !env.config.debug && !env.config.flow) return
     const checkAlertPeriod = 5000,
-          checkAlertPeriodS = Math.round(checkAlertPeriod/1000)
+        checkAlertPeriodS = Math.round(checkAlertPeriod / 1000)
     log.debug(`checking for air raid alerts every ${checkAlertPeriodS}s...`, TAG)
 
     setInterval(() => {
